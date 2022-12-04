@@ -1,0 +1,4 @@
+cclib>=1.7.1
+matplotlib
+munch>=2.5.0
+numpy>=1.20.1

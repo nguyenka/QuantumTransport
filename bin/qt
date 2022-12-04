@@ -1,0 +1,42 @@
+#!/usr/bin/env python3
+# pylint: disable=invalid-name
+"""Module for electron spin polarization and transmission."""
+import argparse
+import sys
+from QuantumTransport import TransportCal
+#from time_util import *
+
+
+def main():
+    """
+    function for qt
+    """
+    description = """
+    Calculation of electron transport
+    """
+    epilog = """output: percentage (spin polarization) of transmitted electron
+    """
+    parser = argparse.ArgumentParser(
+        usage='%(prog)s [options] ',
+        description=description,
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog=epilog)
+    group = parser.add_mutually_exclusive_group()
+    parser.add_argument('filename', metavar='filename', type=str, help='input file')
+    group.add_argument('-ciss', '--ciss_calc', action="store_true",
+                   help='Calculation chiral induced spin polarization transport ')
+    parser.add_argument('-db', '--debug', action="store_true", help= "debug print")
+    parser.add_argument('-l', '--load_qt_dat', action="store_true", help= "load qt_dat.py files")
+    args = parser.parse_args()
+    if len(sys.argv) == 0:
+        parser.print_help()
+        sys.exit(1)
+    calc=TransportCal(qcfile=args.filename,ciss_calc=args.ciss_calc,load_data= \
+         args.load_qt_dat,debug=args.debug)
+    if args.ciss_calc:
+        calc.ciss_transmission()
+    else:
+        calc.radical_transmission()
+
+if __name__ == "__main__":
+    main()
