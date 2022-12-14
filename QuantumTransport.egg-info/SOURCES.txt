@@ -1,3 +1,4 @@
+README.md
 setup.py
 QuantumTransport/Transport.py
 QuantumTransport/__init__.py
@@ -8,4 +9,7 @@ QuantumTransport.egg-info/SOURCES.txt
 QuantumTransport.egg-info/dependency_links.txt
 QuantumTransport.egg-info/requires.txt
 QuantumTransport.egg-info/top_level.txt
+bin/g4qt
 bin/qt
+bin/qt_dat
+bin/t4qt

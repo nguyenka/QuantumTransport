@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Introduction &mdash; QuantumTransport 1.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Tutorials" href="tutorials.html" />
+    <link rel="prev" title="Installation" href="install.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> QuantumTransport
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">Modules</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">QuantumTransport</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">Introduction</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/intro.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="introduction">
+<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline"></a></h1>
+<p>QuantumTransport is a package for calculating electron spin polarization and
+transmission of a molecular junction system. Calculations of electron
+transmission through a molecule (central region) connected to (semi-infinite)
+contacts (left and right electrodes) are based on the non-self-consistent
+Green’s function method, an approximation to the non-equilibrium Green’s
+function (NEGF) method.</p>
+<p>Spin polarization in the electron transmission of closed- and open shell
+systems (such as radicals or diradicals) can be performed by interfacing with
+electronic structure packages. For closed-shell systems, it requires
+electronic structure calculations taking spin−orbit coupling (SOC) into
+account.  Greeen’s functions of the left and right electrodes are approximated
+within the wide-band limit, using a constant local density of states, cLDOS.
+Coupling terms of electrodes are neglected.</p>
+<p>The Hamiltonian for transmission function for non-interacting coherent tunneling of electrons through a left (L) electrode to central (C) molecule and right (R) electrode system is partitioned as:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}H_{\text{system}} = \begin{pmatrix}
+                H_L         &amp; H_{LC}      &amp; 0           \\
+                H_{CL}      &amp; H_C         &amp; H_{CR}      \\
+                 0          &amp; H_{RC}      &amp; H_{RC}      \\
+\end{pmatrix},\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(H_{L/R}\)</span> describes the left/right electrode layer, and <span class="math notranslate nohighlight">\(H_C\)</span>,
+the central region. The <span class="math notranslate nohighlight">\(H_{CL}\)</span> and <span class="math notranslate nohighlight">\(H_{LR}\)</span> are the coupling matrices
+between left and right electrodes with the central region.  It is assumed that the electrodes (L and R) are not coupled each other in the Hamiltonian.  The overlap matrix has an analogous partition. The transmission function is given as:</p>
+<div class="math notranslate nohighlight">
+\[T_{RL} = Tr[\Gamma_LG\Gamma_R G^\dagger].\]</div>
+<p>To evaluate transmission function <span class="math notranslate nohighlight">\(T\)</span>, the Green’s function <span class="math notranslate nohighlight">\(G\)</span> and the bulk broadening
+function Γ defined as</p>
+<div class="math notranslate nohighlight">
+\[G = \frac{1} {ES_C-H_C-\Sigma_L-\Sigma_R},\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[\Gamma_X = -2\text{img}(\Sigma_X).\]</div>
+<p>The self-energy of the electrodes X (left or right) is calculated using the overlap (<span class="math notranslate nohighlight">\(S_{XC}\)</span>) and Hamiltonian (<span class="math notranslate nohighlight">\(H_{XC}\)</span>) matrix elements between the central region and the electrode as</p>
+<div class="math notranslate nohighlight">
+\[\Sigma_X = (ES_{XC} - H_{XC})^\dagger \mathbf{g}_X (ES_{XC} - H_{XC}),\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathbf{g}_X\)</span> is the Green’s function of electrode X, which can be approximated within wide-band limit using cLDOS. The overlap matrix <span class="math notranslate nohighlight">\(S\)</span> obtained from one-component scalar-relativistic calculation, where there is no SO interaction.  The effective single-particle Hamiltonian matrices are approximate by KS matrices</p>
+<p>The minima hopping algorithm was developed and described by Goedecker:</p>
+<div class="section" id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline"></a></h2>
+<blockquote>
+<div><div class="line-block">
+<div class="line">Jacob, D.; Palacios, J. J.</div>
+<div class="line"><a class="reference external" href="http://dx.doi.org/10.1063/1.3526044">Critical comparison of electrode models in density functional theory based quantum transport calculations.</a></div>
+<div class="line"><em>J. Chem. Phys.</em> <strong>2011</strong>, 134 (4), 044118.</div>
+</div>
+</div></blockquote>
+<blockquote>
+<div><div class="line-block">
+<div class="line">Zöllner, M. S.; Varela, S.; Medina, E.; Mujica, V.;Herrmann, C.</div>
+<div class="line"><a class="reference external" href="https://dx.doi.org/10.1021/acs.jctc.9b01078?ref=pdf">Insight into the Origin of Chiral-Induced Spin Selectivity from a Symmetry Analysis of Electronic Transmission</a></div>
+<div class="line"><em>J. Chem. Theory Comput.</em> <strong>2020</strong>, 16, 2914-2929.</div>
+</div>
+</div></blockquote>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="install.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="tutorials.html" class="btn btn-neutral float-right" title="Tutorials" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Kiet A. Nguyen.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

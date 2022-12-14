@@ -1,28 +1,97 @@
 #!/usr/bin/env python3
 # pylint: disable=invalid-name
 """Module for electron spin polarization and transmission."""
-import argparse
 import json
 from os.path import isfile
 import sys
 from math import pi
+import matplotlib.pyplot as plt
 import numpy as np
 #from scipy.linalg import sqrtm
 from .cclib_interface import TurbomoleParse, GaussianParse
 from .time_util import *
 
 def banner():
+    # pylint: multiple-statements
     """
     function for a banner.
     """
     print("----------------------------------------------------------------")
     print("Program to calculate electron spin polarization and transmission")
     print("----------------------------------------------------------------")
-    print("By using this software you accept the terms of the GNU public ")
-    print("license in COPYING, and agree to attribute the use of this software")
-    print("in publications as: \n")
-    print("K. A. Nguyen, QuantumTransport 0.1 (2022)")
-    print("----------------------------------------------------------------")
+    #print("By using this software you accept the terms of the GNU public ")
+    #print("license in COPYING, and agree to attribute the use of this software")
+    #print("in publications as: \n")
+    #print("K. A. Nguyen, QuantumTransport 0.1 (2022)")
+    #print("----------------------------------------------------------------")
+
+def plot_spinpol(fname,yscale):
+    """
+    plot spin polarization and four transmissions functions vs energy 
+    """
+
+    mat0 = np.loadtxt(fname)
+    E = mat0[:,0]
+    Polar = mat0[:,1]
+    plt.plot(E,Polar)
+    plt.xlabel(r'$E - E_f$ (eV)')
+    plt.ylabel('% Polarization')
+    plt.show() # show figure
+    Tuu = mat0[:,2]
+    Tdd = mat0[:,3]
+    Tdu = mat0[:,4]
+    Tud = mat0[:,5]
+    # transmission
+    if yscale is not None:
+        plt.yscale(yscale) # linear,logit or symlog
+    else:
+        plt.yscale('log') # default
+    legend= []
+    legend.append(r"$T^{\uparrow\uparrow}$")
+    plt.plot(E,Tuu)
+    legend.append(r"$T^{\downarrow\downarrow}$")
+    plt.plot(E,Tdd)
+    legend.append(r"$T^{\downarrow\uparrow}$")
+    plt.plot(E,Tdu)
+    legend.append(r"$T^{\uparrow\downarrow}$")
+    plt.plot(E,Tud)
+    plt.ylim([0.001,10.0])
+    plt.xlabel(r'$E - E_f$ (eV)')
+    plt.ylabel('Transmission')
+    plt.title('Electron Transmission')
+    plt.legend(legend)
+    plt.show() # show figure
+
+def plot_spinpol2(fname,yscale):
+    """
+    plot spin polarization and Tuu, Tdd transmission functions vs energy 
+    """
+
+    mat0 = np.loadtxt(fname)
+    E = mat0[:,0]
+    Polar = mat0[:,1]
+    plt.plot(E,Polar)
+    plt.xlabel(r'$E - E_f$ (eV)')
+    plt.ylabel('% Polarization')
+    plt.show() # show figure
+    Tuu = mat0[:,2]
+    Tdd = mat0[:,3]
+    # transmission
+    legend= []
+    legend.append(r"$T^\uparrow$")
+    if yscale is not None:
+        plt.yscale(yscale) # linear,logit or symlog
+    else:
+        plt.yscale('log') # default
+    plt.plot(E,Tuu)
+    legend.append(r"$T^\downarrow$")
+    plt.plot(E,Tdd)
+    plt.ylim([0.0001,10])
+    plt.xlabel(r'$E - E_f$ (eV)')
+    plt.ylabel('Transmission')
+    plt.title('Electron Transmission')
+    plt.legend(legend)
+    plt.show() # show figure
 
 def sqrtm_np(A):
     """
@@ -84,15 +153,25 @@ class TransportCal:
         print(f'Central: {self.nC}')
         print(f'Right electrode: {self.nR}')
         print(f'Total: {self.nmo}\n')
-        f2 = open('transport_params.json')
-        tparams = json.load(f2)
-        print('Input parameters for electron transport:')
-        print('----------------------------------------')
-        self.cLDOS = tparams['cLDOS'] # a constant local density of state
-        self.Efermi= tparams['Efermi']
-        self.eini  = tparams['eini']
-        self.eend  = tparams['eend']
-        self.estep = tparams['estep']
+        if isfile('transport_params.json') :
+            f2 = open('transport_params.json')
+            tparams = json.load(f2)
+            print('Input parameters for electron transport:')
+            print('----------------------------------------')
+            self.cLDOS = tparams['cLDOS'] # a constant local density of state
+            self.Efermi= tparams['Efermi']
+            self.eini  = tparams['eini']
+            self.eend  = tparams['eend']
+            self.estep = tparams['estep']
+        else:
+            print('Default input parameters for electron transport:')
+            print('------------------------------------------------')
+            self.cLDOS = 0.036 # a constant local density of state for Au
+            self.Efermi= -5.0 
+            self.eini  = -7.0
+            self.eend  = -2.0
+            self.estep = 0.01
+
         self.NE = int((self.eend-self.eini)/self.estep)
         print(f'Local density of states constant (cLDOS): {self.cLDOS:.4f}')
         print(f'Fermi enegy: {self.Efermi:.2f} eV')
@@ -178,9 +257,10 @@ class TransportCal:
             spin = (Tuu+Tdu-Tud-Tdd)/(Tuu+Tdu+Tud+Tdd)
             spT.append(spin)
             str1 = (f'{E-Efermi:6.2f} {spT[sc].real*100:11.8f} {Tuu.real:12.5e} ')
-            str2 = (f'{Tdd.real:12.5e} {Tdu.real:12.5e} {Tud.real:12.5e}')
+            str2 = (f'{Tdd.real:12.5e} {Tdu.real:12.5e} {Tud.real:12.5e}\n')
+            str2p = (f'{Tdd.real:12.5e} {Tdu.real:12.5e} {Tud.real:12.5e}')
             f.write(str1+str2)
-            print(str1+str2)
+            print(str1+str2p)
             if self.debug:
                 sys.exit()
     
@@ -360,37 +440,3 @@ class TransportCal:
                 HRC1[i,j]= Ff1[i+nL+nC,j+nL]
         self.transmission(Scc,Fcc,SLC1,HLC1,SRC1,HRC1)
 
-@PRTiming("main")
-def main():
-    """
-    function for qt
-    """
-    description = """
-    Calculation of electron transport
-    """
-    epilog = """output: percentage (spin polarization) of transmitted electron
-    """
-    parser = argparse.ArgumentParser(
-        usage='%(prog)s [options] ',
-        description=description,
-        formatter_class=argparse.RawDescriptionHelpFormatter,
-        epilog=epilog)
-    group = parser.add_mutually_exclusive_group()
-    parser.add_argument('filename', metavar='filename', type=str, help='input file')
-    group.add_argument('-ciss', '--ciss_calc', action="store_true",
-                   help='Calculation chiral induced spin polarization transport ')
-    parser.add_argument('-db', '--debug', action="store_true", help= "debug print")
-    parser.add_argument('-l', '--load_qt_dat', action="store_true", help= "load qt_dat.py files")
-    args = parser.parse_args()
-    if len(sys.argv) == 0:
-        parser.print_help()
-        sys.exit(1)
-    calc=TransportCal(qcfile=args.filename,ciss_calc=args.ciss_calc,load_data= \
-         args.load_qt_dat,debug=args.debug)
-    if args.ciss_calc:
-        calc.ciss_transmission()
-    else:
-        calc.radical_transmission()
-
-if __name__ == "__main__":
-    main()

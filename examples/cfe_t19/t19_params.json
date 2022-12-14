@@ -1,0 +1,13 @@
+{
+  "params": {
+   
+    "task": "energy calculation",
+    "basis set name": "x2c-SVPall-2c",
+    "total charge": 0,
+    "multiplicity": 1,
+    "use dft": true,
+    "density functional": "b3-lyp",
+    "use resolution of identity": true,
+    "scf iterations": 100
+  }
+}

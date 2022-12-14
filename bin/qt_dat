@@ -1,0 +1,55 @@
+#!/usr/bin/env python3
+# pylint: disable=invalid-name
+"""
+   Script for parsing data from the output files generated electronic
+   structure programs(ADF, Gaussian, Turbomole) to calculate electron
+   quantum transport (QT) properties.
+"""
+import argparse
+import sys
+from QuantumTransport import TurbomoleParse, GaussianParse, ADFparse
+
+def qt_dat():
+    """ Main function for electron transport data."""
+
+    description = """
+    Prepare input data for electron transport calculations from ADF, Gaussian, or Turbomle
+    outputs.
+    """
+    epilog = """output: transport_params.json, overlap, fock matrices, and/or data files
+                        for constructing fock matrix
+    """
+    parser = argparse.ArgumentParser(
+        usage='%(prog)s [options] ',
+        description=description,
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog=epilog)
+    parser.add_argument('filename', metavar='filename', type=str, help='for g16 or t19 \
+            output, "none" for ADF')
+    parser.add_argument('-la', '--latoms', type=int, default= 0,help='left electrode atoms')
+    parser.add_argument('-ca', '--catoms', type=int, default= 0,help='central atoms')
+    #parser.add_argument('-ot', '--otype', type=str, default= 'gaussian',
+    parser.add_argument('-ot', '--otype', type=str, default= 'turbomole',
+                   help='gausian or turbomole')
+    args = parser.parse_args()
+    if len(sys.argv) == 0:
+        parser.print_help()
+        sys.exit(1)
+    filename = args.filename
+    latoms = args.latoms
+    catoms = args.catoms
+    output_type = args.otype
+    if output_type == 'turbomole':
+        tparse = TurbomoleParse(latoms=latoms,catoms=catoms,tout=filename)
+        tparse.parse_output()
+    if output_type == 'gaussian':
+        gparse = GaussianParse(latoms=latoms,catoms=catoms,gout=filename)
+        gparse.parse_output()
+    if output_type == 'adf':
+        aparse = ADFparse()
+        _,_,_,nmo = aparse.parse_basis()
+        aparse.overlap_scalar(nmo)
+        aparse.fock_scalar(nmo)
+        aparse.MOvec_spinorb(nmo)
+if __name__ == "__main__":
+    qt_dat()

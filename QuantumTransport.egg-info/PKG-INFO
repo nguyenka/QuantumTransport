@@ -15,7 +15,7 @@ Description:
         1) Spin polarization transmission for an open shell radical.
         
 Platform: platform independent
-Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3.6
 Classifier: Programming Language :: Python :: 3.8
 Classifier: Environment :: Console
 Classifier: Intended Audience :: Science/Research

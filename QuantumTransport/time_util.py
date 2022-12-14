@@ -22,7 +22,7 @@ def PRTiming(nm_="Obs"):
             PRTIMER[nm_][0] += time.time()-t0
             PRTIMER[nm_][1] += 1
             return output
-        print("PRTimed "+nm_+str(PRTIMER[nm_]))
+        #print("PRTimed "+nm_+str(PRTIMER[nm_]))
         return wf
     return wrap
 @atexit.register

@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QuantumTransport.cclib_interface &mdash; QuantumTransport 1.0 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> QuantumTransport
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">Modules</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">QuantumTransport</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">QuantumTransport.cclib_interface</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for QuantumTransport.cclib_interface</h1><div class="highlight"><pre>
+<span></span><span class="c1"># pylint: disable=invalid-name</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Module for parsing data from the output files generated electronic</span>
+<span class="sd">    structure programs(ADF, Gaussian, Turbomole) to calculate electron</span>
+<span class="sd">    quantum transport (QT) properties.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">argparse</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">isfile</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">munch</span> <span class="kn">import</span> <span class="n">Munch</span>
+<span class="kn">from</span> <span class="nn">cclib.parser</span> <span class="kn">import</span> <span class="n">utils</span>
+<span class="kn">from</span> <span class="nn">cclib.parser.utils</span> <span class="kn">import</span> <span class="n">PeriodicTable</span>
+<span class="kn">from</span> <span class="nn">cclib.parser</span> <span class="kn">import</span> <span class="n">ccopen</span>
+<span class="kn">from</span> <span class="nn">cclib.parser.turbomoleparser</span> <span class="kn">import</span> <span class="n">Turbomole</span>
+
+<span class="k">def</span> <span class="nf">write_basis_data</span><span class="p">(</span><span class="n">left_basis</span><span class="p">,</span><span class="n">central_basis</span><span class="p">,</span><span class="n">right_basis</span><span class="p">,</span><span class="n">total_basis</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    function for writting basis functions of the left, central, right regions.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">basis_data</span> <span class="o">=</span> <span class="n">Munch</span><span class="p">(</span><span class="n">left_basis</span> <span class="o">=</span> <span class="n">left_basis</span><span class="p">,</span> <span class="n">central_basis</span><span class="o">=</span> <span class="n">central_basis</span><span class="p">,</span>\
+                 <span class="n">right_basis</span> <span class="o">=</span> <span class="n">right_basis</span><span class="p">,</span> <span class="n">total_basis</span> <span class="o">=</span> <span class="n">total_basis</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;basis_data.json&#39;</span><span class="p">,</span><span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">basis_data</span><span class="p">,</span><span class="n">f</span><span class="p">,</span><span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;basis data written in </span><span class="si">{</span><span class="s1">&#39;basis_data.json&#39;</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">partition_mol</span><span class="p">(</span><span class="n">atomcoords</span><span class="p">,</span><span class="n">atomnos</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    function for partitioning a system into the left, central, right regions.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">t</span> <span class="o">=</span> <span class="n">PeriodicTable</span><span class="p">()</span>
+    <span class="n">elem_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">atomcoords</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]):</span>
+        <span class="n">elem</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">element</span><span class="p">[</span><span class="n">atomnos</span><span class="p">[</span><span class="n">index</span><span class="p">]]</span>
+        <span class="n">elem_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">elem</span><span class="p">)</span>
+    <span class="n">latoms</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">catoms</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">elem_list</span><span class="p">)):</span>
+        <span class="n">elem</span> <span class="o">=</span> <span class="n">elem_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">latoms</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">elem</span> <span class="o">==</span> <span class="s1">&#39;au&#39;</span> <span class="ow">and</span> <span class="n">elem_list</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;au&#39;</span> \
+           <span class="ow">and</span> <span class="n">catoms</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="n">latoms</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">elem</span> <span class="o">!=</span> <span class="s1">&#39;au&#39;</span><span class="p">):</span>
+            <span class="n">catoms</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">ratoms</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">elem_list</span><span class="p">)</span> <span class="o">-</span> <span class="n">latoms</span> <span class="o">-</span> <span class="n">catoms</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Partitionng the system into three regions based on Au atoms:&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;left electrode: </span><span class="si">{</span><span class="n">latoms</span><span class="si">}</span><span class="s1"> atoms&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;central region: </span><span class="si">{</span><span class="n">catoms</span><span class="si">}</span><span class="s1"> atoms&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;right electrode: </span><span class="si">{</span><span class="n">ratoms</span><span class="si">}</span><span class="s1"> atoms&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Note:&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The first and last sets of heavy atoms are assummed be on left and right&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;electrodes, respectively.</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">latoms</span><span class="p">,</span> <span class="n">catoms</span>
+
+<div class="viewcode-block" id="ADFparse"><a class="viewcode-back" href="../../modules.html#QuantumTransport.ADFparse">[docs]</a><span class="k">class</span> <span class="nc">ADFparse</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Class for extract data generate by ADF</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="ADFparse.__init__"><a class="viewcode-back" href="../../modules.html#QuantumTransport.ADFparse.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">lout</span> <span class="o">=</span> <span class="s1">&#39;../left/left.out&#39;</span><span class="p">,</span><span class="n">rout</span> <span class="o">=</span> <span class="s1">&#39;../right/right.out&#39;</span><span class="p">,</span>\
+                <span class="n">cout</span><span class="o">=</span> <span class="s1">&#39;../junc/junc.out&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Parameters:</span>
+
+<span class="sd">        inputfile: ADF outputs (for left, right, and central parts), ljr1c_overlap.dat,</span>
+<span class="sd">                   ljr1c_fock.dat,ljr2c_moeigv.dat,ljr2c_mocoff.dat</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">lout</span> <span class="o">=</span> <span class="n">lout</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rout</span> <span class="o">=</span> <span class="n">rout</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cout</span> <span class="o">=</span> <span class="n">cout</span></div>
+
+<div class="viewcode-block" id="ADFparse.parse_basis"><a class="viewcode-back" href="../../modules.html#QuantumTransport.ADFparse.parse_basis">[docs]</a>    <span class="k">def</span> <span class="nf">parse_basis</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        get basis functions for left,right,central part of the system from ADF outputs</span>
+<span class="sd">        write data in basis_data.json</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">def</span> <span class="nf">get_basis</span><span class="p">(</span><span class="n">out</span><span class="p">):</span>
+            <span class="n">nF</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">fD</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">out</span><span class="p">,</span><span class="s2">&quot;r&quot;</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">fD</span><span class="p">:</span>
+                <span class="k">if</span>  <span class="s2">&quot;Nr. of SFOs &quot;</span> <span class="ow">in</span> <span class="n">k</span><span class="p">:</span>
+                    <span class="n">nF</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">k</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
+                    <span class="k">break</span>
+            <span class="n">fD</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">nF</span>
+        <span class="n">nL</span> <span class="o">=</span> <span class="n">get_basis</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lout</span><span class="p">)</span>
+        <span class="n">nC</span> <span class="o">=</span> <span class="n">get_basis</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cout</span><span class="p">)</span>
+        <span class="n">nR</span> <span class="o">=</span> <span class="n">get_basis</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lout</span><span class="p">)</span>
+        <span class="n">nmo</span> <span class="o">=</span> <span class="n">nL</span> <span class="o">+</span> <span class="n">nC</span> <span class="o">+</span> <span class="n">nR</span>
+        <span class="n">write_basis_data</span><span class="p">(</span><span class="n">nL</span><span class="p">,</span><span class="n">nC</span><span class="p">,</span><span class="n">nR</span><span class="p">,</span><span class="n">nmo</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">nL</span><span class="p">,</span> <span class="n">nC</span><span class="p">,</span> <span class="n">nR</span><span class="p">,</span> <span class="n">nmo</span></div>
+
+<div class="viewcode-block" id="ADFparse.overlap_scalar"><a class="viewcode-back" href="../../modules.html#QuantumTransport.ADFparse.overlap_scalar">[docs]</a>    <span class="k">def</span> <span class="nf">overlap_scalar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">nmo</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Get  Overlap-matrix (Fragment orbital as basis set) &quot;&quot;&quot;</span>
+
+        <span class="n">SA</span><span class="o">=</span><span class="nb">open</span><span class="p">(</span><span class="s1">&#39;overlap.dat&#39;</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+        <span class="n">SAw</span><span class="o">=</span><span class="nb">open</span><span class="p">(</span><span class="s1">&#39;overlap.txt&#39;</span><span class="p">,</span><span class="s1">&#39;w&#39;</span><span class="p">)</span>
+        <span class="n">lines</span> <span class="o">=</span> <span class="p">[</span><span class="n">line</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">SA</span><span class="p">]</span>
+        <span class="n">ln</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span>
+        <span class="n">k</span><span class="o">=</span><span class="mi">3</span>
+        <span class="n">sa</span><span class="o">=</span><span class="p">{}</span>
+        <span class="n">io</span><span class="o">=</span><span class="mi">0</span>
+        <span class="k">while</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="n">ln</span><span class="p">:</span>
+            <span class="n">line</span><span class="o">=</span><span class="n">lines</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+            <span class="n">nele</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nele</span><span class="p">):</span>
+    <span class="c1">#           sa[io]=float(line.split()[i])</span>
+                <span class="n">sa</span><span class="p">[</span><span class="n">io</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="o">+</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="n">i</span><span class="p">]</span>
+                <span class="n">io</span> <span class="o">=</span> <span class="n">io</span> <span class="o">+</span><span class="mi">1</span>
+            <span class="n">k</span><span class="o">=</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span>
+
+        <span class="k">if</span> <span class="n">nmo</span><span class="o">*</span><span class="p">(</span><span class="n">nmo</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span> <span class="o">!=</span> <span class="n">io</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39; Frag Orb numbers donot match&#39;</span><span class="p">)</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
+        <span class="n">sfo</span><span class="o">=</span><span class="p">[[</span><span class="s1">&#39; &#39;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nmo</span><span class="p">)]</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nmo</span><span class="p">)]</span>
+        <span class="n">k</span><span class="o">=</span><span class="mi">0</span>
+        <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nmo</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+                <span class="n">sfo</span><span class="p">[</span><span class="n">m</span><span class="p">][</span><span class="n">n</span><span class="p">]</span><span class="o">=</span><span class="n">sa</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="n">m</span><span class="p">:</span>
+                    <span class="n">sfo</span><span class="p">[</span><span class="n">n</span><span class="p">][</span><span class="n">m</span><span class="p">]</span><span class="o">=</span><span class="n">sa</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+                <span class="n">k</span> <span class="o">=</span> <span class="n">k</span> <span class="o">+</span> <span class="mi">1</span>
+
+        <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nmo</span><span class="p">):</span>
+            <span class="n">SAw</span><span class="o">.</span><span class="n">writelines</span><span class="p">(</span><span class="n">sfo</span><span class="p">[</span><span class="n">m</span><span class="p">])</span>
+            <span class="n">SAw</span><span class="o">.</span><span class="n">writelines</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;overlap.txt&#39;</span><span class="si">}</span><span class="s2"> is printed out!&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ADFparse.fock_scalar"><a class="viewcode-back" href="../../modules.html#QuantumTransport.ADFparse.fock_scalar">[docs]</a>    <span class="k">def</span> <span class="nf">fock_scalar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">nmo</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; get one-component scalar relativistic Fock-matrix &quot;&quot;&quot;</span>
+
+        <span class="n">FA</span><span class="o">=</span><span class="nb">open</span><span class="p">(</span><span class="s1">&#39;fock.dat&#39;</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+        <span class="n">FAw</span><span class="o">=</span><span class="nb">open</span><span class="p">(</span><span class="s1">&#39;fock.txt&#39;</span><span class="p">,</span><span class="s1">&#39;w&#39;</span><span class="p">)</span>
+        <span class="n">lines</span> <span class="o">=</span> <span class="p">[</span><span class="n">line</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">FA</span><span class="p">]</span>
+        <span class="n">ln</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span>
+        <span class="n">k</span><span class="o">=</span><span class="mi">3</span>
+        <span class="n">fa</span><span class="o">=</span><span class="p">{}</span>
+        <span class="n">io</span><span class="o">=</span><span class="mi">0</span>
+        <span class="k">while</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="n">ln</span><span class="p">:</span>
+            <span class="n">line</span><span class="o">=</span><span class="n">lines</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+            <span class="n">nele</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nele</span><span class="p">):</span>
+                <span class="n">fa</span><span class="p">[</span><span class="n">io</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="o">+</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="n">i</span><span class="p">]</span>
+                <span class="n">io</span> <span class="o">=</span> <span class="n">io</span> <span class="o">+</span><span class="mi">1</span>
+            <span class="n">k</span><span class="o">=</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span>
+        <span class="k">if</span> <span class="n">nmo</span><span class="o">*</span><span class="p">(</span><span class="n">nmo</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span> <span class="o">!=</span> <span class="n">io</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39; Frag Orb number donot match&#39;</span><span class="p">)</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
+        <span class="n">ffo</span><span class="o">=</span><span class="p">[[</span><span class="s1">&#39; &#39;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nmo</span><span class="p">)]</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nmo</span><span class="p">)]</span>
+        <span class="n">k</span><span class="o">=</span><span class="mi">0</span>
+        <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nmo</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+                <span class="n">ffo</span><span class="p">[</span><span class="n">m</span><span class="p">][</span><span class="n">n</span><span class="p">]</span><span class="o">=</span><span class="n">fa</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="n">m</span><span class="p">:</span>
+                    <span class="n">ffo</span><span class="p">[</span><span class="n">n</span><span class="p">][</span><span class="n">m</span><span class="p">]</span><span class="o">=</span><span class="n">fa</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+                <span class="n">k</span> <span class="o">=</span> <span class="n">k</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nmo</span><span class="p">):</span>
+            <span class="n">FAw</span><span class="o">.</span><span class="n">writelines</span><span class="p">(</span><span class="n">ffo</span><span class="p">[</span><span class="n">m</span><span class="p">])</span>
+            <span class="n">FAw</span><span class="o">.</span><span class="n">writelines</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;fock.txt&#39;</span><span class="si">}</span><span class="s2"> is printed out!&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ADFparse.MOvec_spinorb"><a class="viewcode-back" href="../../modules.html#QuantumTransport.ADFparse.MOvec_spinorb">[docs]</a>    <span class="k">def</span> <span class="nf">MOvec_spinorb</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">nmo</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Get MO eigenvalue matrix.&quot;&quot;&quot;</span>
+        <span class="c1"># pylint: disable=too-many-locals</span>
+
+        <span class="n">MER</span><span class="o">=</span><span class="nb">open</span><span class="p">(</span><span class="s2">&quot;moeigv_so.dat&quot;</span><span class="p">,</span><span class="s2">&quot;r&quot;</span><span class="p">)</span>
+        <span class="n">MEW</span><span class="o">=</span><span class="nb">open</span><span class="p">(</span><span class="s2">&quot;moeigv_so.txt&quot;</span><span class="p">,</span><span class="s2">&quot;w&quot;</span><span class="p">)</span>
+
+        <span class="n">lines</span> <span class="o">=</span> <span class="p">[</span><span class="n">line</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">MER</span><span class="p">]</span>
+        <span class="n">ln</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span>
+        <span class="n">k</span><span class="o">=</span><span class="mi">3</span>
+        <span class="n">moe</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39; &#39;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nmo</span><span class="o">*</span><span class="mi">2</span><span class="p">)]</span>
+        <span class="n">io</span><span class="o">=</span><span class="mi">0</span>
+        <span class="k">while</span>  <span class="n">k</span> <span class="o">&lt;</span> <span class="n">ln</span><span class="p">:</span>
+            <span class="n">line</span><span class="o">=</span><span class="n">lines</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+            <span class="n">nele</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nele</span><span class="p">):</span>
+                <span class="n">moe</span><span class="p">[</span><span class="n">io</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="o">+</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="n">i</span><span class="p">]</span>
+                <span class="n">io</span> <span class="o">=</span> <span class="n">io</span> <span class="o">+</span><span class="mi">1</span>
+            <span class="n">k</span><span class="o">=</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span>
+
+        <span class="n">MEW</span><span class="o">.</span><span class="n">writelines</span><span class="p">(</span><span class="n">moe</span><span class="p">)</span>
+        <span class="n">MEW</span><span class="o">.</span><span class="n">writelines</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;_moeigv_so.txt&#39;</span><span class="si">}</span><span class="s2"> is printed out!&quot;</span><span class="p">)</span>
+
+        <span class="c1">### get MO coefficient matrix</span>
+        <span class="n">MLR</span><span class="o">=</span><span class="nb">open</span><span class="p">(</span><span class="s2">&quot;mocoff_so.dat&quot;</span><span class="p">,</span><span class="s2">&quot;r&quot;</span><span class="p">)</span>
+        <span class="n">MLWr</span><span class="o">=</span><span class="nb">open</span><span class="p">(</span><span class="s2">&quot;mocoff_so_real.txt&quot;</span><span class="p">,</span><span class="s2">&quot;w&quot;</span><span class="p">)</span>
+        <span class="n">MLWi</span><span class="o">=</span><span class="nb">open</span><span class="p">(</span><span class="s2">&quot;mocoff_so_imag.txt&quot;</span><span class="p">,</span><span class="s2">&quot;w&quot;</span><span class="p">)</span>
+        <span class="n">im</span><span class="o">=</span><span class="n">nmo</span><span class="o">*</span><span class="n">nmo</span><span class="o">*</span><span class="mi">4</span>
+
+        <span class="n">lines</span> <span class="o">=</span> <span class="p">[</span><span class="n">line</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">MLR</span><span class="p">]</span>
+        <span class="n">ln</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span>
+        <span class="n">k</span><span class="o">=</span><span class="mi">3</span>
+        <span class="n">vlow</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39; &#39;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nmo</span><span class="o">*</span><span class="n">nmo</span><span class="o">*</span><span class="mi">8</span><span class="p">)]</span>
+        <span class="n">io</span><span class="o">=</span><span class="mi">0</span>
+        <span class="k">while</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="n">ln</span><span class="p">:</span>
+            <span class="n">line</span><span class="o">=</span><span class="n">lines</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+            <span class="n">nele</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nele</span><span class="p">):</span>
+                <span class="n">vlow</span><span class="p">[</span><span class="n">io</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="n">i</span><span class="p">]</span>
+                <span class="n">io</span> <span class="o">=</span> <span class="n">io</span> <span class="o">+</span><span class="mi">1</span>
+            <span class="n">k</span><span class="o">=</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span>
+
+        <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nmo</span><span class="o">*</span><span class="mi">2</span><span class="p">):</span>
+            <span class="n">MLWr</span><span class="o">.</span><span class="n">writelines</span><span class="p">(</span><span class="n">vlow</span><span class="p">[</span><span class="n">m</span><span class="o">*</span><span class="n">nmo</span><span class="o">*</span><span class="mi">2</span><span class="p">:(</span><span class="n">m</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">nmo</span><span class="o">*</span><span class="mi">2</span><span class="p">])</span>
+            <span class="n">MLWr</span><span class="o">.</span><span class="n">writelines</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;mocoff_so_real.txt&#39;</span><span class="si">}</span><span class="s2"> is printed out!&quot;</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nmo</span><span class="o">*</span><span class="mi">2</span><span class="p">):</span>
+            <span class="n">MLWi</span><span class="o">.</span><span class="n">writelines</span><span class="p">(</span><span class="n">vlow</span><span class="p">[</span><span class="n">im</span><span class="o">+</span><span class="n">m</span><span class="o">*</span><span class="n">nmo</span><span class="o">*</span><span class="mi">2</span><span class="p">:(</span><span class="n">m</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">nmo</span><span class="o">*</span><span class="mi">2</span><span class="o">+</span><span class="n">im</span><span class="p">])</span>
+            <span class="n">MLWi</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot; </span><span class="se">\n</span><span class="s2">&quot;</span> <span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;mocoff_so_imag.txt&#39;</span><span class="si">}</span><span class="s2"> is printed out!&quot;</span><span class="p">)</span></div></div>
+
+<div class="viewcode-block" id="GaussianParse"><a class="viewcode-back" href="../../modules.html#QuantumTransport.GaussianParse">[docs]</a><span class="k">class</span> <span class="nc">GaussianParse</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Class for extract data from Gaussian output</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="GaussianParse.__init__"><a class="viewcode-back" href="../../modules.html#QuantumTransport.GaussianParse.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">latoms</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span><span class="n">catoms</span> <span class="o">=</span><span class="mi">0</span> <span class="p">,</span><span class="n">gout</span> <span class="o">=</span> <span class="s1">&#39;dft.out&#39;</span><span class="p">,</span><span class="n">fock_parse</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> \
+                <span class="n">save_mos</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span><span class="n">savefile</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Parameters:</span>
+
+<span class="sd">        latoms: number of atoms in the left electrode.</span>
+<span class="sd">        catoms: number of atoms in the in the central region.</span>
+<span class="sd">        gout: gaussian output.</span>
+<span class="sd">        fock_parse: Fock matrix parsing.</span>
+<span class="sd">        save_mos: save MO data.</span>
+<span class="sd">        savefile: save all data for QT calculations.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># pylint: disable=too-many-arguments</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">unrestricted</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">latoms</span> <span class="o">=</span> <span class="n">latoms</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">catoms</span> <span class="o">=</span> <span class="n">catoms</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gout</span> <span class="o">=</span> <span class="n">gout</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fock_parse</span> <span class="o">=</span> <span class="n">fock_parse</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save_mos</span> <span class="o">=</span> <span class="n">save_mos</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">savefile</span> <span class="o">=</span> <span class="n">savefile</span></div>
+
+<div class="viewcode-block" id="GaussianParse.parse_output"><a class="viewcode-back" href="../../modules.html#QuantumTransport.GaussianParse.parse_output">[docs]</a>    <span class="k">def</span> <span class="nf">parse_output</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        parse: gaussian output</span>
+<span class="sd">        exact: basis functions left,central,and right electrodes,overlap matrix,</span>
+<span class="sd">        mo coeffs and energies</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># pylint: disable=too-many-locals</span>
+        <span class="c1"># pylint: disable=too-many-statements</span>
+
+        <span class="n">gout</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">gout</span>
+        <span class="n">latoms</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">latoms</span>
+        <span class="n">catoms</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">catoms</span>
+        <span class="n">ccfile</span> <span class="o">=</span> <span class="n">ccopen</span><span class="p">(</span><span class="n">gout</span><span class="p">)</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">ccfile</span><span class="o">.</span><span class="n">parse</span><span class="p">()</span>
+        <span class="n">program</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s1">&#39;package&#39;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">program</span> <span class="o">!=</span> <span class="s1">&#39;Gaussian&#39;</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Expecting Gaussian output, got </span><span class="si">{</span><span class="n">program</span><span class="si">}</span><span class="s2"> ouput.&quot;</span><span class="p">)</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
+        <span class="n">atombasis</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">atombasis</span>
+        <span class="c1"># partition a molecular junction based on Au atoms</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">latoms</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">catoms</span> <span class="o">==</span><span class="mi">0</span><span class="p">):</span>
+            <span class="n">latoms</span><span class="p">,</span> <span class="n">catoms</span> <span class="o">=</span> <span class="n">partition_mol</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">atomcoords</span><span class="p">,</span><span class="n">data</span><span class="o">.</span><span class="n">atomnos</span><span class="p">)</span>
+        <span class="n">left_basis</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">central_basis</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">right_basis</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">natom</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">&lt;=</span> <span class="n">latoms</span><span class="p">:</span>
+                <span class="n">left_basis</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">atombasis</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="k">elif</span>  <span class="n">i</span> <span class="o">+</span><span class="mi">1</span>  <span class="o">&gt;=</span> <span class="n">latoms</span> <span class="ow">and</span> <span class="n">i</span> <span class="o">+</span><span class="mi">1</span> <span class="o">&lt;=</span> <span class="n">catoms</span><span class="o">+</span><span class="n">latoms</span><span class="p">:</span>
+                <span class="n">central_basis</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">atombasis</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">right_basis</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">atombasis</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="n">total_basis</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">nbasis</span>
+        <span class="k">if</span> <span class="n">total_basis</span> <span class="o">!=</span> <span class="n">left_basis</span><span class="o">+</span><span class="n">central_basis</span><span class="o">+</span><span class="n">right_basis</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;inconsistency in number of basis functions!&#39;</span><span class="p">)</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
+        <span class="n">overlap</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">aooverlaps</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">savefile</span><span class="p">:</span>
+            <span class="n">write_basis_data</span><span class="p">(</span><span class="n">left_basis</span><span class="p">,</span><span class="n">central_basis</span><span class="p">,</span><span class="n">right_basis</span><span class="p">,</span><span class="n">total_basis</span><span class="p">)</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">savetxt</span><span class="p">(</span><span class="s1">&#39;overlap.txt&#39;</span><span class="p">,</span><span class="n">overlap</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;overlap matrix written in </span><span class="si">{</span><span class="s1">&#39;overlap.txt&#39;</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">fock_parse</span><span class="p">:</span>
+            <span class="n">focka</span><span class="p">,</span> <span class="n">fockb</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_fock</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">moenergies</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="n">amoenergies</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">convertor</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">moenergies</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;eV&#39;</span><span class="p">,</span> <span class="s1">&#39;hartree&#39;</span><span class="p">)</span>
+                <span class="n">bmoenergies</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">convertor</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">moenergies</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;eV&#39;</span><span class="p">,</span> <span class="s1">&#39;hartree&#39;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">save_mos</span><span class="p">:</span>
+                    <span class="n">np</span><span class="o">.</span><span class="n">savetxt</span><span class="p">(</span><span class="s1">&#39;moeigva.txt&#39;</span><span class="p">,</span><span class="n">amoenergies</span><span class="p">)</span>
+                    <span class="n">np</span><span class="o">.</span><span class="n">savetxt</span><span class="p">(</span><span class="s1">&#39;moeigvb.txt&#39;</span><span class="p">,</span><span class="n">bmoenergies</span><span class="p">)</span>
+                    <span class="n">np</span><span class="o">.</span><span class="n">savetxt</span><span class="p">(</span><span class="s1">&#39;mocoffa.txt&#39;</span><span class="p">,</span><span class="n">data</span><span class="o">.</span><span class="n">mocoeffs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+                    <span class="n">np</span><span class="o">.</span><span class="n">savetxt</span><span class="p">(</span><span class="s1">&#39;mocoffb.txt&#39;</span><span class="p">,</span><span class="n">data</span><span class="o">.</span><span class="n">mocoeffs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;alpha MO energies written in </span><span class="si">{</span><span class="s1">&#39;moeigva.txt&#39;</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;beta MO energies written in </span><span class="si">{</span><span class="s1">&#39;moeigvb.txt&#39;</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;alpha MO coeffs written in </span><span class="si">{</span><span class="s1">&#39;mocoffa.txt&#39;</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;beta MO coeffs written in </span><span class="si">{</span><span class="s1">&#39;mocoffb.txt&#39;</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="n">amoenergy2d</span><span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diagflat</span><span class="p">(</span><span class="n">amoenergies</span><span class="p">)</span> <span class="c1"># converted to 2d diagonal</span>
+                <span class="n">bmoenergy2d</span><span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diagflat</span><span class="p">(</span><span class="n">bmoenergies</span><span class="p">)</span>
+                <span class="n">focka</span> <span class="o">=</span> <span class="n">overlap</span><span class="nd">@data</span><span class="o">.</span><span class="n">mocoeffs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">T</span><span class="nd">@amoenergy2d@data</span><span class="o">.</span><span class="n">mocoeffs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="nd">@overlap</span>
+                <span class="n">fockb</span> <span class="o">=</span> <span class="n">overlap</span><span class="nd">@data</span><span class="o">.</span><span class="n">mocoeffs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">T</span><span class="nd">@bmoenergy2d@data</span><span class="o">.</span><span class="n">mocoeffs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="nd">@overlap</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">savetxt</span><span class="p">(</span><span class="s1">&#39;fock.txt&#39;</span><span class="p">,</span><span class="n">focka</span><span class="p">)</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">savetxt</span><span class="p">(</span><span class="s1">&#39;fockb.txt&#39;</span><span class="p">,</span><span class="n">fockb</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;alpha Fock matrix written in </span><span class="si">{</span><span class="s1">&#39;fock.txt&#39;</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;beta Fock matrix written in </span><span class="si">{</span><span class="s1">&#39;fock.txt&#39;</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">moenergies</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">convertor</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">moenergies</span><span class="p">,</span> <span class="s1">&#39;eV&#39;</span><span class="p">,</span> <span class="s1">&#39;hartree&#39;</span><span class="p">)</span>
+                <span class="n">moenergy2d</span><span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diagflat</span><span class="p">(</span><span class="n">moenergies</span><span class="p">)</span> <span class="c1"># converted to 2d diagonal</span>
+                <span class="n">focka</span> <span class="o">=</span> <span class="n">overlap</span> <span class="o">@</span> <span class="n">data</span><span class="o">.</span><span class="n">mocoeffs</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">moenergy2d</span> <span class="nd">@data</span><span class="o">.</span><span class="n">mocoeffs</span> <span class="o">@</span> <span class="n">overlap</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">save_mos</span><span class="p">:</span>
+                    <span class="n">np</span><span class="o">.</span><span class="n">savetxt</span><span class="p">(</span><span class="s1">&#39;moeigv.txt&#39;</span><span class="p">,</span><span class="n">moenergies</span><span class="p">)</span>
+                    <span class="n">np</span><span class="o">.</span><span class="n">savetxt</span><span class="p">(</span><span class="s1">&#39;mocoff.txt&#39;</span><span class="p">,</span><span class="n">data</span><span class="o">.</span><span class="n">mocoeffs</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;MO energies written in </span><span class="si">{</span><span class="s1">&#39;moeigv.txt&#39;</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;MO coeffs written in </span><span class="si">{</span><span class="s1">&#39;mocoff.txt&#39;</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">savetxt</span><span class="p">(</span><span class="s1">&#39;fock.txt&#39;</span><span class="p">,</span><span class="n">focka</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Fock matrix written in </span><span class="si">{</span><span class="s1">&#39;fock.txt&#39;</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">left_basis</span><span class="p">,</span><span class="n">central_basis</span><span class="p">,</span><span class="n">right_basis</span><span class="p">,</span><span class="n">total_basis</span><span class="p">,</span><span class="n">overlap</span><span class="p">,</span><span class="n">focka</span><span class="p">,</span><span class="n">fockb</span></div>
+
+<div class="viewcode-block" id="GaussianParse.parse_fock"><a class="viewcode-back" href="../../modules.html#QuantumTransport.GaussianParse.parse_fock">[docs]</a>    <span class="k">def</span> <span class="nf">parse_fock</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Parse Fock matrix from Gaussian output.&quot;&quot;&quot;</span>
+        <span class="c1"># pylint: disable=too-many-locals</span>
+        <span class="c1"># pylint: disable=too-many-nested-blocks</span>
+
+        <span class="n">inputfile</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">gout</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+        <span class="n">lines</span> <span class="o">=</span> <span class="n">inputfile</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">lines</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="s2">&quot;NBasis&quot;</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+                <span class="n">nbasis</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">lines</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="c1">#print(f&#39;number of bais functions {nbasis}&#39;)</span>
+            <span class="k">if</span> <span class="s2">&quot;Fock matrix (alpha):&quot;</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="ow">or</span> <span class="s2">&quot;Fock matrix (beta):&quot;</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+                <span class="c1">#if &quot;Fock matrix (beta):&quot; in lines[i]:</span>
+                <span class="n">beta</span> <span class="o">=</span> <span class="s2">&quot;Fock matrix (beta):&quot;</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="n">fls</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+                <span class="c1">#print(f&#39;fock elements start at: {fls}&#39;)</span>
+                <span class="n">fock</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">nbasis</span><span class="p">,</span> <span class="n">nbasis</span><span class="p">),</span><span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+                <span class="n">ll</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="n">base</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="k">while</span> <span class="n">base</span> <span class="o">&lt;</span> <span class="n">nbasis</span><span class="p">:</span>
+                    <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">nbasis</span><span class="o">/</span><span class="mi">5</span><span class="p">)):</span>
+                        <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nbasis</span><span class="o">-</span><span class="n">base</span><span class="p">):</span>
+                            <span class="n">ll</span> <span class="o">+=</span> <span class="mi">1</span>
+                            <span class="n">fl</span> <span class="o">=</span> <span class="n">ll</span><span class="o">+</span><span class="n">fls</span> <span class="o">+</span> <span class="n">col</span>
+                            <span class="n">line</span> <span class="o">=</span> <span class="n">lines</span><span class="p">[</span><span class="n">fl</span><span class="p">]</span>
+                            <span class="c1">#print(f&#39;{line} line# {fl}&#39;)</span>
+                            <span class="n">parts</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+                            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+                                <span class="n">val</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;D&quot;</span><span class="p">,</span> <span class="s2">&quot;E&quot;</span><span class="p">))</span>
+                                <span class="n">fock</span><span class="p">[</span><span class="n">base</span><span class="o">+</span><span class="n">j</span><span class="p">,</span> <span class="n">l</span><span class="o">+</span><span class="n">base</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span>
+                                <span class="n">fock</span><span class="p">[</span><span class="n">l</span><span class="o">+</span><span class="n">base</span><span class="p">,</span> <span class="n">base</span><span class="o">+</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span>
+                        <span class="n">base</span> <span class="o">+=</span> <span class="mi">5</span>
+                        <span class="c1">#print(f&#39;base: {base}&#39;)</span>
+                <span class="k">if</span> <span class="n">beta</span><span class="p">:</span>
+                    <span class="n">fockb</span> <span class="o">=</span> <span class="n">fock</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">savefile</span><span class="p">:</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;beta Fock matrix written in </span><span class="si">{</span><span class="s1">&#39;fockb.txt&#39;</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                        <span class="n">np</span><span class="o">.</span><span class="n">savetxt</span><span class="p">(</span><span class="s1">&#39;fockb.txt&#39;</span><span class="p">,</span><span class="n">fockb</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">focka</span> <span class="o">=</span> <span class="n">fock</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">savefile</span><span class="p">:</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;alpha Fock matrix written in </span><span class="si">{</span><span class="s1">&#39;fock.txt&#39;</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                        <span class="n">np</span><span class="o">.</span><span class="n">savetxt</span><span class="p">(</span><span class="s1">&#39;fock.txt&#39;</span><span class="p">,</span><span class="n">focka</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">focka</span><span class="p">,</span> <span class="n">fockb</span></div></div>
+
+<div class="viewcode-block" id="TurbomoleParse"><a class="viewcode-back" href="../../modules.html#QuantumTransport.TurbomoleParse">[docs]</a><span class="k">class</span> <span class="nc">TurbomoleParse</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Class for extract data from turbmole output and  mos files.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># pylint: disable=too-many-instance-attributes</span>
+
+<div class="viewcode-block" id="TurbomoleParse.__init__"><a class="viewcode-back" href="../../modules.html#QuantumTransport.TurbomoleParse.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">latoms</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span><span class="n">catoms</span> <span class="o">=</span><span class="mi">0</span> <span class="p">,</span><span class="n">tout</span> <span class="o">=</span> <span class="s1">&#39;ridft.out&#39;</span><span class="p">,</span><span class="n">savefile</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Parameters:</span>
+
+<span class="sd">        latoms: number of atoms in the left electrode.</span>
+<span class="sd">        catoms: number of atoms in the in the central region.</span>
+<span class="sd">        tout: Turbomole output.</span>
+<span class="sd">        savefile: save all data for QT calculations.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">unrestricted</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">latoms</span> <span class="o">=</span> <span class="n">latoms</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">catoms</span> <span class="o">=</span> <span class="n">catoms</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tout</span> <span class="o">=</span> <span class="n">tout</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">savefile</span> <span class="o">=</span> <span class="n">savefile</span></div>
+
+<div class="viewcode-block" id="TurbomoleParse.normalisesym"><a class="viewcode-back" href="../../modules.html#QuantumTransport.TurbomoleParse.normalisesym">[docs]</a>    <span class="k">def</span> <span class="nf">normalisesym</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Normalise the symmetries used by Turbomole.</span>
+
+<span class="sd">        The labels are standardized except for the first character being lowercase.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># TODO more work could be required, but we don&#39;t have any logfiles</span>
+        <span class="c1"># with non-C1 symmetry.</span>
+        <span class="k">return</span> <span class="n">label</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="TurbomoleParse.parse_output"><a class="viewcode-back" href="../../modules.html#QuantumTransport.TurbomoleParse.parse_output">[docs]</a>    <span class="k">def</span> <span class="nf">parse_output</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Parse Turbomle output.&quot;&quot;&quot;</span>
+        <span class="c1"># pylint: disable=too-many-locals</span>
+        <span class="c1"># pylint: disable=too-many-branches</span>
+        <span class="c1"># pylint: disable=too-many-statements</span>
+
+        <span class="n">t19out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tout</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Reading Turbomole output file: </span><span class="si">{</span><span class="n">t19out</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">latoms</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">latoms</span>
+        <span class="n">catoms</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">catoms</span>
+        <span class="n">ccfile</span> <span class="o">=</span> <span class="n">ccopen</span><span class="p">(</span><span class="n">t19out</span><span class="p">)</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">ccfile</span><span class="o">.</span><span class="n">parse</span><span class="p">()</span>
+        <span class="n">program</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s1">&#39;package&#39;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">program</span> <span class="o">!=</span> <span class="s1">&#39;Turbomole&#39;</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Expecting Turbomole output, got </span><span class="si">{</span><span class="n">program</span><span class="si">}</span><span class="s2"> ouput.&quot;</span><span class="p">)</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">PeriodicTable</span><span class="p">()</span>
+        <span class="n">atombasis</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">atombasis</span> <span class="c1"># required local version of turbomoleparser.py</span>
+        <span class="c1"># partition a molecular junction based on Au atoms</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">latoms</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">catoms</span> <span class="o">==</span><span class="mi">0</span><span class="p">):</span>
+            <span class="n">latoms</span><span class="p">,</span> <span class="n">catoms</span> <span class="o">=</span> <span class="n">partition_mol</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">atomcoords</span><span class="p">,</span><span class="n">data</span><span class="o">.</span><span class="n">atomnos</span><span class="p">)</span>
+        <span class="n">left_basis</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">central_basis</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">right_basis</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">index</span><span class="p">,</span><span class="n">_</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">atomcoords</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]):</span>
+            <span class="n">elem</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">element</span><span class="p">[</span><span class="n">data</span><span class="o">.</span><span class="n">atomnos</span><span class="p">[</span><span class="n">index</span><span class="p">]]</span>
+            <span class="k">if</span> <span class="n">index</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">&lt;=</span> <span class="n">latoms</span><span class="p">:</span>
+                <span class="n">left_basis</span> <span class="o">+=</span> <span class="n">atombasis</span><span class="p">[</span><span class="n">elem</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span>
+            <span class="k">elif</span> <span class="n">index</span> <span class="o">+</span><span class="mi">1</span>  <span class="o">&gt;=</span> <span class="n">latoms</span> <span class="ow">and</span> <span class="n">index</span> <span class="o">+</span><span class="mi">1</span> <span class="o">&lt;=</span> <span class="n">catoms</span><span class="o">+</span><span class="n">latoms</span><span class="p">:</span>
+                <span class="n">central_basis</span> <span class="o">+=</span> <span class="n">atombasis</span><span class="p">[</span><span class="n">elem</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">right_basis</span> <span class="o">+=</span> <span class="n">atombasis</span><span class="p">[</span><span class="n">elem</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span>
+        <span class="n">total_basis</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">nbasis</span>
+        <span class="k">if</span> <span class="n">total_basis</span> <span class="o">!=</span> <span class="n">left_basis</span><span class="o">+</span><span class="n">central_basis</span><span class="o">+</span><span class="n">right_basis</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;inconsistency in number of basis functions!&#39;</span><span class="p">)</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
+        <span class="n">overlap</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">aooverlaps</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">savefile</span><span class="p">:</span>
+            <span class="n">write_basis_data</span><span class="p">(</span><span class="n">left_basis</span><span class="p">,</span><span class="n">central_basis</span><span class="p">,</span><span class="n">right_basis</span><span class="p">,</span><span class="n">total_basis</span><span class="p">)</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">savetxt</span><span class="p">(</span><span class="s1">&#39;overlap.txt&#39;</span><span class="p">,</span><span class="n">overlap</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;overlap matrix written in </span><span class="si">{</span><span class="s1">&#39;overlap.txt&#39;</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">isfile</span><span class="p">(</span><span class="s1">&#39;mos&#39;</span><span class="p">):</span>
+                <span class="n">mofile</span> <span class="o">=</span> <span class="s1">&#39;mos&#39;</span>
+                <span class="n">moenergy_file</span> <span class="o">=</span> <span class="s1">&#39;moeigv.txt&#39;</span>
+                <span class="n">mocoeffs_file</span> <span class="o">=</span> <span class="s1">&#39;mocoff.txt&#39;</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Reading scalar mos file ...&quot;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">parse_mos</span><span class="p">(</span><span class="n">mofile</span><span class="p">,</span><span class="n">moenergy_file</span><span class="p">,</span><span class="n">mocoeffs_file</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">isfile</span><span class="p">(</span><span class="s1">&#39;alpha&#39;</span><span class="p">):</span>
+                <span class="n">mofile</span> <span class="o">=</span> <span class="s1">&#39;alpha&#39;</span>
+                <span class="n">moenergy_file</span> <span class="o">=</span> <span class="s1">&#39;moeigva.txt&#39;</span>
+                <span class="n">mocoeffs_file</span> <span class="o">=</span> <span class="s1">&#39;mocoffa.txt&#39;</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">parse_mos</span><span class="p">(</span><span class="n">mofile</span><span class="p">,</span><span class="n">moenergy_file</span><span class="p">,</span><span class="n">mocoeffs_file</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Reading scalar alpha file ...&quot;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">parse_mos</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">isfile</span><span class="p">(</span><span class="s1">&#39;beta&#39;</span><span class="p">):</span>
+                <span class="n">mofile</span> <span class="o">=</span> <span class="s1">&#39;beta&#39;</span>
+                <span class="n">moenergy_file</span> <span class="o">=</span> <span class="s1">&#39;moeigvb.txt&#39;</span>
+                <span class="n">mocoeffs_file</span> <span class="o">=</span> <span class="s1">&#39;mocoffb.txt&#39;</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Reading scalar beta file ...&quot;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">parse_mos</span><span class="p">(</span><span class="n">mofile</span><span class="p">,</span><span class="n">moenergy_file</span><span class="p">,</span><span class="n">mocoeffs_file</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">isfile</span><span class="p">(</span><span class="s1">&#39;spinor.r&#39;</span><span class="p">):</span>
+                <span class="n">mofile</span> <span class="o">=</span> <span class="s1">&#39;spinor.r&#39;</span>
+                <span class="n">moenergy_file</span> <span class="o">=</span> <span class="s1">&#39;moeigv_so.txt&#39;</span>
+                <span class="n">mocoeffs_file</span> <span class="o">=</span> <span class="s1">&#39;mocoff_so_real.txt&#39;</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Reading SOC spinor.r file ...&quot;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">parse_mos</span><span class="p">(</span><span class="n">mofile</span><span class="p">,</span><span class="n">moenergy_file</span><span class="p">,</span><span class="n">mocoeffs_file</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">isfile</span><span class="p">(</span><span class="s1">&#39;spinor.i&#39;</span><span class="p">):</span>
+                <span class="n">mofile</span> <span class="o">=</span> <span class="s1">&#39;spinor.i&#39;</span>
+                <span class="n">moenergy_file</span> <span class="o">=</span> <span class="s1">&#39;moeigvi_so.txt&#39;</span>
+                <span class="n">mocoeffs_file</span> <span class="o">=</span> <span class="s1">&#39;mocoff_so_imag.txt&#39;</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Reading SOC spinor.i file ...&quot;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">parse_mos</span><span class="p">(</span><span class="n">mofile</span><span class="p">,</span><span class="n">moenergy_file</span><span class="p">,</span><span class="n">mocoeffs_file</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">isfile</span><span class="p">(</span><span class="s1">&#39;mos&#39;</span><span class="p">):</span>
+                <span class="n">mofile</span><span class="o">=</span><span class="s1">&#39;mos&#39;</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Reading scalar mos file ...&quot;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Calculating scalar Fock matrix ...&quot;</span><span class="p">)</span>
+                <span class="n">Eig</span><span class="p">,</span><span class="n">Cmo</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_mos</span><span class="p">(</span><span class="n">mofile</span><span class="p">)</span>
+                <span class="n">Eigm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diagflat</span><span class="p">(</span><span class="n">Eig</span><span class="p">)</span> <span class="c1"># converted to 2d diagonal</span>
+                <span class="c1"># scalar Fock matrix</span>
+                <span class="n">Fs</span><span class="o">=</span><span class="n">overlap</span><span class="nd">@Cmo@Eigm@Cmo</span><span class="o">.</span><span class="n">T</span><span class="nd">@overlap</span>
+            <span class="k">if</span> <span class="n">isfile</span><span class="p">(</span><span class="s1">&#39;spinor.r&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">isfile</span><span class="p">(</span><span class="s1">&#39;spinor.i&#39;</span><span class="p">):</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Reading SOC spinor.r and spinor.i files ...&quot;</span><span class="p">)</span>
+                <span class="n">mofile</span> <span class="o">=</span> <span class="s1">&#39;spinor.i&#39;</span>
+                <span class="n">Eigsoc</span><span class="p">,</span><span class="n">CmosocI</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_mos</span><span class="p">(</span><span class="n">mofile</span><span class="p">)</span>
+                <span class="n">mofile</span> <span class="o">=</span> <span class="s1">&#39;spinor.r&#39;</span>
+                <span class="n">Eigsoc</span><span class="p">,</span><span class="n">CmosocR</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_mos</span><span class="p">(</span><span class="n">mofile</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Calculating SOC Hamiltonian matrix ...</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="n">Eigsocm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diagflat</span><span class="p">(</span><span class="n">Eigsoc</span><span class="p">)</span> <span class="c1"># converted to 2d diagonal</span>
+                <span class="n">Vlsoc</span><span class="o">=</span><span class="n">CmosocR</span><span class="o">+</span><span class="mi">1</span><span class="n">j</span><span class="o">*</span><span class="n">CmosocI</span>
+                <span class="n">Fsca</span><span class="o">=</span> <span class="n">Vlsoc</span> <span class="o">@</span> <span class="n">Eigsocm</span> <span class="o">@</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">conj</span><span class="p">(</span><span class="n">Vlsoc</span><span class="p">))</span><span class="o">.</span><span class="n">T</span>
+                <span class="n">I2</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+                <span class="n">Sf2</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">I2</span><span class="p">,</span><span class="n">overlap</span><span class="p">)</span>
+                <span class="c1"># SOC Fock matrix</span>
+                <span class="n">Fsoc</span> <span class="o">=</span> <span class="n">Sf2</span> <span class="o">@</span> <span class="n">Fsca</span> <span class="o">@</span> <span class="n">Sf2</span>
+            <span class="k">return</span> <span class="n">left_basis</span><span class="p">,</span><span class="n">central_basis</span><span class="p">,</span><span class="n">right_basis</span><span class="p">,</span><span class="n">total_basis</span><span class="p">,</span><span class="n">overlap</span><span class="p">,</span><span class="n">Fs</span><span class="p">,</span><span class="n">Fsoc</span></div>
+
+<div class="viewcode-block" id="TurbomoleParse.parse_mos"><a class="viewcode-back" href="../../modules.html#QuantumTransport.TurbomoleParse.parse_mos">[docs]</a>    <span class="k">def</span> <span class="nf">parse_mos</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">mofile</span><span class="o">=</span><span class="s1">&#39;mos&#39;</span><span class="p">,</span><span class="n">moenergy_file</span><span class="o">=</span><span class="s1">&#39;moeigv.txt&#39;</span><span class="p">,</span><span class="n">mocoeffs_file</span><span class="o">=</span> \
+                  <span class="s1">&#39;mocoff.txt&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Modified cclib function to parse mocoeffs and moenergies from files:</span>
+<span class="sd">        mos, spinor.r,spinor.i, alpha, and beta.</span>
+<span class="sd">        # $scfmo    scfconv=6   format(4d20.14)</span>
+<span class="sd">        # # SCF total energy is     -382.3457535740 a.u.</span>
+<span class="sd">        # #</span>
+<span class="sd">        #      1  a      eigenvalue=-.97461484059799D+01   nsaos=60</span>
+<span class="sd">        # 0.69876828353937D+000.32405121159405D-010.87670894913921D-03-.85232349313288D-07</span>
+<span class="sd">        # 0.19361534257922D-04-.23841194890166D-01-.81711001390807D-020.13626356942047D-02</span>
+<span class="sd">        # ...</span>
+<span class="sd">        # ...</span>
+<span class="sd">        # $end</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># pylint: disable=too-many-locals</span>
+
+        <span class="n">inputfile</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">mofile</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+        <span class="n">line</span> <span class="o">=</span> <span class="n">inputfile</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;$scfmo&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;$uhfmo&#39;</span><span class="p">)</span> <span class="ow">or</span> \
+            <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;$spinor_real&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;$spinor_imag&#39;</span><span class="p">))</span> <span class="ow">and</span> \
+            <span class="n">line</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;scfconv&#39;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="c1">#sys.exit()</span>
+            <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;$uhfmo_alpha&#39;</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">unrestricted</span> <span class="o">=</span> <span class="kc">True</span>
+
+            <span class="c1"># Need to skip the first line to start with lines starting with &#39;#&#39;.</span>
+            <span class="n">line</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">inputfile</span><span class="p">)</span>
+            <span class="k">while</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;#&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">line</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;eigenvalue&#39;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">line</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">inputfile</span><span class="p">)</span>
+
+            <span class="n">moirreps</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">moenergies</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">mocoeffs</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">mosyms</span> <span class="o">=</span> <span class="p">[]</span>
+
+            <span class="k">while</span> <span class="ow">not</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;$&#39;</span><span class="p">):</span>
+                <span class="n">number</span><span class="p">,</span> <span class="n">sym</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[:</span><span class="mi">2</span><span class="p">]</span>
+                <span class="n">number</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">number</span><span class="p">)</span>
+                <span class="n">sym</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">normalisesym</span><span class="p">(</span><span class="n">sym</span><span class="p">)</span>
+                <span class="n">moenergy</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;=|nsaos&#39;</span><span class="p">,</span><span class="n">line</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                <span class="n">eigenvalue</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">float</span><span class="p">(</span><span class="n">moenergy</span><span class="p">)</span>
+                <span class="c1">#orbital_energy = utils.convertor(eigenvalue, &#39;hartree&#39;, &#39;eV&#39;)</span>
+                <span class="n">orbital_energy</span> <span class="o">=</span> <span class="n">eigenvalue</span>
+
+                <span class="n">moenergies</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">orbital_energy</span><span class="p">)</span>
+                <span class="n">mosyms</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sym</span><span class="p">)</span>
+                <span class="n">moirreps</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">number</span><span class="p">,</span> <span class="n">sym</span><span class="p">))</span>
+
+                <span class="n">single_coeffs</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="n">nsaos</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">,</span><span class="n">line</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+                <span class="c1">#nsaos = int(info.group(&#39;count&#39;))</span>
+                <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">single_coeffs</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">nsaos</span><span class="p">:</span>
+                    <span class="n">line</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">inputfile</span><span class="p">)</span>
+                    <span class="n">single_coeffs</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">Turbomole</span><span class="o">.</span><span class="n">split_molines</span><span class="p">(</span><span class="n">line</span><span class="p">))</span>
+
+                <span class="n">mocoeffs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">single_coeffs</span><span class="p">)</span>
+                <span class="n">line</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">inputfile</span><span class="p">)</span>
+
+            <span class="n">max_nsaos</span> <span class="o">=</span> <span class="nb">max</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">mocoeffs</span><span class="p">])</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">mocoeffs</span><span class="p">:</span>
+                <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">max_nsaos</span><span class="p">:</span>
+                    <span class="n">i</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+
+            <span class="c1"># We now need to sort our orbitals (because Turbomole groups them by symm).</span>
+            <span class="n">mos</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">moenergies</span><span class="p">,</span> <span class="n">mocoeffs</span><span class="p">,</span> <span class="n">mosyms</span><span class="p">,</span> <span class="n">moirreps</span><span class="p">))</span>
+            <span class="n">mos</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">mo</span><span class="p">:</span> <span class="n">mo</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">moenergies</span><span class="p">,</span> <span class="n">mocoeffs</span><span class="p">,</span> <span class="n">mosyms</span><span class="p">,</span> <span class="n">moirreps</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">mos</span><span class="p">)</span>
+            <span class="n">np_mocoeffs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">nsaos</span><span class="p">,</span><span class="n">nsaos</span><span class="p">),</span><span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+            <span class="n">np_mocoeffs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">mocoeffs</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">savefile</span><span class="p">:</span>
+                <span class="c1">#np.savetxt(self.moenergy_file,moenergies,newline=&#39; &#39;)</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">savetxt</span><span class="p">(</span><span class="n">moenergy_file</span><span class="p">,</span><span class="n">moenergies</span><span class="p">,</span><span class="n">newline</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;MO energies written in </span><span class="si">{</span><span class="n">moenergy_file</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="c1">#np.savetxt(self.mocoeffs_file,np_mocoeffs.T)</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">savetxt</span><span class="p">(</span><span class="n">mocoeffs_file</span><span class="p">,</span><span class="n">np_mocoeffs</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;MO coeffs written in </span><span class="si">{</span><span class="n">mocoeffs_file</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">moenergies</span><span class="p">,</span> <span class="n">np_mocoeffs</span><span class="o">.</span><span class="n">T</span></div></div>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot; Main function.&quot;&quot;&quot;</span>
+
+    <span class="n">description</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    Prepare input data for electron transport calculations from ADF, Gaussian, or Turbomle</span>
+<span class="s2">    outputs.</span>
+<span class="s2">    &quot;&quot;&quot;</span>
+    <span class="n">epilog</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;output: transport_params.json, overlap, fock matrices, and/or data files</span>
+<span class="s2">                        for constructing fock matrix</span>
+<span class="s2">    &quot;&quot;&quot;</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span>
+        <span class="n">usage</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%(prog)s</span><span class="s1"> [options] &#39;</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="n">description</span><span class="p">,</span>
+        <span class="n">formatter_class</span><span class="o">=</span><span class="n">argparse</span><span class="o">.</span><span class="n">RawDescriptionHelpFormatter</span><span class="p">,</span>
+        <span class="n">epilog</span><span class="o">=</span><span class="n">epilog</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;filename&#39;</span><span class="p">,</span> <span class="n">metavar</span><span class="o">=</span><span class="s1">&#39;filename&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;for g16 or t19 </span><span class="se">\</span>
+<span class="s1">            output, &quot;none&quot; for ADF&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-la&#39;</span><span class="p">,</span> <span class="s1">&#39;--latoms&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span> <span class="mi">0</span><span class="p">,</span><span class="n">help</span><span class="o">=</span><span class="s1">&#39;left electrode atoms&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-ca&#39;</span><span class="p">,</span> <span class="s1">&#39;--catoms&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span> <span class="mi">0</span><span class="p">,</span><span class="n">help</span><span class="o">=</span><span class="s1">&#39;central atoms&#39;</span><span class="p">)</span>
+    <span class="c1">#parser.add_argument(&#39;-ot&#39;, &#39;--otype&#39;, type=str, default= &#39;gaussian&#39;,</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-ot&#39;</span><span class="p">,</span> <span class="s1">&#39;--otype&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span> <span class="s1">&#39;turbomole&#39;</span><span class="p">,</span>
+                   <span class="n">help</span><span class="o">=</span><span class="s1">&#39;gausian or turbomole&#39;</span><span class="p">)</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">parser</span><span class="o">.</span><span class="n">print_help</span><span class="p">()</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">filename</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">filename</span>
+    <span class="n">latoms</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">latoms</span>
+    <span class="n">catoms</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">catoms</span>
+    <span class="n">output_type</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">otype</span>
+    <span class="k">if</span> <span class="n">output_type</span> <span class="o">==</span> <span class="s1">&#39;turbomole&#39;</span><span class="p">:</span>
+        <span class="n">tparse</span> <span class="o">=</span> <span class="n">TurbomoleParse</span><span class="p">(</span><span class="n">latoms</span><span class="o">=</span><span class="n">latoms</span><span class="p">,</span><span class="n">catoms</span><span class="o">=</span><span class="n">catoms</span><span class="p">,</span><span class="n">tout</span><span class="o">=</span><span class="n">filename</span><span class="p">)</span>
+        <span class="n">tparse</span><span class="o">.</span><span class="n">parse_output</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">output_type</span> <span class="o">==</span> <span class="s1">&#39;gaussian&#39;</span><span class="p">:</span>
+        <span class="n">gparse</span> <span class="o">=</span> <span class="n">GaussianParse</span><span class="p">(</span><span class="n">latoms</span><span class="o">=</span><span class="n">latoms</span><span class="p">,</span><span class="n">catoms</span><span class="o">=</span><span class="n">catoms</span><span class="p">,</span><span class="n">gout</span><span class="o">=</span><span class="n">filename</span><span class="p">)</span>
+        <span class="n">gparse</span><span class="o">.</span><span class="n">parse_output</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">output_type</span> <span class="o">==</span> <span class="s1">&#39;adf&#39;</span><span class="p">:</span>
+        <span class="n">aparse</span> <span class="o">=</span> <span class="n">ADFparse</span><span class="p">()</span>
+        <span class="n">_</span><span class="p">,</span><span class="n">_</span><span class="p">,</span><span class="n">_</span><span class="p">,</span><span class="n">nmo</span> <span class="o">=</span> <span class="n">aparse</span><span class="o">.</span><span class="n">parse_basis</span><span class="p">()</span>
+        <span class="n">aparse</span><span class="o">.</span><span class="n">overlap_scalar</span><span class="p">(</span><span class="n">nmo</span><span class="p">)</span>
+        <span class="n">aparse</span><span class="o">.</span><span class="n">fock_scalar</span><span class="p">(</span><span class="n">nmo</span><span class="p">)</span>
+        <span class="n">aparse</span><span class="o">.</span><span class="n">MOvec_spinorb</span><span class="p">(</span><span class="n">nmo</span><span class="p">)</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Kiet A. Nguyen.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

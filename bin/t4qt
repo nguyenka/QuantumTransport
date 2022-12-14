@@ -1,0 +1,96 @@
+#!/usr/bin/env python3
+# pylint: disable=invalid-name
+# pylint: disable=multiple-statements
+# pylint: disable=bare-except
+"""Script for Turbomole quantum chemical calculations."""
+import argparse
+import sys
+import os
+from os.path import isfile
+import json
+from ase.io import read
+from ase.calculators.turbomole import Turbomole, add_data_group
+
+def t19_cal(fname,ncpu,ecp_group):
+    """
+    function for creating Turbomole input and running the ridft.
+    """
+
+    a = read(fname)
+    if fname[-3:] == 'xyz': filename=fname[:-4]
+    if fname[-4:] == 'traj': filename=fname[:-5]
+    # default settings
+    params = {
+    'title': filename,
+    'task': 'energy calculation',
+    'basis set name': 'x2c-SVPall-2c',
+    'total charge': 0,
+    'multiplicity': 1,
+    'use dft': True,
+    'density functional': 'b3-lyp',
+    'use resolution of identity': True,
+    'scf iterations': 400
+    }
+    if isfile('t19_params.json'):
+        print('T19 settings from file {0}'.format('t19_params.json'))
+        f = open('t19_params.json')
+        t19_params = json.load(f)
+        params = t19_params['params']
+        params['title'] = filename
+        print('reading Turbomole keywords from t19_params.json \n', params)
+    else:
+        print('Turbomole keywords: \n', params)
+    #   'ri memory': 2000,
+    calc = Turbomole(**params)
+    a.set_calculator(calc)
+    calc.initialize()
+    if ecp_group == 'ecp':
+        add_data_group('ecp','file=basis')
+        add_data_group('newecp')
+    add_data_group('intsdebug','SAO')
+    add_data_group('rx2c')
+    #calc.calculate(a)
+    #assert calc.converged # # check SCF convergence
+    ridft = '/p/home/nguyenka/COSMOlogic/TmoleX19/TURBOMOLE/smprun_scripts/ridft -n '
+    os.system('{0} {1} >& {2}'.format(ridft,ncpu,filename+'.out'))
+    # so calculation
+    #calc = Turbomole(restart=True, **params)
+    add_data_group('kramers')
+    add_data_group('soghf')
+    #calc.calculate(a)
+    os.system('{0} {1} >& {2}'.format(ridft,ncpu,filename+'_so.out'))
+    #assert calc.converged # # check SCF convergence
+    # print fock matrix in T19 for converged run
+    #$scfiterlimit     0
+    #$scfdebug debug 1
+
+def main():
+    """
+    function for g4qt
+    """
+    description = """
+    Read xyz file then run Turbomole's ridft for transport data.
+    """
+    epilog = """ """
+    parser = argparse.ArgumentParser(
+        usage='%(prog)s [options] ',
+        description=description,
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog=epilog)
+    parser.add_argument('filename', metavar='filename', type=str,
+            help='input file')
+    parser.add_argument('-n', '--nproc', type=int, default= 1,
+            help= 'Number of CPUs')
+    parser.add_argument('-e', '--ecp', action="store_true",
+            help= "add ECP group ")
+    args = parser.parse_args()
+    if len(sys.argv) == 0:
+        parser.print_help()
+        sys.exit()
+    Filename = args.filename
+    nproc = args.nproc
+    ecp = args.ecp
+    t19_cal(Filename,nproc,ecp)
+if __name__ == "__main__":
+    main()
+

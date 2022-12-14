@@ -1,0 +1,18 @@
+About QuantumTransport
+======================
+
+QuantumTransport is a package for calculating electron spin polarization and 
+transmission of a molecular junction system. Calculations of electron
+transmission through a molecule (central region) connected to (semi-infinite)
+contacts (left and right electrodes) are based on the non-self-consistent
+Green’s function method, an approximation to the non-equilibrium Green’s
+function (NEGF) method.
+
+Spin polarization in the electron transmission of closed- and open shell
+systems (such as radicals or diradicals) can be performed by interfacing with
+electronic structure packages. For closed-shell systems, it requires
+electronic structure calculations taking spin−orbit coupling (SOC) into
+account.  Greeen's functions of the left and right electrodes are approximated
+within the wide-band limit, using a constant local density of states, cLDOS.
+Coupling terms of electrodes are neglected.
+

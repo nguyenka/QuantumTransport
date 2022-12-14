@@ -1,0 +1,88 @@
+#!/usr/bin/env python3
+# pylint: disable=invalid-name
+# pylint: disable=multiple-statements
+# pylint: disable=broad-except
+"""Script for Gaussian quantum chemical calculations."""
+import argparse
+import sys
+import socket
+from os.path import isfile
+from ase.io import read
+from ase.calculators.gaussian import Gaussian
+
+def g16_cal(fname,ncpu,mkey,bkey,ram):
+    """
+    function for creating Gaussian input and running the program.
+    """
+
+    hostname=socket.gethostname()
+    hostname=hostname[:-2]
+    if hostname=='mustang':
+        if ncpu == 1: ncpu = 48
+        ram  = '7500Mb'
+    else:
+        if ncpu == 1: ncpu = 64
+        ram  = '7500Mb'
+
+    a = read(fname)
+    if fname[-3:] == 'xyz': filename=fname[:-4]
+    if fname[-4:] == 'traj': filename=fname[:-5]
+    basis_opt = 'GFPrint GFINPUT '
+    scf_opt = 'scf=(tight,direct,MaxCycle=122) '
+    dis_opt = 'empiricaldisper=gd3bj '
+    guess_opt = 'guess=read '
+    iop_opt = 'iop(6/7=3) iop(5/33=3) iop(3/33=1) '
+
+    if isfile(filename+'.chk'):
+        calc = Gaussian(method=mkey+guess_opt+basis_opt+dis_opt+iop_opt+scf_opt,
+        basis=bkey,multiplicity=2,
+        nproc=ncpu, mem=ram, chk=filename+'.chk',
+        label=filename)
+        a.set_calculator(calc)
+        calc.write_input(a)
+        #os.system('g16 < {0} > {1}'.format(filename+'.com',filename+'.log'))
+        #a.get_potential_energy()
+    else:
+        calc = Gaussian(method=mkey+basis_opt+dis_opt+iop_opt+scf_opt,
+        basis=bkey,multiplicity=2,
+        nproc=ncpu, mem=ram, chk=filename+'.chk',
+        label=filename)
+        a.set_calculator(calc)
+        calc.write_input(a)
+        #os.system('g16 < {0} > {1}'.format(filename+'.com',filename+'.log1'))
+
+def main():
+    """
+    function for g4qt
+    """
+    description = """
+    Read xyz file then run Gaussian 16 for transport data.
+    """
+    epilog = """ """
+    parser = argparse.ArgumentParser(
+        usage='%(prog)s [options] ',
+        description=description,
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog=epilog)
+    parser.add_argument('filename', metavar='filename', type=str,
+            help='input file')
+    parser.add_argument('-n', '--nproc', type=int, default= 1,
+            help= 'Number of CPUs')
+    parser.add_argument('-b', '--basis', type=str, default= 'lanl2dz',
+            help= 'Basis set')
+    parser.add_argument('-m', '--method', type=str, default= 'b3lyp',
+            help= 'Method ')
+    parser.add_argument('-r', '--ram', type=int, default= 7500,
+            help= 'Memory in Mb')
+    args = parser.parse_args()
+    if len(sys.argv) == 0:
+        parser.print_help()
+        sys.exit()
+    Filename = args.filename
+    nproc = args.nproc
+    method = args.method
+    basis = args.basis
+    ram = args.ram
+    g16_cal(Filename,nproc,method,basis,ram)
+if __name__ == "__main__":
+    main()

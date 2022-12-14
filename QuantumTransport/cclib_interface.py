@@ -1,8 +1,8 @@
 # pylint: disable=invalid-name
 """
-   Module for parsing data from the output files generated electronic
-   structure programs(ADF, Gaussian, Turbomole) to calculate electron
-   quantum transport (QT) properties.
+    Module for parsing data from the output files generated electronic
+    structure programs(ADF, Gaussian, Turbomole) to calculate electron
+    quantum transport (QT) properties.
 """
 import argparse
 import json
@@ -250,7 +250,7 @@ class GaussianParse:
         """
         parse: gaussian output
         exact: basis functions left,central,and right electrodes,overlap matrix,
-               mo coeffs and energies
+        mo coeffs and energies
         """
         # pylint: disable=too-many-locals
         # pylint: disable=too-many-statements
