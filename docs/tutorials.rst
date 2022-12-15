@@ -153,7 +153,20 @@ Verdazl  0.004                 0.0042
 OPE      0.008                 0.0071
 =======  ===================   ================
 
+The next example illustrates (Figure 2) first-principles calculations of the 
+spin polarization in molecular junctions caused by the chiral induced spin 
+selectivity (CISS) effect.  The B3LYP/x2c-SVPall-2c polarization function for 
+the equidistant carbon helix between two 10-atom gold clusters compares well with 
+values reported by Zöllner et al. [2]_ 
+
+.. figure:: ./_static/equi_au_sw_t19.png
+   :scale: 80 %
+
+   Figure 2. B3LYP/x2c-SVPall-2c polarization function for the equidistant carbon helix between two 10-atom gold clusters compared with Zöllner et al. [2]_
+
 References
 ----------
 
 .. [1] Zöllner, M. S.; Nasri, R.; Zhang, H.; Herrmann, C. Design Considerations for Oligo(p‑phenyleneethynylene) Organic Radicals in Molecular Junctions. J. Phys. Chem. C 2021, 12,1208−1220.
+
+.. [2]  Zöllner, M. S.; Saghatchi, A.; Mujica, V.; Herrmann, C., Influence of Electronic Structure Modeling and Junction Structure on First-Principles Chiral Induced Spin Selectivity. J. Chem. Theory Comput. 2020, 16 (12), 7357-7371.

@@ -2,7 +2,7 @@
 # pip install --user -e .
 from setuptools import setup   
 
-requirements = ['ase>=3.22.1','cclib>=1.7.1', 'matplotlib', 'munch>=2.5.0','numpy>=1.20.1']
+requirements = ['ase>=3.22.1','cclib>=1.7.1', 'matplotlib', 'munch>=2.5.0','numpy>=1.19.5']
 
 setup(name="QuantumTransport",
       version="0.1",
