@@ -1,8 +1,9 @@
 $title
-cfe_t19
+cfe_ecp_t19
 $soghf
 $kramers
-$rx2c
+$newecp
+$ecp file=basis
 $intsdebug SAO
 $symmetry c1
 $user-defined bonds    file=coord
@@ -15,29 +16,31 @@ $optimize
  basis      off
 $atoms
 au 1-2,11-12                                                                   \
-   basis =au x2c-SVPall-2c                                                     \
-   jbas  =au x2c-SVPall-2c
+   basis =au dhf-SVP                                                           \
+   ecp   =au dhf-ecp                                                           \
+   jbas  =au dhf-SVP
 c  3-4                                                                         \
-   basis =c x2c-SVPall-2c                                                      \
-   jbas  =c x2c-SVPall-2c
+   basis =c dhf-SVP                                                            \
+   jbas  =c dhf-SVP
 h  5,8-10                                                                      \
-   basis =h x2c-SVPall-2c                                                      \
-   jbas  =h x2c-SVPall-2c
+   basis =h dhf-SVP                                                            \
+   jbas  =h dhf-SVP
 f  6                                                                           \
-   basis =f x2c-SVPall-2c                                                      \
-   jbas  =f x2c-SVPall-2c
+   basis =f dhf-SVP                                                            \
+   jbas  =f dhf-SVP
 cl 7                                                                           \
-   basis =cl x2c-SVPall-2c                                                     \
-   jbas  =cl x2c-SVPall-2c
+   basis =cl dhf-SVP                                                           \
+   jbas  =cl dhf-SVP
 $basis    file=basis
 $ecp    file=basis
+$newecp
 $scfmo   file=mos
 $closed shells
- a       1-179                                  ( 2 )
+ a       1-59                                   ( 2 )
 $scfiterlimit      100
 $thize     0.10000000E-04
 $thime        5
-$scfdamp   start=1.000  step=0.050  min=0.100
+$scfdamp   start=0.300  step=0.050  min=0.100
 $scfdump
 $scfintunit
  unit=30       size=0        file=twoint
@@ -75,20 +78,20 @@ $rij
 $jbas    file=auxbasis
 $rundimensions
    natoms=12
-   nbf(CAO)=519
-   nbf(AO)=455
+   nbf(CAO)=232
+   nbf(AO)=208
 $last step     ridft
-$last SCF energy change = -78.366779
+$last SCF energy change = -.13614137
 $subenergy  Etot         E1                  Ej                Ex                 Ec                 En
--76706.76672462    -118006.4810058     36099.00687496    -1207.094404562    -22.10256565824     6429.904376487
+-1181.066048503    -3562.937882034     1599.162480820    -77.80997193292    -5.010731766665     865.5300564101
 $charge from ridft
-         -0.000 (not to be modified here)
+          0.000 (not to be modified here)
 $dipole from ridft
-  x    -0.26302499699692    y    -0.44010027367440    z     0.64697601062652    a.u.
-   | dipole | =    2.0982246564  debye
+  x    -0.24996422318405    y    -0.44382458936320    z     0.65590979376334    a.u.
+   | dipole | =    2.1108595561  debye
 $spinor_real       file=spinor.r
 $spinor_imag       file=spinor.i
 $spinor shells
- a       1-358                                  ( 1 )
+ a       1-118                                  ( 1 )
 $orbital_max_rnorm  0.0000000000000
 $end

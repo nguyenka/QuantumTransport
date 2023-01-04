@@ -27,7 +27,7 @@ Coupling terms of electrodes are neglected.
 ```
 git clone https://github.com/nguyenka/QuantumTransport.git
 cd QuantumTransport
-pip --user install -e .
+pip install --user -e .
 ```
 
 ## Using qt script: 

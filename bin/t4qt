@@ -44,11 +44,12 @@ def t19_cal(fname,ncpu,ecp_group):
     calc = Turbomole(**params)
     a.set_calculator(calc)
     calc.initialize()
-    if ecp_group == 'ecp':
+    add_data_group('intsdebug','SAO')
+    if ecp_group is True:
         add_data_group('ecp','file=basis')
         add_data_group('newecp')
-    add_data_group('intsdebug','SAO')
-    add_data_group('rx2c')
+    else:
+        add_data_group('rx2c')
     #calc.calculate(a)
     #assert calc.converged # # check SCF convergence
     ridft = '/p/home/nguyenka/COSMOlogic/TmoleX19/TURBOMOLE/smprun_scripts/ridft -n '
