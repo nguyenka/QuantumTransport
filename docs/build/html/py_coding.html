@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Coding Conventions &mdash; QuantumTransport 1.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Writing documentation" href="write_qt_doc.html" />
+    <link rel="prev" title="Development" href="develop.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> QuantumTransport
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="develop.html">Development</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Coding Conventions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#importing-modules">Importing modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#python-coding-conventions">Python Coding Conventions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#use">Use</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#avoid">Avoid</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#writing-documentation-in-the-code">Writing documentation in the code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#run-pep8-and-pylint-on-your-code">Run pep8 and pylint on your code</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="write_qt_doc.html">Writing documentation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">QuantumTransport</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">Coding Conventions</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/py_coding.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="coding-conventions">
+<span id="id1"></span><h1>Coding Conventions<a class="headerlink" href="#coding-conventions" title="Permalink to this headline"></a></h1>
+<div class="section" id="importing-modules">
+<h2>Importing modules<a class="headerlink" href="#importing-modules" title="Permalink to this headline"></a></h2>
+<p>Do <em>not</em> use the <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">*</span></code> syntax.  Explicitly import everything:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">munch</span> <span class="kn">import</span> <span class="n">Munch</span>
+<span class="kn">from</span> <span class="nn">cclib.parser</span> <span class="kn">import</span> <span class="n">utils</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="python-coding-conventions">
+<h2>Python Coding Conventions<a class="headerlink" href="#python-coding-conventions" title="Permalink to this headline"></a></h2>
+<p>Using <span class="math notranslate nohighlight">\(pep8 or pyflint\)</span> will help improve the readability and consistency of
+Python code, as described below.</p>
+<div class="section" id="use">
+<h3>Use<a class="headerlink" href="#use" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>Use “StudlyCaps” for class names.</p></li>
+<li><p>Use 4 spaces for each indentation level.  No hard tabs.</p></li>
+<li><p>Use lowercase or “lowercase_with_underscores” for function,
+method, and variable names.</p></li>
+<li><p>Use ‘single quotes’ for strings, and “””triple
+double quotes””” for <code class="docutils literal notranslate"><span class="pre">docstrings</span></code>.  Double quotes are OK for
+something like <code class="docutils literal notranslate"><span class="pre">&quot;don't&quot;</span></code>.</p></li>
+</ul>
+</div>
+<div class="section" id="avoid">
+<h3>Avoid<a class="headerlink" href="#avoid" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>Avoid trailing whitespaces.</p></li>
+<li><p>Avoid one-liner compound statements (e.g., <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">x:</span> <span class="pre">return</span></code>)</p></li>
+<li><p>Avoid lambda expressions, which are difficult to understand.</p></li>
+<li><p>Void lines more than 78 characters long.</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="writing-documentation-in-the-code">
+<h2>Writing documentation in the code<a class="headerlink" href="#writing-documentation-in-the-code" title="Permalink to this headline"></a></h2>
+<p>Here is an example of how to write good docstrings:</p>
+<blockquote>
+<div><p><a class="reference external" href="https://github.com/numpy/numpy/blob/master/doc/example.py">https://github.com/numpy/numpy/blob/master/doc/example.py</a></p>
+</div></blockquote>
+</div>
+<div class="section" id="run-pep8-and-pylint-on-your-code">
+<h2>Run pep8 and pylint on your code<a class="headerlink" href="#run-pep8-and-pylint-on-your-code" title="Permalink to this headline"></a></h2>
+<p>It’s a good idea to run both the <a class="reference external" href="http://pep8.readthedocs.org/en/latest/index.html">pep8</a> and pylint on
+your code (or use a text editor that does it automatically):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pep8 --ignore W293,E129 filename.py
+$ pylint filename.py
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="develop.html" class="btn btn-neutral float-left" title="Development" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="write_qt_doc.html" class="btn btn-neutral float-right" title="Writing documentation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Kiet A. Nguyen.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -14,6 +14,9 @@ Welcome to QuantumTransport's documentation!
    Introduction <intro>
    Tutorials <tutorials>
    Modules <modules>
+   Development <develop>
+   Coding Conventions <py_coding>
+   Writing documentation <write_qt_doc>
 
 
 Indices and tables

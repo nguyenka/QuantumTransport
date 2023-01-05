@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Development &mdash; QuantumTransport 1.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Coding Conventions" href="py_coding.html" />
+    <link rel="prev" title="QuantumTransport package" href="modules.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> QuantumTransport
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">Modules</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Development</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#forking">Forking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cloning">Cloning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#making-changes">Making changes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#making-small-changes">Making small changes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#writing-the-commit-message">Writing the commit message</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#code-review">Code review</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#basic-info-on-git">Basic info on git</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="py_coding.html">Coding Conventions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="write_qt_doc.html">Writing documentation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">QuantumTransport</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">Development</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/develop.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="development">
+<h1>Development<a class="headerlink" href="#development" title="Permalink to this headline"></a></h1>
+<p>Code development follows a collaborative model of <a class="reference external" href="https://docs.github.com/en/get-started/quickstart/fork-a-repo">forks</a> (or clone) and <a class="reference external" href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests">pull requests</a>
+on <a class="reference external" href="https://github.com">https://github.com</a> using <a class="reference external" href="https://git-scm.com/">Git</a> (see the <a class="reference internal" href="#basis-info-on-git"><span class="std std-ref">Basic info on git section</span></a>).</p>
+<ul class="simple">
+<li><p>Make a new branch for whatever you are doing.  When you are done, push
+it to your own repository and make a merge request from that branch in your
+repository to official master.</p></li>
+</ul>
+<div class="section" id="forking">
+<h2>Forking<a class="headerlink" href="#forking" title="Permalink to this headline"></a></h2>
+<p>Forking (see <a class="reference external" href="https://docs.github.com/en/get-started/quickstart/fork-a-repo">forks</a>) QuantumTransport give you your own personal copy of
+the project at
+<a class="reference external" href="https://github.com/your-user-name/QuantumTransport">https://github.com/your-user-name/QuantumTransport</a></p>
+<blockquote>
+<div><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">origin</span></code> refers to your copy of the project located at</dt><dd><p><a class="reference external" href="https://github.com/your-user-name/QuantumTransport">https://github.com/your-user-name/QuantumTransport</a></p>
+</dd>
+</dl>
+</div></blockquote>
+<ul>
+<li><p>Clone your fork to your local machine:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ git clone https://github.com/your-user-name/QuantumTransport
+$ cd QuantumTransport
+$ git remote -v
+</pre></div>
+</div>
+<p>List the remotes that you are tracking.</p>
+</li>
+</ul>
+</div>
+<div class="section" id="cloning">
+<h2>Cloning<a class="headerlink" href="#cloning" title="Permalink to this headline"></a></h2>
+<ul>
+<li><p>Clone QuantumTransport to your local machine and change <code class="docutils literal notranslate"><span class="pre">origin</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ git clone https://github.com/nguyenka/QuantumTransport
+$ git remote add orgin https://github.com/your-user-name/QuantumTransport
+$ git remote -v
+</pre></div>
+</div>
+<p>List the remotes that you are tracking should have a new <code class="docutils literal notranslate"><span class="pre">origin</span></code>.</p>
+</li>
+</ul>
+</div>
+<div class="section" id="making-changes">
+<h2>Making changes<a class="headerlink" href="#making-changes" title="Permalink to this headline"></a></h2>
+<p>Changes and/or additions can be made both directly in Github for small
+changes (see the <a class="reference internal" href="#making-small-changes"><span class="std std-ref">small changes section</span></a>) and on a
+local branch in your fork.</p>
+<blockquote>
+<div><ul>
+<li><p>First, checkout a (new) local branch. For example,
+to make changes to the file develop.rst:</p>
+<blockquote>
+<div><p>$ git checkout -b add-develop-rst</p>
+</div></blockquote>
+</li>
+<li><p>After making changes, stage the file to be committed using <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">add</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ git add develop.rst
+</pre></div>
+</div>
+</li>
+<li><p>Check status of the repos:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ git status
+</pre></div>
+</div>
+</li>
+<li><p>Commit the staged changes and add commit message or commit text file:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ git commit -m &quot;ENH: Add developer workflow guidelines&quot;
+$ git commit -a -F commit.txt
+$ git commit
+</pre></div>
+</div>
+<p>A text editor will appear using <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">commit</span></code>. Type in commit message
+using guidelines from <a class="reference external" href="http://chris.beams.io/posts/git-commit/">here</a>:</p>
+<p>The seven rules of a great git commit message</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Separate subject from body with a blank line</p></li>
+<li><p>Limit the subject line to 50 characters</p></li>
+<li><p>Capitalize the subject line</p></li>
+<li><p>Do not end the subject line with a period</p></li>
+<li><p>Use the imperative mood in the subject line</p></li>
+<li><p>Wrap the body at 72 characters</p></li>
+<li><p>Use the body to explain what and why vs. how</p></li>
+</ol>
+</div></blockquote>
+<p>Read the <a class="reference internal" href="#writing-the-commit-message"><span class="std std-ref">commit message
+section</span></a> guidelines for commit messages for
+additional information.</p>
+</li>
+<li><p>Push commits to your Github repository:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ git push -u origin add-develop-rst
+</pre></div>
+</div>
+</li>
+<li><p><a class="reference external" href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests">pull requests</a> and wait for feedback and address concerns as needed
+by adding more commits to the ‘add-develop-rst’ branch on your
+personal repository and then pushing to your github repository.</p></li>
+<li><p>After the merge-request is done, delete the branch locally:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ git branch -D add-develop-rst
+</pre></div>
+</div>
+</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="making-small-changes">
+<span id="id1"></span><h2>Making small changes<a class="headerlink" href="#making-small-changes" title="Permalink to this headline"></a></h2>
+<p>If you want to fix a typo or a line of code. Github has a <a class="reference external" href="https://docs.github.com/en/repositories/working-with-files/managing-files/editing-files">web</a> editing feature.
+Here are the steps to do that there:</p>
+<ul class="simple">
+<li><p>Go to <a class="reference external" href="https://github.com/your-user-name/QuantumTransport">https://github.com/your-user-name/QuantumTransport</a></p></li>
+<li><p>In your repository, browse to the file you want to edit and fix the typo or code</p></li>
+<li><p>When you edit a file in another user’s repository, github will automatically fork the repository and open a pull request for you.</p></li>
+</ul>
+</div>
+<div class="section" id="writing-the-commit-message">
+<span id="id2"></span><h2>Writing the commit message<a class="headerlink" href="#writing-the-commit-message" title="Permalink to this headline"></a></h2>
+<p>Here are the ollowing the guidlines from ASE, commit messages should be clear and follow a few basic rules.  Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ENH</span><span class="p">:</span> <span class="n">add</span> <span class="n">functionality</span> <span class="n">X</span> <span class="n">to</span> <span class="n">QuantumTransport</span><span class="o">.&lt;</span><span class="n">submodule</span><span class="o">&gt;.</span>
+
+<span class="n">The</span> <span class="n">first</span> <span class="n">line</span> <span class="n">of</span> <span class="n">the</span> <span class="n">commit</span> <span class="n">message</span> <span class="n">starts</span> <span class="k">with</span> <span class="n">a</span> <span class="n">capitalized</span> <span class="n">acronym</span>
+<span class="p">(</span><span class="n">options</span> <span class="n">listed</span> <span class="n">below</span><span class="p">)</span> <span class="n">indicating</span> <span class="n">what</span> <span class="nb">type</span> <span class="n">of</span> <span class="n">commit</span> <span class="n">this</span> <span class="ow">is</span><span class="o">.</span>  <span class="n">Then</span> <span class="n">a</span> <span class="n">blank</span>
+<span class="n">line</span><span class="p">,</span> <span class="n">then</span> <span class="n">more</span> <span class="n">text</span> <span class="k">if</span> <span class="n">needed</span><span class="o">.</span>  <span class="n">Lines</span> <span class="n">shouldn</span><span class="s1">&#39;t be longer than 72</span>
+<span class="n">characters</span><span class="o">.</span>  <span class="n">If</span> <span class="n">the</span> <span class="n">commit</span> <span class="ow">is</span> <span class="n">related</span> <span class="n">to</span> <span class="n">a</span> <span class="n">ticket</span><span class="p">,</span> <span class="n">indicate</span> <span class="n">that</span> <span class="k">with</span>
+<span class="s2">&quot;See #3456&quot;</span><span class="p">,</span> <span class="s2">&quot;See ticket 3456&quot;</span><span class="p">,</span> <span class="s2">&quot;Closes #3456&quot;</span> <span class="ow">or</span> <span class="n">similar</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>Describing the motivation for a change, the nature of a bug for bug fixes or
+some details on what an enhancement does are also good to include in a commit
+message.  Messages should be understandable without looking at the code
+changes.  A commit message like <code class="docutils literal notranslate"><span class="pre">MAINT:</span> <span class="pre">fixed</span> <span class="pre">another</span> <span class="pre">one</span></code> is an example of
+what not to do; the reader has to go look for context elsewhere.</p>
+<p>Standard acronyms to start the commit message with are:</p>
+<dl class="field-list simple">
+<dt class="field-odd">API</dt>
+<dd class="field-odd"><p>API change</p>
+</dd>
+<dt class="field-even">BUG</dt>
+<dd class="field-even"><p>bug fix</p>
+</dd>
+<dt class="field-odd">DEP</dt>
+<dd class="field-odd"><p>deprecate something, or remove a deprecated object</p>
+</dd>
+<dt class="field-even">DEV</dt>
+<dd class="field-even"><p>development tool or utility</p>
+</dd>
+<dt class="field-odd">DOC</dt>
+<dd class="field-odd"><p>documentation</p>
+</dd>
+<dt class="field-even">ENH</dt>
+<dd class="field-even"><p>enhancement</p>
+</dd>
+<dt class="field-odd">MAINT</dt>
+<dd class="field-odd"><p>maintenance commit (refactoring, typos, etc.)</p>
+</dd>
+<dt class="field-even">REV</dt>
+<dd class="field-even"><p>revert an earlier commit</p>
+</dd>
+<dt class="field-odd">STY</dt>
+<dd class="field-odd"><p>style fix (whitespace, PEP8)</p>
+</dd>
+<dt class="field-even">TST</dt>
+<dd class="field-even"><p>addition or modification of tests</p>
+</dd>
+</dl>
+<div class="section" id="code-review">
+<h3>Code review<a class="headerlink" href="#code-review" title="Permalink to this headline"></a></h3>
+<p>Before you start working on a Merge Request, <em>please</em> read
+<a class="reference internal" href="py_coding.html#coding-conventions"><span class="std std-ref">Coding Conventions</span></a>.  Please also install pylint!</p>
+<p>Hopefully someone will look at your changes and give you some
+feedback.  Maybe everything is fine and things can be merged to the official
+repository right away, but there could also be some more work to do like:</p>
+<ul class="simple">
+<li><p>make it compatible with Pythons 3.6 and 3.8</p></li>
+<li><p>write more comments</p></li>
+<li><p>fix docstrings</p></li>
+<li><p>write a test</p></li>
+<li><p>add some documentation</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="basic-info-on-git">
+<span id="basis-info-on-git"></span><h2>Basic info on git<a class="headerlink" href="#basic-info-on-git" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="http://gitref.org">Git Reference</a></p></li>
+<li><p><a class="reference external" href="https://git-scm.com/book/en/v2">Pro Git</a></p></li>
+<li><p><a class="reference external" href="https://www.youtube.com/watch?v=ZDR433b0HJY">Introduction to Git with Scott Chacon of GitHub</a></p></li>
+<li><p><a class="reference external" href="https://www.youtube.com/watch?v=4XpnKHJAok8">Tech Talk: Linus Torvalds on git</a></p></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="modules.html" class="btn btn-neutral float-left" title="QuantumTransport package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="py_coding.html" class="btn btn-neutral float-right" title="Coding Conventions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Kiet A. Nguyen.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
