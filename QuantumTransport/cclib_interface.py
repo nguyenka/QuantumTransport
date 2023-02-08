@@ -426,11 +426,13 @@ class TurbomoleParse:
         for index,_ in enumerate(data.atomcoords[-1]):
             elem = t.element[data.atomnos[index]]
             if index + 1 <= latoms:
-                left_basis += atombasis[elem.lower()]
+                # for dict type of local version of atombasis
+                #left_basis += atombasis[elem.lower()] 
+                left_basis += len(atombasis[index])
             elif index +1  >= latoms and index +1 <= catoms+latoms:
-                central_basis += atombasis[elem.lower()]
+                central_basis += len(atombasis[index])
             else:
-                right_basis += atombasis[elem.lower()]
+                right_basis += len(atombasis[index])
         total_basis = data.nbasis
         if total_basis != left_basis+central_basis+right_basis:
             print('inconsistency in number of basis functions!')

@@ -1,4 +1,4 @@
-Metadata-Version: 1.1
+Metadata-Version: 2.1
 Name: QuantumTransport
 Version: 0.1
 Summary: Calculating electron spin polarization and transmission
@@ -6,14 +6,6 @@ Home-page: https://github.com/nguyenka/QuantumTransport
 Author: Kiet A. Nguyen
 Author-email: kiet.nguyen.2.ctr@afrl.af.mil
 License: GNU General Public License 3.0
-Description: 
-        Calculating electron spin polarization and transmission
-        -------------------------------------------------------
-        
-        This package calculates spin polarization and transmission for:
-        1) Chiral induced spin polarization transmission with SOC a closed-shell singlet.
-        1) Spin polarization transmission for an open shell radical.
-        
 Platform: platform independent
 Classifier: Programming Language :: Python :: 3.6
 Classifier: Programming Language :: Python :: 3.8
@@ -21,3 +13,11 @@ Classifier: Environment :: Console
 Classifier: Intended Audience :: Science/Research
 Classifier: Operating System :: OS Independent
 Classifier: Topic :: Scientific/Engineering
+
+
+Calculating electron spin polarization and transmission
+-------------------------------------------------------
+
+This package calculates spin polarization and transmission for:
+1) Chiral induced spin polarization transmission with SOC a closed-shell singlet.
+1) Spin polarization transmission for an open shell radical.

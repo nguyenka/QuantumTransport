@@ -16,6 +16,7 @@ setup(name="QuantumTransport",
       scripts=[
           "bin/qt",
           "bin/qt_dat",
+          "bin/qt_plot",
           "bin/g4qt",
           "bin/t4qt"
           ],

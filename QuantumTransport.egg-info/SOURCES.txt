@@ -12,4 +12,5 @@ QuantumTransport.egg-info/top_level.txt
 bin/g4qt
 bin/qt
 bin/qt_dat
+bin/qt_plot
 bin/t4qt

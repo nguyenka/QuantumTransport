@@ -40,6 +40,9 @@
 <li class="toctree-l1"><a class="reference internal" href="../../intro.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials.html">Tutorials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../modules.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../develop.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../py_coding.html">Coding Conventions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../write_qt_doc.html">Writing documentation</a></li>
 </ul>
 
         </div>
@@ -186,8 +189,8 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># pylint: disable=too-many-instance-attributes</span>
 
-<div class="viewcode-block" id="TransportCal.__init__"><a class="viewcode-back" href="../../modules.html#QuantumTransport.TransportCal.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">qcfile</span><span class="o">=</span><span class="s1">&#39;ridft.out&#39;</span><span class="p">,</span><span class="n">ciss_calc</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">load_data</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>\
-                 <span class="n">fock_calc</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span><span class="n">debug</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="TransportCal.__init__"><a class="viewcode-back" href="../../modules.html#QuantumTransport.TransportCal.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">qcfile</span><span class="o">=</span><span class="s1">&#39;ridft.out&#39;</span><span class="p">,</span><span class="n">latoms</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span><span class="n">catoms</span> <span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">ciss_calc</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>\
+                 <span class="n">load_data</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fock_calc</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span><span class="n">debug</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
 
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Parameters:</span>
@@ -210,7 +213,8 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">nmo</span><span class="o">=</span><span class="n">bparams</span><span class="p">[</span><span class="s1">&#39;total_basis&#39;</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">ciss_calc</span><span class="p">:</span>
-                <span class="n">tparse</span> <span class="o">=</span> <span class="n">TurbomoleParse</span><span class="p">(</span><span class="n">tout</span><span class="o">=</span><span class="n">qcfile</span><span class="p">,</span><span class="n">savefile</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+                <span class="n">tparse</span> <span class="o">=</span> <span class="n">TurbomoleParse</span><span class="p">(</span><span class="n">latoms</span> <span class="o">=</span> <span class="n">latoms</span><span class="p">,</span><span class="n">catoms</span> <span class="o">=</span> <span class="n">catoms</span><span class="p">,</span>\
+                <span class="n">tout</span><span class="o">=</span><span class="n">qcfile</span><span class="p">,</span><span class="n">savefile</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">nL</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">nC</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">nR</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">nmo</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">Sf</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">Fs</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">Fsoc</span><span class="o">=</span><span class="n">tparse</span><span class="o">.</span><span class="n">parse_output</span><span class="p">()</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">gparse</span> <span class="o">=</span> <span class="n">GaussianParse</span><span class="p">(</span><span class="n">gout</span><span class="o">=</span><span class="n">qcfile</span><span class="p">,</span><span class="n">savefile</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>

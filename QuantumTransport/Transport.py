@@ -36,6 +36,7 @@ def plot_spinpol(fname,yscale):
     plt.plot(E,Polar)
     plt.xlabel(r'$E - E_f$ (eV)')
     plt.ylabel('% Polarization')
+    plt.title('Electron Polarization')
     plt.show() # show figure
     Tuu = mat0[:,2]
     Tdd = mat0[:,3]
@@ -55,7 +56,7 @@ def plot_spinpol(fname,yscale):
     plt.plot(E,Tdu)
     legend.append(r"$T^{\uparrow\downarrow}$")
     plt.plot(E,Tud)
-    plt.ylim([0.001,10.0])
+    #plt.ylim([0.001,10.0])
     plt.xlabel(r'$E - E_f$ (eV)')
     plt.ylabel('Transmission')
     plt.title('Electron Transmission')
@@ -73,6 +74,7 @@ def plot_spinpol2(fname,yscale):
     plt.plot(E,Polar)
     plt.xlabel(r'$E - E_f$ (eV)')
     plt.ylabel('% Polarization')
+    plt.title('Electron Polarization')
     plt.show() # show figure
     Tuu = mat0[:,2]
     Tdd = mat0[:,3]
@@ -86,7 +88,7 @@ def plot_spinpol2(fname,yscale):
     plt.plot(E,Tuu)
     legend.append(r"$T^\downarrow$")
     plt.plot(E,Tdd)
-    plt.ylim([0.0001,10])
+    #plt.ylim([0.0001,10])
     plt.xlabel(r'$E - E_f$ (eV)')
     plt.ylabel('Transmission')
     plt.title('Electron Transmission')
@@ -117,8 +119,8 @@ class TransportCal:
     """
     # pylint: disable=too-many-instance-attributes
 
-    def __init__(self,qcfile='ridft.out',ciss_calc=False,load_data=True,\
-                 fock_calc = False,debug = False):
+    def __init__(self,qcfile='ridft.out',latoms = 0,catoms =0,ciss_calc=False,\
+                 load_data=True, fock_calc = False,debug = False):
 
         """
         Parameters:
@@ -140,11 +142,22 @@ class TransportCal:
                 self.nR=bparams['right_basis']
                 self.nmo=bparams['total_basis']
         else:
+            if latoms != 0:
+                print('Partitionng the system into three regions:')
+                print(f'left electrode: {latoms} atoms')
+                print(f'central region: {catoms} atoms')
+                print(f'right electrode: remaining atoms')
+                print('Note:')
+                print('The first and last sets of heavy atoms are assummed be on left and right')
+                print('electrodes, respectively.\n')
+
             if ciss_calc:
-                tparse = TurbomoleParse(tout=qcfile,savefile = False)
+                tparse = TurbomoleParse(latoms = latoms,catoms = catoms,\
+                tout=qcfile,savefile = False)
                 self.nL,self.nC,self.nR,self.nmo,self.Sf,self.Fs,self.Fsoc=tparse.parse_output()
             else:
-                gparse = GaussianParse(gout=qcfile,savefile = False)
+                gparse = GaussianParse(latoms = latoms,catoms = catoms,\
+                gout=qcfile,savefile = False)
                 self.nL,self.nC,self.nR,self.nmo,self.Sf,self.Fa,self.Fb = gparse.parse_output()
 
         print('Basis functions for the partitioned Hamiltonian/overlap matrix:')

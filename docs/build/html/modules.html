@@ -17,6 +17,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Development" href="develop.html" />
     <link rel="prev" title="Tutorials" href="tutorials.html" /> 
 </head>
 
@@ -44,6 +45,9 @@
 <li class="toctree-l2"><a class="reference internal" href="#module-QuantumTransport">Module contents</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="develop.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py_coding.html">Coding Conventions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="write_qt_doc.html">Writing documentation</a></li>
 </ul>
 
         </div>
@@ -183,7 +187,7 @@ mo coeffs and energies</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="QuantumTransport.TransportCal">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">QuantumTransport.</span></span><span class="sig-name descname"><span class="pre">TransportCal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">qcfile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'ridft.out'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ciss_calc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load_data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fock_calc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/QuantumTransport/Transport.html#TransportCal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#QuantumTransport.TransportCal" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">QuantumTransport.</span></span><span class="sig-name descname"><span class="pre">TransportCal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">qcfile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'ridft.out'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">latoms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">catoms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ciss_calc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load_data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fock_calc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/QuantumTransport/Transport.html#TransportCal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#QuantumTransport.TransportCal" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Class for electron spin polarization and transmission calculations.</p>
 <dl class="py attribute">
@@ -193,7 +197,7 @@ mo coeffs and energies</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="QuantumTransport.TransportCal.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">qcfile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'ridft.out'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ciss_calc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load_data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fock_calc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/QuantumTransport/Transport.html#TransportCal.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#QuantumTransport.TransportCal.__init__" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">qcfile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'ridft.out'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">latoms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">catoms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ciss_calc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load_data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fock_calc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/QuantumTransport/Transport.html#TransportCal.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#QuantumTransport.TransportCal.__init__" title="Permalink to this definition"></a></dt>
 <dd><p>Parameters:</p>
 <p>ciss_calc: Chiral induced spin polarization transmission with SOC data.
 load_data: Load files produced by qt_dat.py.</p>
@@ -309,6 +313,7 @@ mos, spinor.r,spinor.i, alpha, and beta.
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="tutorials.html" class="btn btn-neutral float-left" title="Tutorials" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="develop.html" class="btn btn-neutral float-right" title="Development" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

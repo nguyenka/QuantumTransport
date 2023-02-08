@@ -1,0 +1,42 @@
+#!/usr/bin/env python3
+"""
+Plot  transmission data
+"""
+from __future__ import print_function
+import argparse
+import sys
+from QuantumTransport import plot_spinpol,plot_spinpol2
+
+def main():
+    """
+    function for qt
+    """
+    description = """
+    Plot of electron transport data
+    """
+    epilog = """Plot spin polarization and transmission functions
+    """
+    parser = argparse.ArgumentParser(
+        usage='%(prog)s [options] ',
+        description=description,
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog=epilog)
+    group = parser.add_mutually_exclusive_group()
+    parser.add_argument('filename', metavar='filename', type=str, help='input file')
+    group.add_argument('-r', '--radical', action="store_true",
+           help='Polarization and transmission data for a radical ')
+    parser.add_argument('-ys', '--yscale', type=str, default= 'log',
+           help='left electrode atoms')
+    args = parser.parse_args()
+    if len(sys.argv) == 0:
+        parser.print_help()
+        sys.exit(1)
+
+    fname = args.filename
+    yscale = args.yscale
+    if args.radical:
+        plot_spinpol2(fname,yscale)
+    else:
+        plot_spinpol(fname,yscale)
+if __name__ == "__main__":
+    main()
