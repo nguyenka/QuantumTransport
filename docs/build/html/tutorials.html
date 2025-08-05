@@ -1,20 +1,22 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="./">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Tutorials &mdash; QuantumTransport 1.0 documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
   
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=f2a433a1"></script>
+      <script src="_static/doctools.js?v=9a2dae69"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -27,17 +29,21 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="index.html" class="icon icon-home"> QuantumTransport
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            QuantumTransport
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption"><span class="caption-text">Contents:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
@@ -66,7 +72,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
       <li class="breadcrumb-item active">Tutorials</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/tutorials.rst.txt" rel="nofollow"> View page source</a>
@@ -77,13 +83,13 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="tutorials">
-<h1>Tutorials<a class="headerlink" href="#tutorials" title="Permalink to this headline"></a></h1>
+  <section id="tutorials">
+<h1>Tutorials<a class="headerlink" href="#tutorials" title="Link to this heading"></a></h1>
 <p>Electron spin polarization and transmission calculations can be carried out by
 using the <code class="docutils literal notranslate"><span class="pre">g4qt</span></code>, <code class="docutils literal notranslate"><span class="pre">t4qt</span></code>, and <code class="docutils literal notranslate"><span class="pre">qt</span></code> scripts. The first two scripts prepare Gaussian and
 Turbomole inputs,respectively, and run the programs to obtain data for transport
 calculations. The scripts can be run from the command line:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ g4qt -h
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>g4qt<span class="w"> </span>-h
 </pre></div>
 </div>
 <blockquote>
@@ -114,7 +120,7 @@ calculations. The scripts can be run from the command line:</p>
 </dl>
 </dd>
 </dl>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ t4qt -h
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>t4qt<span class="w"> </span>-h
 </pre></div>
 </div>
 <p>usage: t4qt [options]</p>
@@ -140,10 +146,6 @@ calculations. The scripts can be run from the command line:</p>
 <p>The default settings in <code class="docutils literal notranslate"><span class="pre">t4qt</span></code> can overwritten by the user supplied in the <span class="math notranslate nohighlight">\(t19_params.json\)</span>
 file. The keywords are given below.</p>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 67%" />
-<col style="width: 33%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>keyword</p></th>
 <th class="head"><p>default</p></th>
@@ -177,7 +179,7 @@ file. The keywords are given below.</p>
 and transmissions functions for a given structure of a junction.  Results for spin
 polarization and transmission functions are written in <code class="docutils literal notranslate"><span class="pre">transmission.txt</span></code>. Here is
 the help entry from the command line:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ qt -h
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>qt<span class="w"> </span>-h
 </pre></div>
 </div>
 <p>usage: qt [options]</p>
@@ -191,14 +193,20 @@ the help entry from the command line:</p>
 <dt><kbd><span class="option">-h</span>, <span class="option">--help</span></kbd></dt>
 <dd><p>show this help message and exit</p>
 </dd>
-<dt><kbd><span class="option">-c<var>iss</var></span>, <span class="option">--ciss_calc</span></kbd></dt>
-<dd><p>Calculation chiral induced spin polarization transport</p>
+</dl>
+<dl class="simple">
+<dt>-soc SOC_TYPE, –soc_type SOC_TYPE</dt><dd><p>SOC for closed shell (CS) or open shell (OS)</p>
 </dd>
+</dl>
+<dl class="option-list">
 <dt><kbd><span class="option">-d<var>b</var></span>, <span class="option">--debug</span></kbd></dt>
 <dd><p>debug print</p>
 </dd>
 <dt><kbd><span class="option">-l</span>, <span class="option">--load_qt_dat</span></kbd></dt>
 <dd><p>generated by the qt_dat script</p>
+</dd>
+<dt><kbd><span class="option">-f<var>c</var></span>, <span class="option">--fock_calc</span></kbd></dt>
+<dd><p>calculate Fock matrices from MO energies and coeffs</p>
 </dd>
 <dt><kbd><span class="option">-p</span>, <span class="option">--plot_spinpol</span></kbd></dt>
 <dd><p>plot transmission.txt file</p>
@@ -210,6 +218,11 @@ the help entry from the command line:</p>
 <dt>-ca CATOMS, –catoms CATOMS</dt><dd><p>central atoms</p>
 </dd>
 </dl>
+<dl class="option-list">
+<dt><kbd><span class="option">-c <var>CODE</var></span>, <span class="option">--code <var>CODE</var></span></kbd></dt>
+<dd><p>g16 (Gaussian) or t24 (Turbomole)</p>
+</dd>
+</dl>
 </dd>
 </dl>
 <p>output: percentage (spin polarization) of transmitted electron</p>
@@ -219,25 +232,16 @@ QuantumTransport. The <span class="math notranslate nohighlight">\(/QuantumTrans
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">QuantumTransport</span> <span class="kn">import</span> <span class="n">TransportCal</span>
 <span class="c1"># # define output file</span>
 <span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;dft.out&#39;</span>
-<span class="c1"># initialize class object</span>
-<span class="n">calc</span><span class="o">=</span><span class="n">TransportCal</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span><span class="n">ciss_calc</span><span class="o">=.</span><span class="kc">False</span><span class="o">.</span><span class="p">,</span><span class="n">load_data</span><span class="o">=.</span><span class="kc">False</span><span class="o">.</span><span class="p">)</span>
-<span class="c1"># perform calculations</span>
-<span class="k">if</span> <span class="n">ciss_calc</span><span class="p">:</span>
-    <span class="n">calc</span><span class="o">.</span><span class="n">ciss_transmission</span><span class="p">()</span>
-<span class="k">else</span><span class="p">:</span>
-    <span class="n">calc</span><span class="o">.</span><span class="n">radical_transmission</span><span class="p">()</span>
+<span class="c1"># initialize class object to perform CISS calculations for closed shell (CS)</span>
+<span class="n">calc</span><span class="o">=</span><span class="n">TransportCal</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">qccode</span><span class="o">=</span><span class="s1">&#39;t24&#39;</span><span class="p">,</span> <span class="n">soc_type</span><span class="o">=</span><span class="s1">&#39;CS&#39;</span><span class="p">)</span>
+<span class="n">calc</span><span class="o">.</span><span class="n">soc_transmission</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="section" id="settings">
-<h2>Settings<a class="headerlink" href="#settings" title="Permalink to this headline"></a></h2>
+<section id="settings">
+<h2>Settings<a class="headerlink" href="#settings" title="Link to this heading"></a></h2>
 <p>The default settings for transport calculations. These settings can overwritten by
 the user supplied in the <span class="math notranslate nohighlight">\(transport_params.json\)</span> file. The keywords are given below.</p>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 11%" />
-<col style="width: 10%" />
-<col style="width: 78%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>keyword</p></th>
 <th class="head"><p>default</p></th>
@@ -269,25 +273,22 @@ the user supplied in the <span class="math notranslate nohighlight">\(transport_
 </table>
 <p>The settings are in json format:
 {“cLDOS”: 0.036, “Efermi”: -5.0, “eini”:-7.0, “eend”: -2.0, “estep”: 0.01}</p>
-</div>
-<div class="section" id="examples">
-<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline"></a></h2>
-<p>In the example (in <code class="docutils literal notranslate"><span class="pre">QuantumTransport/examples/dtda_g16</span></code> directory) for oligo(p-phenyleneethynylene) (OPE) with a 1,2,3,5-dithiadiazolyl (DTDA) radical substituent (reported by Zöllner et al. <a class="footnote-reference brackets" href="#id6" id="id1">1</a>) connected to nine-atomic gold electrodes/clusters. The calculated B3LYP/LANL2DZ transmission function for OPE-DTDA is shown in Figure 1.</p>
-<div class="figure align-default" id="id8">
+</section>
+<section id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Link to this heading"></a></h2>
+<p>In the example (in <code class="docutils literal notranslate"><span class="pre">QuantumTransport/examples/dtda_g16</span></code> directory) for oligo(p-phenyleneethynylene) (OPE) with a 1,2,3,5-dithiadiazolyl (DTDA) radical substituent (reported by Zöllner et al. <a class="footnote-reference brackets" href="#id6" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>) connected to nine-atomic gold electrodes/clusters. The calculated B3LYP/LANL2DZ transmission function for OPE-DTDA is shown in Figure 1.</p>
+<figure class="align-default" id="id8">
 <a class="reference internal image-reference" href="_images/dtda.png"><img alt="_images/dtda.png" src="_images/dtda.png" style="width: 471.20000000000005px; height: 355.20000000000005px;" /></a>
-<p class="caption"><span class="caption-text">Figure 1. Calculated transmission functions for the OPE-DTDA radical.</span><a class="headerlink" href="#id8" title="Permalink to this image"></a></p>
-</div>
+<figcaption>
+<p><span class="caption-text">Figure 1. Calculated transmission functions for the OPE-DTDA radical.</span><a class="headerlink" href="#id8" title="Link to this image"></a></p>
+</figcaption>
+</figure>
 <p>The B3LYP/LANL2DZ transmissions at the estimated Fermi energy of -5 eV for
-DTDA and other radicals are listed below along with values reported by Zöllner et al.: <a class="footnote-reference brackets" href="#id6" id="id2">1</a></p>
+DTDA and other radicals are listed below along with values reported by Zöllner et al.: <a class="footnote-reference brackets" href="#id6" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a></p>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 17%" />
-<col style="width: 45%" />
-<col style="width: 38%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>System</p></th>
-<th class="head"><p>Zöllner et al. <a class="footnote-reference brackets" href="#id6" id="id3">1</a></p></th>
+<th class="head"><p>Zöllner et al. <a class="footnote-reference brackets" href="#id6" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a></p></th>
 <th class="head"><p>QuantumTransport</p></th>
 </tr>
 </thead>
@@ -318,24 +319,30 @@ DTDA and other radicals are listed below along with values reported by Zöllner 
 spin polarization in molecular junctions caused by the chiral induced spin
 selectivity (CISS) effect.  The B3LYP/x2c-SVPall-2c polarization function for
 the equidistant carbon helix between two 10-atom gold clusters compares well with
-values reported by Zöllner et al. <a class="footnote-reference brackets" href="#id7" id="id4">2</a></p>
-<div class="figure align-default" id="id9">
+values reported by Zöllner et al. <a class="footnote-reference brackets" href="#id7" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a></p>
+<figure class="align-default" id="id9">
 <a class="reference internal image-reference" href="_images/equi_au_sw_t19.png"><img alt="_images/equi_au_sw_t19.png" src="_images/equi_au_sw_t19.png" style="width: 474.40000000000003px; height: 353.6px;" /></a>
-<p class="caption"><span class="caption-text">Figure 2. B3LYP/x2c-SVPall-2c polarization function for the equidistant carbon helix between two 10-atom gold clusters compared with Zöllner et al. <a class="footnote-reference brackets" href="#id7" id="id5">2</a></span><a class="headerlink" href="#id9" title="Permalink to this image"></a></p>
-</div>
-</div>
-<div class="section" id="references">
-<h2>References<a class="headerlink" href="#references" title="Permalink to this headline"></a></h2>
-<dl class="footnote brackets">
-<dt class="label" id="id6"><span class="brackets">1</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id2">2</a>,<a href="#id3">3</a>)</span></dt>
-<dd><p>Zöllner, M. S.; Nasri, R.; Zhang, H.; Herrmann, C. Design Considerations for Oligo(p‑phenyleneethynylene) Organic Radicals in Molecular Junctions. J. Phys. Chem. C 2021, 12,1208−1220.</p>
-</dd>
-<dt class="label" id="id7"><span class="brackets">2</span><span class="fn-backref">(<a href="#id4">1</a>,<a href="#id5">2</a>)</span></dt>
-<dd><p>Zöllner, M. S.; Saghatchi, A.; Mujica, V.; Herrmann, C., Influence of Electronic Structure Modeling and Junction Structure on First-Principles Chiral Induced Spin Selectivity. J. Chem. Theory Comput. 2020, 16 (12), 7357-7371.</p>
-</dd>
-</dl>
-</div>
-</div>
+<figcaption>
+<p><span class="caption-text">Figure 2. B3LYP/x2c-SVPall-2c polarization function for the equidistant carbon helix between two 10-atom gold clusters compared with Zöllner et al. <a class="footnote-reference brackets" href="#id7" id="id5" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a></span><a class="headerlink" href="#id9" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Link to this heading"></a></h2>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="id6" role="note">
+<span class="label"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id1">1</a>,<a role="doc-backlink" href="#id2">2</a>,<a role="doc-backlink" href="#id3">3</a>)</span>
+<p>Zöllner, M. S.; Nasri, R.; Zhang, H.; Herrmann, C. Design Considerations for Oligo(p‑phenyleneethynylene) Organic Radicals in Molecular Junctions. J. Phys. Chem. C 2021, 12,1208−1220.</p>
+</aside>
+<aside class="footnote brackets" id="id7" role="note">
+<span class="label"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id4">1</a>,<a role="doc-backlink" href="#id5">2</a>)</span>
+<p>Zöllner, M. S.; Saghatchi, A.; Mujica, V.; Herrmann, C., Influence of Electronic Structure Modeling and Junction Structure on First-Principles Chiral Induced Spin Selectivity. J. Chem. Theory Comput. 2020, 16 (12), 7357-7371.</p>
+</aside>
+</aside>
+</section>
+</section>
 
 
            </div>

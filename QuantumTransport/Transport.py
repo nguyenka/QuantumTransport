@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 # pylint: disable=invalid-name
 """Module for electron spin polarization and transmission."""
-import json
-from os.path import isfile
 import sys
+from os.path import isfile
+import json
 from math import pi
 import matplotlib.pyplot as plt
 import numpy as np
@@ -35,8 +35,11 @@ def plot_spinpol(fname,yscale):
     Polar = mat0[:,1]
     plt.plot(E,Polar)
     plt.xlabel(r'$E - E_f$ (eV)')
-    plt.ylabel('% Polarization')
-    plt.title('Electron Polarization')
+    plt.ylabel(r'$P_{s}$(%)')
+    #plt.title('Electron Polarization')
+    #plt.xlim([-2.0,3.0])
+    plt.xlim([-2.0,2.0])
+    #plt.ylim([-105.0,105.0])
     plt.show() # show figure
     Tuu = mat0[:,2]
     Tdd = mat0[:,3]
@@ -48,18 +51,22 @@ def plot_spinpol(fname,yscale):
     else:
         plt.yscale('log') # default
     legend= []
+    legend.append(r"$T^{total}$")
+    plt.plot(E,Tuu+Tdd+Tdu+Tud,color="black")
     legend.append(r"$T^{\uparrow\uparrow}$")
-    plt.plot(E,Tuu)
+    plt.plot(E,Tuu,color="red")
     legend.append(r"$T^{\downarrow\downarrow}$")
-    plt.plot(E,Tdd)
+    plt.plot(E,Tdd,"--",color="blue")
     legend.append(r"$T^{\downarrow\uparrow}$")
     plt.plot(E,Tdu)
     legend.append(r"$T^{\uparrow\downarrow}$")
     plt.plot(E,Tud)
-    #plt.ylim([0.001,10.0])
+    plt.xlim([-2.0,2.0])
+    #plt.ylim([0.0000001,10.0])
+    #plt.ylim([0.00000001,10.0])
     plt.xlabel(r'$E - E_f$ (eV)')
     plt.ylabel('Transmission')
-    plt.title('Electron Transmission')
+    #plt.title('Electron Transmission')
     plt.legend(legend)
     plt.show() # show figure
 
@@ -74,24 +81,32 @@ def plot_spinpol2(fname,yscale):
     plt.plot(E,Polar)
     plt.xlabel(r'$E - E_f$ (eV)')
     plt.ylabel('% Polarization')
-    plt.title('Electron Polarization')
+    plt.ylabel(r'$P_{s}$(%)')
+    plt.xlim([-2.0,2.0])
+    #plt.ylim([-105.0,105.0])
+    #plt.title('Electron Polarization')
     plt.show() # show figure
     Tuu = mat0[:,2]
     Tdd = mat0[:,3]
     # transmission
     legend= []
-    legend.append(r"$T^\uparrow$")
     if yscale is not None:
         plt.yscale(yscale) # linear,logit or symlog
     else:
         plt.yscale('log') # default
-    plt.plot(E,Tuu)
-    legend.append(r"$T^\downarrow$")
-    plt.plot(E,Tdd)
+    legend.append(r"$T^{total}$")
+    plt.plot(E,Tuu+Tdd,color="black")
+    legend.append(r"$T^{\uparrow\uparrow}$")
+    plt.plot(E,Tuu,color="red")
+    legend.append(r"$T^{\downarrow\downarrow}$")
+    plt.plot(E,Tdd,color="blue")
+    plt.xlim([-2.0,2.0])
+    #plt.ylim([0.0000001,10.0])
+    plt.ylim([0.00001,10.0])
     #plt.ylim([0.0001,10])
     plt.xlabel(r'$E - E_f$ (eV)')
     plt.ylabel('Transmission')
-    plt.title('Electron Transmission')
+    #plt.title('Electron Transmission')
     plt.legend(legend)
     plt.show() # show figure
 
@@ -119,19 +134,22 @@ class TransportCal:
     """
     # pylint: disable=too-many-instance-attributes
 
-    def __init__(self,qcfile='ridft.out',latoms = 0,catoms =0,ciss_calc=False,\
-                 load_data=True, fock_calc = False,debug = False):
+    def __init__(self,qcfile='ridft.out',qccode = None,latoms = 0,catoms = 0,\
+                 soc_type = None,left_basis = 0,central_basis = 0,right_basis = 0,\
+                 overlap = None,focka = None,fockb = None,fock_soc = None,load_data=False, \
+                 fock_calc = False, debug = False):
 
         """
         Parameters:
 
-        ciss_calc: Chiral induced spin polarization transmission with SOC data.
+        soc_type: Chiral induced spin polarization transmission with SOC data for CS or OS.
         load_data: Load files produced by qt_dat.py.
         """
         # pylint: disable=too-many-arguments
 
         banner()
         self.debug=debug
+        self.soc_type=soc_type
         self.load_data=load_data
         self.fock_calc=fock_calc
         if load_data:
@@ -150,15 +168,32 @@ class TransportCal:
                 print('Note:')
                 print('The first and last sets of heavy atoms are assummed be on left and right')
                 print('electrodes, respectively.\n')
+            if left_basis != 0:
+                self.nL = left_basis 
+                self.nC = central_basis
+                self.nR = right_basis
+                self.nmo= left_basis + central_basis + right_basis
+                self.Sf = overlap
+                self.Fa = focka
+                self.Fb = fockb
+                self.Fsoc = fock_soc
 
-            if ciss_calc:
-                tparse = TurbomoleParse(latoms = latoms,catoms = catoms,\
-                tout=qcfile,savefile = False)
-                self.nL,self.nC,self.nR,self.nmo,self.Sf,self.Fs,self.Fsoc=tparse.parse_output()
+            print(f'soc_type: {soc_type}')
+            if soc_type == 'CS':
+                tparse = TurbomoleParse(latoms = latoms,catoms = catoms,tout=qcfile)
+                self.nL,self.nC,self.nR,self.nmo,self.Sf,self.Fa,self.Fsoc=tparse.parse_output()
+            elif soc_type == 'OS':
+                tparse = TurbomoleParse(latoms = latoms,catoms = catoms,tout=qcfile)
+                self.nL,self.nC,self.nR,self.nmo,self.Sf,self.Fa,self.Fsoc,self.Fb=tparse.parse_output()
             else:
-                gparse = GaussianParse(latoms = latoms,catoms = catoms,\
-                gout=qcfile,savefile = False)
-                self.nL,self.nC,self.nR,self.nmo,self.Sf,self.Fa,self.Fb = gparse.parse_output()
+                if qccode == 'g16':
+                    gparse = GaussianParse(latoms = latoms,catoms = catoms,\
+                    gout=qcfile,savefile = True)
+                    self.nL,self.nC,self.nR,self.nmo,self.Sf,self.Fa,self.Fb = gparse.parse_output()
+                if qccode == 't24':
+                    tparse = TurbomoleParse(latoms = latoms,catoms = catoms,\
+                    tout=qcfile,savefile = False,dosoc = False)
+                    self.nL,self.nC,self.nR,self.nmo,self.Sf,self.Fa,self.Fb = tparse.parse_output()
 
         print('Basis functions for the partitioned Hamiltonian/overlap matrix:')
         print('---------------------------------------------------------------')
@@ -199,7 +234,7 @@ class TransportCal:
         self.gR= -1j*pi*self.cLDOS*uR
 
     @PRTiming("transmission")
-    def transmission(self,Scc,Fcc,SLC,HLC,SRC,HRC):
+    def transmission(self,Scc,Fcc,SLC,HLC,SRC,HRC,HLCB,HRCB):
         """Evaluating transmission from Green's functions.
 
         Parameters:
@@ -210,9 +245,13 @@ class TransportCal:
                  with the central region.
         SRC    : Coupling block of the overlap matrix for the right electrode
                  with the central region.
-        HLC    : Coupling block of the Fock for the left electrode with the
+        HLC    : Alpha Coupling block of the Fock for the left electrode with the
                  central region.
-        HRC    : Coupling block of the Fock for the right electrode with the
+        HLCB   : Beta Coupling block of the Fock for the left electrode with the
+                 central region.
+        HRC    : Alpha coupling block of the Fock for the right electrode with the
+                 central region.
+        HRCB   : Beta coupling block of the Fock for the right electrode with the
                  central region.
         gL     : Green's function matrix of the isolated left electrode.
         gR     : Green's function matrix of the isolated right electrode.
@@ -247,10 +286,20 @@ class TransportCal:
             sigR1 = sR1.T @ self.gR @ sR1
             GammaLu=-2*np.imag(sigL1)
             GammaRu=-2*np.imag(sigR1)
-            GammaLd = GammaLu
-            GammaRd = GammaRu
-            sigL=np.kron(Iu,sigL1)+np.kron(Id,sigL1)
-            sigR=np.kron(Iu,sigR1)+np.kron(Id,sigR1)
+            if self.soc_type == 'OS':
+                sL2=E*SLC-HLCB
+                sigL2 = sL2.T @ self.gL @ sL2
+                sR2=E*SRC-HRCB
+                sigR2 = sR2.T @ self.gR @ sR2
+                GammaLd=-2*np.imag(sigL2)
+                GammaRd=-2*np.imag(sigR2)
+                sigL=np.kron(Iu,sigL1)+np.kron(Id,sigL2)
+                sigR=np.kron(Iu,sigR1)+np.kron(Id,sigR2)
+            else:
+                GammaLd = GammaLu
+                GammaRd = GammaRu
+                sigL=np.kron(Iu,sigL1)+np.kron(Id,sigL1)
+                sigR=np.kron(Iu,sigR1)+np.kron(Id,sigR1)
 
             Ginv=E*Scc-Fcc-sigL-sigR
             G=np.linalg.inv(Ginv) # symmetric
@@ -292,22 +341,22 @@ class TransportCal:
         nR = self.nR
 
         if self.load_data is True:
-            if isfile('overlap.txt'):
-                Sf=np.loadtxt('./overlap.txt') # overlap maxtrix
+            if isfile('overlap.txt')or isfile('overlap.txt.gz'):
+                Sf=np.loadtxt('overlap.txt') # overlap maxtrix
             else:
                 print('overlap.txt not found')
                 sys.exit()
 
             if self.fock_calc is True:
                 # load  alpha MO energies, and MO coeffs
-                if(isfile('moeigv.txt') and isfile('mocoff.txt')):
+                if(isfile('moeigva.txt') and isfile('mocoffa.txt')):
                     Eig=np.loadtxt('./moeigva.txt') # MO energies
                     Cmo=np.loadtxt('./mocoffa.txt') # MO coeffs
                     Eigm = np.diagflat(Eig) # converted to 2d diagonal
                     # scalar Fock matrix
                     Ff=Sf@Cmo@Eigm@Cmo.T@Sf
                 else:
-                    print('moeigva.txt and mocoffa.txt not found')
+                    print('fock.txt, moeigva.txt, and mocoffa.txt not found')
                     sys.exit()
                 # load  beta MO energies, and MO coeffs
                 if(isfile('moeigvb.txt') and isfile('mocoffb.txt')):
@@ -317,20 +366,27 @@ class TransportCal:
                     # scalar Fock matrix
                     Ffb=Sf@Cmob@Eigmb@Cmob.T@Sf
                 else:
-                    print('moeigva.txt and mocoffa.txt not found')
+                    print('fockb, moeigvb.txt, and mocoffb.txt not found')
                     sys.exit()
 
             else:
-                if(isfile('fock.txt') and isfile('fockb.txt')):
-                    Ff=np.loadtxt('./fock.txt')
-                    Ffb=np.loadtxt('./fockb.txt')
-                    print('alpha and beta Fock matrices loaded')
+                if(isfile('fock.txt')  or isfile('fock.txt.gz')):
+                    Ff=np.loadtxt('fock.txt')
+                    print('Alpha Fock matrix loaded')
                 else:
-                    print('fock.txt and fockb.txt not found')
+                    print('fock.txt or fock.txt.gz not found')
+                    sys.exit()
+                if(isfile('fockb.txt')  or isfile('fockb.txt.gz')):
+                    Ffb=np.loadtxt('fockb.txt')
+                    print('Beta Fock matrix loaded')
+                else:
+                    print('fockb.txt or fockb.txt.gz not found')
                     sys.exit()
 
         else:
-            Ff = self.Fa
+            #Ff = self.Fa*27.21165
+            #Ff = self.Fa*27.21165
+            Ff  = self.Fa
             Ffb = self.Fb
             Sf  = self.Sf
 
@@ -343,25 +399,31 @@ class TransportCal:
                 Fcc[i+nC,j+nC] = Ffb[i+nL,j+nL]
                 Scc[i+nC,j+nC] = Sf[i+nL,j+nL]
         Ff1=Ff*27.21165
+        #Ff1=Ff
         Sf1=Sf
         Fcc=Fcc*27.21165
         HLC1=np.zeros((nL,nC),dtype=float)
+        HLC2=np.zeros((nL,nC),dtype=float)
         SLC1=np.zeros((nL,nC),dtype=float)
         HRC1=np.zeros((nR,nC),dtype=float)
+        HRC2=np.zeros((nR,nC),dtype=float)
         SRC1=np.zeros((nR,nC),dtype=float)
         for i in range(nL):
             for j in range(nC):
                 SLC1[i,j]= Sf1[i,j+nL]
                 HLC1[i,j]= Ff1[i,j+nL]
+                HLC2[i,j]= Ffb[i,j+nL]
 
         for i in range(nR):
             for j in range(nC):
                 SRC1[i,j]= Sf1[i+nL+nC,j+nL]
                 HRC1[i,j]= Ff1[i+nL+nC,j+nL]
-        self.transmission(Scc,Fcc,SLC1,HLC1,SRC1,HRC1)
+                HRC2[i,j]= Ffb[i+nL+nC,j+nL]
+        #self.transmission(Scc,Fcc,SLC1,HLC1,SRC1,HRC1)
+        self.transmission(Scc,Fcc,SLC1,HLC1,SRC1,HRC1,HLC2,HRC2)
 
-    @PRTiming("ciss_transmission")
-    def ciss_transmission(self):
+    @PRTiming("soc_transmission")
+    def soc_transmission(self):
         """Electron chiral-induced spin selectivity (ciss) transmission
         """
         # pylint: disable=too-many-locals
@@ -418,13 +480,19 @@ class TransportCal:
                 dprint_mat(Fsfo,name='Fsfo')
         else:
             Sf = self.Sf
-            Ff = self.Fs
+            #Ff = self.Fs
+            Ff = self.Fa*27.21165
+            if self.soc_type == 'OS':
+                Ffb = self.Fb*27.21165
             Fsfo=self.Fsoc
             I2=np.eye(2)
             Sf2=np.kron(I2,Sf)
 
         Fcc=np.zeros((nC*2,nC*2),dtype=complex)
         Scc=np.zeros((nC*2,nC*2),dtype=complex)
+        print(f"Fsfo Matrix size: {Fsfo.shape[0]} rows x {Fsfo.shape[1]} columns")
+        #print(f'nC: {nC}')
+
         for i in range(nC):
             for j in range(nC):
                 Fcc[i,j] = Fsfo[i+nL,j+nL]
@@ -435,21 +503,25 @@ class TransportCal:
                 Scc[i,j+nC] = Sf2[i+nL,j+nL+nmo]
                 Fcc[i+nC,j+nC] = Fsfo[i+nL+nmo,j+nL+nmo]
                 Scc[i+nC,j+nC] = Sf2[i+nL+nmo,j+nL+nmo]
-        Ff1=Ff*27.21165
+        #Ff1=Ff*27.21165
+        Ff1=Ff
         Sf1=Sf
         Fcc=Fcc*27.21165
         HLC1=np.zeros((nL,nC),dtype=float)
+        HLC2=np.zeros((nL,nC),dtype=float)
         SLC1=np.zeros((nL,nC),dtype=float)
         HRC1=np.zeros((nR,nC),dtype=float)
+        HRC2=np.zeros((nR,nC),dtype=float)
         SRC1=np.zeros((nR,nC),dtype=float)
         for i in range(nL):
             for j in range(nC):
                 SLC1[i,j]= Sf1[i,j+nL]
                 HLC1[i,j]= Ff1[i,j+nL]
+                if self.soc_type == 'OS': HLC2[i,j]= Ffb[i,j+nL]
 
         for i in range(nR):
             for j in range(nC):
                 SRC1[i,j]= Sf1[i+nL+nC,j+nL]
                 HRC1[i,j]= Ff1[i+nL+nC,j+nL]
-        self.transmission(Scc,Fcc,SLC1,HLC1,SRC1,HRC1)
-
+                if self.soc_type == 'OS': HRC2[i,j]= Ffb[i+nL+nC,j+nL]
+        self.transmission(Scc,Fcc,SLC1,HLC1,SRC1,HRC1,HLC2,HRC2)

@@ -1,0 +1,788 @@
+Tue Jul 23 15:41:59 EDT 2024
+
+ STATISTICS OUTPUT FOR PROJECT :
+   --->  DTDAD  <---
+
+ integral neglect threshold       :  0.47E-11
+ integral storage threshold THIZE :  0.10E-04
+ integral storage threshold THIME :         5
+
+
+ ====================    1.ITERATION  ====================
+ norm of density matrix                :    27.8445157172    
+ number of shell pairs ii,jj included  :        18736
+ number of integral batches included   :     89791992
+ number of batches from twoint         :            0
+ unnecessary integral batches on file  :            0
+
+ norm of density matrix                :   0.106616382054E-11
+  ---- Spin-Orbit energy contributions ---- 
+ Eso(x)           =      0.00000000000000000
+ Eso(y)           =      0.00000000000000000
+ Eso(z)           =      0.00000000000000000
+ ---------------------------------------------------------
+ total energy                          : -3471.7409110665    
+ one-electron energy                   : -25319.787799132    
+ two-electron energy                   :  12017.501234544    
+ spin-orbit energy                     :          0.00000    
+ damping factor ttr                    :           0.6000    
+
+ ====================    2.ITERATION  ====================
+ 
+  weight factors dlin for linear combination of density matrices :
+   1.0000000    
+ accerr=   2.000  crierr=1000.000  ilam=  0  grange= 0.0      chatol=   0.634
+
+ norm of difference density matrix     :   0.133559818913E-03
+ norm of simple difference density     :   0.133559100299E-03
+ norm of density matrix                :    27.8445158631    
+ number of shell pairs ii,jj included  :        18736
+ number of integral batches included   :     12802385
+ number of batches from twoint         :            0
+ unnecessary integral batches on file  :            0
+
+ 
+  weight factors dlin for linear combination of density matrices :
+  0.42468202E-02
+ accerr=   1.000  crierr=1000.000  ilam=  0  grange= 0.0      chatol=   1.000
+
+ norm of difference density matrix     :   0.845473554803E-12
+ norm of simple difference density     :   0.135716489759E-11
+ norm of density matrix                :   0.845485678707E-12
+  ---- Spin-Orbit energy contributions ---- 
+ Eso(x)           =      0.00000000000000000
+ Eso(y)           =      0.00000000000000000
+ Eso(z)           =      0.00000000000000000
+ ---------------------------------------------------------
+ total energy                          : -3471.7409110677    
+ one-electron energy                   : -25319.787863883    
+ two-electron energy                   :  12017.501299294    
+ spin-orbit energy                     :          0.00000    
+ energy increment                      :          -0.1202E-08
+ damping factor ttr                    :           0.6000    
+
+ ====================    3.ITERATION  ====================
+ 
+  weight factors dlin for linear combination of density matrices :
+  0.99999991     -0.58266123    
+ accerr=   2.136  crierr=  10.000  ilam=  0  grange= 0.0      chatol=   0.600
+
+ norm of difference density matrix     :   0.414411218665E-04
+ norm of simple difference density     :   0.215417394293E-03
+ norm of density matrix                :    27.8445132770    
+ number of shell pairs ii,jj included  :        18736
+ number of integral batches included   :      7888753
+ number of batches from twoint         :            0
+ unnecessary integral batches on file  :            0
+
+ 
+  weight factors dlin for linear combination of density matrices :
+ -0.30245298E-01  0.61046964    
+ accerr=   1.374  crierr=  10.000  ilam=  0  grange= 0.0      chatol=   0.879
+
+ norm of difference density matrix     :   0.100335104328E-11
+ norm of simple difference density     :   0.105665932356E-11
+ norm of density matrix                :   0.112878228965E-11
+  ---- Spin-Orbit energy contributions ---- 
+ Eso(x)           =      0.00000000000000000
+ Eso(y)           =      0.00000000000000000
+ Eso(z)           =      0.00000000000000000
+ ---------------------------------------------------------
+ total energy                          : -3471.7409110374    
+ one-electron energy                   : -25319.787571829    
+ two-electron energy                   :  12017.501007270    
+ spin-orbit energy                     :          0.00000    
+ energy increment                      :           0.3022E-07
+ damping factor ttr                    :           0.6500    
+
+ ====================    4.ITERATION  ====================
+ 
+  weight factors dlin for linear combination of density matrices :
+   1.0000001       1.3727032      -1.5809010    
+ accerr=   3.657  crierr=  10.000  ilam=  0  grange= 0.0      chatol=   0.418
+
+ norm of difference density matrix     :   0.157174321429E-04
+ norm of simple difference density     :   0.282708741176E-03
+ norm of density matrix                :    27.8445191190    
+ number of shell pairs ii,jj included  :        18736
+ number of integral batches included   :      6335881
+ number of batches from twoint         :            0
+ unnecessary integral batches on file  :            0
+
+ 
+  weight factors dlin for linear combination of density matrices :
+ -0.47179928E-01  0.42403789      0.61791716    
+ accerr=   1.477  crierr=  10.000  ilam=  0  grange= 0.0      chatol=   0.829
+
+ norm of difference density matrix     :   0.125900317119E-11
+ norm of simple difference density     :   0.132560453088E-11
+ norm of density matrix                :   0.144932245574E-11
+  ---- Spin-Orbit energy contributions ---- 
+ Eso(x)           =      0.00000000000000000
+ Eso(y)           =      0.00000000000000000
+ Eso(z)           =      0.00000000000000000
+ ---------------------------------------------------------
+ total energy                          : -3471.7409110910    
+ one-electron energy                   : -25319.788142543    
+ two-electron energy                   :  12017.501577930    
+ spin-orbit energy                     :          0.00000    
+ energy increment                      :          -0.5359E-07
+ damping factor ttr                    :           0.7000    
+
+ ====================    5.ITERATION  ====================
+ 
+  weight factors dlin for linear combination of density matrices :
+  0.99999979      -1.0332759       2.9888287      -1.1846041    
+ accerr=   5.888  crierr=  10.000  ilam=  0  grange= 0.0      chatol=   0.339
+
+ norm of difference density matrix     :   0.585664900608E-05
+ norm of simple difference density     :   0.374731659385E-03
+ norm of density matrix                :    27.8445098124    
+ number of shell pairs ii,jj included  :        18736
+ number of integral batches included   :      3129253
+ number of batches from twoint         :            0
+ unnecessary integral batches on file  :            0
+
+ 
+  weight factors dlin for linear combination of density matrices :
+ -0.27615799E-01  0.50298417      0.65511905      0.19630311    
+ accerr=   1.612  crierr=  10.000  ilam=  0  grange= 0.0      chatol=   0.768
+
+ norm of difference density matrix     :   0.170565146902E-11
+ norm of simple difference density     :   0.198478837535E-11
+ norm of density matrix                :   0.189317278688E-11
+  ---- Spin-Orbit energy contributions ---- 
+ Eso(x)           =      0.00000000000000000
+ Eso(y)           =      0.00000000000000000
+ Eso(z)           =      0.00000000000000000
+ ---------------------------------------------------------
+ total energy                          : -3471.7409110600    
+ one-electron energy                   : -25319.787301806    
+ two-electron energy                   :  12017.500737224    
+ spin-orbit energy                     :          0.00000    
+ energy increment                      :           0.3106E-07
+ damping factor ttr                    :           0.7500    
+
+ ====================    6.ITERATION  ====================
+ 
+  weight factors dlin for linear combination of density matrices :
+   1.0000002       1.8919866      -3.8209191       2.4267058      -1.4134107    
+ accerr=   9.949  crierr=  10.000  ilam=  1  grange=-.35E-10  chatol=   0.286
+
+ norm of difference density matrix     :   0.566990399806E-05
+ norm of simple difference density     :   0.486672329845E-03
+ norm of density matrix                :    27.8445226467    
+ number of shell pairs ii,jj included  :        18736
+ number of integral batches included   :      3238005
+ number of batches from twoint         :            0
+ unnecessary integral batches on file  :            0
+
+ 
+  weight factors dlin for linear combination of density matrices :
+ -0.15839834      0.18776030      0.56409154       1.1908883     -0.18248391    
+ accerr=   2.301  crierr=  10.000  ilam=  0  grange= 0.0      chatol=   0.565
+
+ norm of difference density matrix     :   0.253312597620E-11
+ norm of simple difference density     :   0.348588833556E-11
+ norm of density matrix                :   0.302252523856E-11
+  ---- Spin-Orbit energy contributions ---- 
+ Eso(x)           =      0.00000000000000000
+ Eso(y)           =      0.00000000000000000
+ Eso(z)           =      0.00000000000000000
+ ---------------------------------------------------------
+ total energy                          : -3471.7409109744    
+ one-electron energy                   : -25319.788383784    
+ two-electron energy                   :  12017.501819288    
+ spin-orbit energy                     :          0.00000    
+ energy increment                      :           0.8553E-07
+ damping factor ttr                    :           0.8000    
+
+ ====================    7.ITERATION  ====================
+ 
+  weight factors dlin for linear combination of density matrices :
+  0.99999967      -1.5458495       4.2662503      -1.4515581      0.64551530    
+  -1.0070327    
+ accerr=  10.007  crierr=  10.000  ilam=  4  grange=-.12E-08  chatol=   0.285
+
+ norm of difference density matrix     :   0.519398465042E-04
+ norm of simple difference density     :   0.608932417345E-03
+ norm of density matrix                :    27.8445064362    
+ number of shell pairs ii,jj included  :        18736
+ number of integral batches included   :      8774927
+ number of batches from twoint         :            0
+ unnecessary integral batches on file  :            0
+
+ 
+  weight factors dlin for linear combination of density matrices :
+ -0.21976910E-01  0.26011583      0.33191118     -0.28452169       1.3571810    
+ -0.66844558    
+ accerr=   2.439  crierr=  10.000  ilam=  0  grange= 0.0      chatol=   0.540
+
+ norm of difference density matrix     :   0.317077958542E-11
+ norm of simple difference density     :   0.619212130166E-11
+ norm of density matrix                :   0.430903201986E-11
+  ---- Spin-Orbit energy contributions ---- 
+ Eso(x)           =      0.00000000000000000
+ Eso(y)           =      0.00000000000000000
+ Eso(z)           =      0.00000000000000000
+ ---------------------------------------------------------
+ total energy                          : -3471.7409110641    
+ one-electron energy                   : -25319.787111619    
+ two-electron energy                   :  12017.500547033    
+ spin-orbit energy                     :          0.00000    
+ energy increment                      :          -0.8968E-07
+ damping factor ttr                    :           0.8500    
+
+ ====================    8.ITERATION  ====================
+ 
+  weight factors dlin for linear combination of density matrices :
+   1.0000004       2.3311934      -3.5255154      0.97717352       2.2274085    
+   1.0076667      -2.3546805    
+ accerr=   9.926  crierr=  10.000  ilam=  7  grange=-.35E-10  chatol=   0.286
+
+ norm of difference density matrix     :   0.136342102630E-04
+ norm of simple difference density     :   0.728417707709E-03
+ norm of density matrix                :    27.8445262113    
+ number of shell pairs ii,jj included  :        18736
+ number of integral batches included   :      6463719
+ number of batches from twoint         :            0
+ unnecessary integral batches on file  :            0
+
+ 
+  weight factors dlin for linear combination of density matrices :
+ -0.11414795      0.10452321E-01  0.11458130      0.96736252     -0.46122368    
+  0.47063485      0.10444728    
+ accerr=   1.866  crierr=  10.000  ilam=  0  grange= 0.0      chatol=   0.674
+
+ norm of difference density matrix     :   0.204072655659E-11
+ norm of simple difference density     :   0.572357097509E-11
+ norm of density matrix                :   0.279746753254E-11
+  ---- Spin-Orbit energy contributions ---- 
+ Eso(x)           =      0.00000000000000000
+ Eso(y)           =      0.00000000000000000
+ Eso(z)           =      0.00000000000000000
+ ---------------------------------------------------------
+ total energy                          : -3471.7409112766    
+ one-electron energy                   : -25319.788506611    
+ two-electron energy                   :  12017.501941812    
+ spin-orbit energy                     :          0.00000    
+ energy increment                      :          -0.2125E-06
+ damping factor ttr                    :           0.9000    
+
+ ====================    9.ITERATION  ====================
+ 
+  weight factors dlin for linear combination of density matrices :
+  0.99999954      -1.8818959       3.1461701      0.74341676      -3.4953236    
+  0.23400295       3.7812457      -1.9179768    
+ accerr=   9.952  crierr=  10.000  ilam=  4  grange=-.52E-10  chatol=   0.286
+
+ norm of difference density matrix     :   0.619997333031E-05
+ norm of simple difference density     :   0.830927544746E-03
+ norm of density matrix                :    27.8445028701    
+ number of shell pairs ii,jj included  :        18736
+ number of integral batches included   :      4102864
+ number of batches from twoint         :            0
+ unnecessary integral batches on file  :            0
+
+ 
+  weight factors dlin for linear combination of density matrices :
+ -0.51052594E-01 -0.49467834E-02  0.39790526     -0.28171383      0.71213362    
+   1.0527894     -0.40699508     -0.41135580    
+ accerr=   1.958  crierr=  10.000  ilam=  0  grange= 0.0      chatol=   0.646
+
+ norm of difference density matrix     :   0.422288165247E-11
+ norm of simple difference density     :   0.612344734448E-11
+ norm of density matrix                :   0.539244161675E-11
+  ---- Spin-Orbit energy contributions ---- 
+ Eso(x)           =      0.00000000000000000
+ Eso(y)           =      0.00000000000000000
+ Eso(z)           =      0.00000000000000000
+ ---------------------------------------------------------
+ total energy                          : -3471.7409105144    
+ one-electron energy                   : -25319.787062895    
+ two-electron energy                   :  12017.500498859    
+ spin-orbit energy                     :          0.00000    
+ energy increment                      :           0.7623E-06
+ damping factor ttr                    :           0.9500    
+
+ ====================   10.ITERATION  ====================
+ 
+  weight factors dlin for linear combination of density matrices :
+   1.0000005       2.5422949      -2.6817530     -0.33609426       2.1620374    
+  0.25312107      -4.2018310       2.5912665      -1.8905357    
+ accerr=  10.026  crierr=  10.000  ilam=  3  grange=-.24E-09  chatol=   0.285
+
+ norm of difference density matrix     :   0.125536910385E-04
+ norm of simple difference density     :   0.903221153437E-03
+ norm of density matrix                :    27.8445288841    
+ number of shell pairs ii,jj included  :        18736
+ number of integral batches included   :      5556101
+ number of batches from twoint         :            0
+ unnecessary integral batches on file  :            0
+
+ 
+  weight factors dlin for linear combination of density matrices :
+ -0.11989343     -0.43670508E-01 -0.25467962E-01  0.80209067      0.39147666    
+  -1.0052617       1.6634707       1.0999821     -0.79107739    
+ accerr=   3.490  crierr=  10.000  ilam=  0  grange= 0.0      chatol=   0.429
+
+ norm of difference density matrix     :   0.454235287652E-11
+ norm of simple difference density     :   0.126482267563E-10
+ norm of density matrix                :   0.852176368023E-11
+  ---- Spin-Orbit energy contributions ---- 
+ Eso(x)           =      0.00000000000000000
+ Eso(y)           =      0.00000000000000000
+ Eso(z)           =      0.00000000000000000
+ ---------------------------------------------------------
+ total energy                          : -3471.7409115954    
+ one-electron energy                   : -25319.788479601    
+ two-electron energy                   :  12017.501914484    
+ spin-orbit energy                     :          0.00000    
+ energy increment                      :          -0.1081E-05
+ damping factor ttr                    :            1.000    
+
+ ====================   11.ITERATION  ====================
+ 
+  weight factors dlin for linear combination of density matrices :
+  0.99999951      -1.9182910       2.2842550       1.5849518      -1.2906163    
+ -0.61459696       4.9055742      -2.1230412       2.6937242      -1.5102415    
+ accerr=   9.125  crierr=  10.000  ilam=  0  grange= 0.0      chatol=   0.293
+
+ norm of difference density matrix     :   0.353829233410E-05
+ norm of simple difference density     :   0.934763761326E-03
+ norm of density matrix                :    27.8445021153    
+ number of shell pairs ii,jj included  :        18736
+ number of integral batches included   :      2364301
+ number of batches from twoint         :            0
+ unnecessary integral batches on file  :            0
+
+ 
+  weight factors dlin for linear combination of density matrices :
+ -0.30786602      0.76626090E-01  0.35159872     -0.11687520      0.28416842    
+  0.79411009     -0.12859487     -0.27007625       1.0591892     -0.83575744    
+ accerr=   2.089  crierr=  10.000  ilam=  0  grange= 0.0      chatol=   0.611
+
+ norm of difference density matrix     :   0.471545823573E-11
+ norm of simple difference density     :   0.146719237961E-10
+ norm of density matrix                :   0.785258817665E-11
+  ---- Spin-Orbit energy contributions ---- 
+ Eso(x)           =      0.00000000000000000
+ Eso(y)           =      0.00000000000000000
+ Eso(z)           =      0.00000000000000000
+ ---------------------------------------------------------
+ total energy                          : -3471.7409104831    
+ one-electron energy                   : -25319.787161561    
+ two-electron energy                   :  12017.500597556    
+ spin-orbit energy                     :          0.00000    
+ energy increment                      :           0.1112E-05
+ damping factor ttr                    :            1.050    
+
+ ====================   12.ITERATION  ====================
+ 
+  weight factors dlin for linear combination of density matrices :
+   1.0000004       2.3506315     -0.78136332      -2.0450575       2.5285827    
+  0.87200379      -5.6272597       2.4450042      -2.5127967       2.2157188    
+  -1.2405513    
+ accerr=  10.084  crierr=  10.000  ilam=  7  grange=-.19E-11  chatol=   0.285
+
+ norm of difference density matrix     :   0.323098569252E-05
+ norm of simple difference density     :   0.920978958309E-03
+ norm of density matrix                :    27.8445281146    
+ number of shell pairs ii,jj included  :        18736
+ number of integral batches included   :      2079440
+ number of batches from twoint         :            0
+ unnecessary integral batches on file  :            0
+
+ 
+  weight factors dlin for linear combination of density matrices :
+  0.16796906      0.99733656E-02  0.98657150E-01  0.46442647      0.58503563    
+ -0.46951824      0.59773504       1.3472060     -0.55054924       1.3148307    
+ -0.74110833    
+ accerr=   3.034  crierr=  10.000  ilam=  0  grange= 0.0      chatol=   0.465
+
+ norm of difference density matrix     :   0.478339782592E-11
+ norm of simple difference density     :   0.161087240355E-10
+ norm of density matrix                :   0.949280709738E-11
+  ---- Spin-Orbit energy contributions ---- 
+ Eso(x)           =      0.00000000000000000
+ Eso(y)           =      0.00000000000000000
+ Eso(z)           =      0.00000000000000000
+ ---------------------------------------------------------
+ total energy                          : -3471.7409116553    
+ one-electron energy                   : -25319.788325777    
+ two-electron energy                   :  12017.501760600    
+ spin-orbit energy                     :          0.00000    
+ energy increment                      :          -0.1172E-05
+ damping factor ttr                    :            1.100    
+
+ ====================   13.ITERATION  ====================
+ 
+  weight factors dlin for linear combination of density matrices :
+  0.99999956      -1.5591112      0.53901374       2.9508988      -2.3239285    
+ -0.28827118E-01   5.6235523      -2.5531928       3.2715206      -1.8272486    
+   2.1940438      -1.0695403    
+ accerr=   9.985  crierr=  10.000  ilam=  8  grange=-.21E-11  chatol=   0.286
+
+ norm of difference density matrix     :   0.347833150780E-05
+ norm of simple difference density     :   0.864268215690E-03
+ norm of density matrix                :    27.8445035089    
+ number of shell pairs ii,jj included  :        18736
+ number of integral batches included   :      2225345
+ number of batches from twoint         :            0
+ unnecessary integral batches on file  :            0
+
+ 
+  weight factors dlin for linear combination of density matrices :
+ -0.72836061     -0.36652074      0.36436036      0.36477069     -0.19797230    
+   1.7342779     -0.35793579     -0.90780280       1.2034325     -0.71576480    
+   1.3588559     -0.59219591    
+ accerr=   4.718  crierr=  10.000  ilam=  0  grange= 0.0      chatol=   0.370
+
+ norm of difference density matrix     :   0.593162475814E-11
+ norm of simple difference density     :   0.198894718853E-10
+ norm of density matrix                :   0.120764440471E-10
+  ---- Spin-Orbit energy contributions ---- 
+ Eso(x)           =      0.00000000000000000
+ Eso(y)           =      0.00000000000000000
+ Eso(z)           =      0.00000000000000000
+ ---------------------------------------------------------
+ total energy                          : -3471.7409102615    
+ one-electron energy                   : -25319.787342988    
+ two-electron energy                   :  12017.500779205    
+ spin-orbit energy                     :          0.00000    
+ energy increment                      :           0.1394E-05
+ damping factor ttr                    :            1.150    
+
+ ====================   14.ITERATION  ====================
+ 
+  weight factors dlin for linear combination of density matrices :
+   1.0000004       1.8851630     -0.22465237      -1.7266775     -0.87376012E-01
+  0.48524098      -4.6745225       2.4635864      -3.2700074       2.6065789    
+  -1.4970693       2.3254135     -0.53956889    
+ accerr=   8.347  crierr=  10.000  ilam=  0  grange= 0.0      chatol=   0.301
+
+ norm of difference density matrix     :   0.288429512486E-05
+ norm of simple difference density     :   0.771837449241E-03
+ norm of density matrix                :    27.8445257824    
+ number of shell pairs ii,jj included  :        18736
+ number of integral batches included   :      1921075
+ number of batches from twoint         :            0
+ unnecessary integral batches on file  :            0
+
+ 
+  weight factors dlin for linear combination of density matrices :
+  0.19955165      0.24262914      0.32770497      0.38736199       1.2482550    
+ -0.91986228       1.4334803       1.3724805     -0.88757432       1.3963559    
+ -0.69319676       1.7948063     -0.23927547    
+ accerr=   5.502  crierr=  10.000  ilam=  0  grange= 0.0      chatol=   0.347
+
+ norm of difference density matrix     :   0.722666895799E-11
+ norm of simple difference density     :   0.246319002344E-10
+ norm of density matrix                :   0.152252879044E-10
+  ---- Spin-Orbit energy contributions ---- 
+ Eso(x)           =      0.00000000000000000
+ Eso(y)           =      0.00000000000000000
+ Eso(z)           =      0.00000000000000000
+ ---------------------------------------------------------
+ total energy                          : -3471.7409116140    
+ one-electron energy                   : -25319.788138753    
+ two-electron energy                   :  12017.501573617    
+ spin-orbit energy                     :          0.00000    
+ energy increment                      :          -0.1353E-05
+ damping factor ttr                    :            1.200    
+
+ ====================   15.ITERATION  ====================
+ 
+  weight factors dlin for linear combination of density matrices :
+  0.99999969      -1.0464955       1.1110639       1.1292509       3.0808141    
+  -1.2693406       3.2629708      -1.2039144       3.5663130      -2.2093244    
+   2.8316396      -1.2705935       2.2911283     -0.14905310    
+ accerr=   7.999  crierr=  10.000  ilam=  0  grange= 0.0      chatol=   0.305
+
+ norm of difference density matrix     :   0.262175838201E-05
+ norm of simple difference density     :   0.656170167772E-03
+ norm of density matrix                :    27.8445070901    
+ number of shell pairs ii,jj included  :        18736
+ number of integral batches included   :      1822391
+ number of batches from twoint         :            0
+ unnecessary integral batches on file  :            0
+
+ 
+  weight factors dlin for linear combination of density matrices :
+ -0.95534392     -0.40584151      0.20878315      0.50257205     -0.59739310E-01
+  0.86665741      0.53593573     -0.74730960      0.78877679     -0.72150559    
+   1.8503673     -0.49020670       2.0344573      0.84363426E-01
+ accerr=   5.117  crierr=  10.000  ilam=  0  grange= 0.0      chatol=   0.358
+
+ norm of difference density matrix     :   0.935051691637E-11
+ norm of simple difference density     :   0.278068345202E-10
+ norm of density matrix                :   0.186692322614E-10
+  ---- Spin-Orbit energy contributions ---- 
+ Eso(x)           =      0.00000000000000000
+ Eso(y)           =      0.00000000000000000
+ Eso(z)           =      0.00000000000000000
+ ---------------------------------------------------------
+ total energy                          : -3471.7409106590    
+ one-electron energy                   : -25319.787523405    
+ two-electron energy                   :  12017.500959224    
+ spin-orbit energy                     :          0.00000    
+ energy increment                      :           0.9550E-06
+ damping factor ttr                    :            1.250    
+
+ ====================   16.ITERATION  ====================
+ 
+  weight factors dlin for linear combination of density matrices :
+   1.0000002       1.2964466      0.24600933      -1.2400070     -0.94845335    
+   1.4082010      -3.2467867       1.0114498      -2.0563665       2.4031686    
+  -1.5262177       3.3035568     -0.15437621E-01   2.6937317      0.15693052    
+ accerr=   6.735  crierr=  10.000  ilam=  0  grange= 0.0      chatol=   0.323
+
+ norm of difference density matrix     :   0.262237533760E-05
+ norm of simple difference density     :   0.530360999202E-03
+ norm of density matrix                :    27.8445216173    
+ number of shell pairs ii,jj included  :        18736
+ number of integral batches included   :      1898080
+ number of batches from twoint         :            0
+ unnecessary integral batches on file  :            0
+
+ 
+  weight factors dlin for linear combination of density matrices :
+ -0.21741395     -0.87364712E-02  0.96840415      0.32243037       1.2778548    
+  0.91324043      0.36155238       1.1561904     -0.28549064       1.2298277    
+ -0.61265845       2.7587010      0.50583418       2.7777399      0.26731760    
+ accerr=   6.794  crierr=  10.000  ilam=  0  grange= 0.0      chatol=   0.322
+
+ norm of difference density matrix     :   0.138475027838E-10
+ norm of simple difference density     :   0.346018412354E-10
+ norm of density matrix                :   0.290387226978E-10
+  ---- Spin-Orbit energy contributions ---- 
+ Eso(x)           =      0.00000000000000000
+ Eso(y)           =      0.00000000000000000
+ Eso(z)           =      0.00000000000000000
+ ---------------------------------------------------------
+ total energy                          : -3471.7409112789    
+ one-electron energy                   : -25319.787975051    
+ two-electron energy                   :  12017.501410251    
+ spin-orbit energy                     :          0.00000    
+ energy increment                      :          -0.6199E-06
+ damping factor ttr                    :            1.300    
+
+ ====================   17.ITERATION  ====================
+ 
+  weight factors dlin for linear combination of density matrices :
+  0.99999981     -0.50866231      0.99015517      0.42253710       2.8323766    
+ -0.88106020       1.6719945     -0.67288321       2.6519186      -1.1006328    
+   2.9642444     -0.94064658       3.9082973       1.0723119       3.2420169    
+  0.47915968    
+ accerr=   7.587  crierr=  10.000  ilam=  0  grange= 0.0      chatol=   0.310
+
+ norm of difference density matrix     :   0.280551852757E-05
+ norm of simple difference density     :   0.408896221753E-03
+ norm of density matrix                :    27.8445103891    
+ number of shell pairs ii,jj included  :        18736
+ number of integral batches included   :      1994359
+ number of batches from twoint         :            0
+ unnecessary integral batches on file  :            0
+
+ 
+  weight factors dlin for linear combination of density matrices :
+ -0.55784702     -0.36213922      0.90539094      0.85923595      0.47440302    
+   1.0106143       1.4272170      -1.4442312      0.71197431      0.26707605    
+   2.0217408      0.88371569E-01   3.7664538       1.7612046       3.2390878    
+  0.59729052    
+ accerr=  10.031  crierr=  10.000  ilam=  3  grange=-.61E-24  chatol=   0.285
+
+ norm of difference density matrix     :   0.169316595650E-10
+ norm of simple difference density     :   0.438586000267E-10
+ norm of density matrix                :   0.456616831273E-10
+  ---- Spin-Orbit energy contributions ---- 
+ Eso(x)           =      0.00000000000000000
+ Eso(y)           =      0.00000000000000000
+ Eso(z)           =      0.00000000000000000
+ ---------------------------------------------------------
+ total energy                          : -3471.7409106972    
+ one-electron energy                   : -25319.787656986    
+ two-electron energy                   :  12017.501092767    
+ spin-orbit energy                     :          0.00000    
+ energy increment                      :           0.5816E-06
+ damping factor ttr                    :            1.350    
+
+ ====================   18.ITERATION  ====================
+ 
+  weight factors dlin for linear combination of density matrices :
+   1.0000001      0.80690451      0.18621343     -0.48374006      -1.3385764    
+  0.85344202      -1.6454308      0.71671181      -1.1983171       1.6560292    
+ -0.85383380E-01   3.9618072       1.6985325       5.7358110       2.4500894    
+   3.8662331      0.80199366    
+ accerr=   9.850  crierr=  10.000  ilam=  0  grange= 0.0      chatol=   0.287
+
+ norm of difference density matrix     :   0.266392980361E-05
+ norm of simple difference density     :   0.298639328640E-03
+ norm of density matrix                :    27.8445186378    
+ number of shell pairs ii,jj included  :        18736
+ number of integral batches included   :      2029475
+ number of batches from twoint         :            0
+ unnecessary integral batches on file  :            0
+
+ 
+  weight factors dlin for linear combination of density matrices :
+ -0.36050671E-01 -0.10532500E-01  0.59270081E-01  0.30308698E-01  0.24312642    
+  0.35827958      0.97362842      0.10959682     -0.25735648       1.0490847    
+  0.32521382       2.4816152       2.4296670       6.0166523       2.2443708    
+   3.3803496      0.94035002    
+ accerr=  10.041  crierr=  10.000  ilam=  6  grange=-.45E-22  chatol=   0.285
+
+ norm of difference density matrix     :   0.228804294581E-10
+ norm of simple difference density     :   0.611675440155E-10
+ norm of density matrix                :   0.805974766749E-10
+  ---- Spin-Orbit energy contributions ---- 
+ Eso(x)           =      0.00000000000000000
+ Eso(y)           =      0.00000000000000000
+ Eso(z)           =      0.00000000000000000
+ ---------------------------------------------------------
+ total energy                          : -3471.7409111139    
+ one-electron energy                   : -25319.787872391    
+ two-electron energy                   :  12017.501307756    
+ spin-orbit energy                     :          0.00000    
+ energy increment                      :          -0.4166E-06
+ damping factor ttr                    :            1.400    
+
+ ====================   19.ITERATION  ====================
+ 
+  weight factors dlin for linear combination of density matrices :
+  0.99999990     -0.10469023      0.33763266      0.53544915      0.32941715    
+ -0.77984557       1.0458941      0.33502027E-01   1.1123559     -0.16369151    
+   2.5682382       1.0083250       4.5177943       3.3718247       5.4039011    
+   2.5233264       3.0037802      0.81508650    
+ accerr=   9.996  crierr=  10.000  ilam=  4  grange=-.42E-10  chatol=   0.286
+
+ norm of difference density matrix     :   0.129875051646E-04
+ norm of simple difference density     :   0.210186629405E-03
+ norm of density matrix                :    27.8445128642    
+ number of shell pairs ii,jj included  :        18736
+ number of integral batches included   :      6959690
+ number of batches from twoint         :            0
+ unnecessary integral batches on file  :            0
+
+ 
+  weight factors dlin for linear combination of density matrices :
+  0.64411735E-02  0.25440179E-02  0.20199749E-02  0.84653150E-03 -0.23623122E-01
+ -0.33488436E-01  0.21523554     -0.80739113E-01  0.90591264E-01  0.51256846E-01
+  0.39553037      0.91248090E-01   2.6553198       3.5789772       5.4549942    
+   2.9971600       4.2603688       1.6316742    
+ accerr=  10.019  crierr=  10.000  ilam=  6  grange=-.40E-21  chatol=   0.285
+
+ norm of difference density matrix     :   0.588690638506E-10
+ norm of simple difference density     :   0.996967868472E-10
+ norm of density matrix                :   0.153132088260E-09
+  ---- Spin-Orbit energy contributions ---- 
+ Eso(x)           =      0.00000000000000000
+ Eso(y)           =      0.00000000000000000
+ Eso(z)           =      0.00000000000000000
+ ---------------------------------------------------------
+ total energy                          : -3471.7409108305    
+ one-electron energy                   : -25319.787732512    
+ two-electron energy                   :  12017.501168160    
+ spin-orbit energy                     :          0.00000    
+ energy increment                      :           0.2833E-06
+ damping factor ttr                    :            1.450    
+
+ ====================   20.ITERATION  ====================
+ 
+  weight factors dlin for linear combination of density matrices :
+   1.0000000      0.50233904     -0.27903773      0.36884385      -2.3952414    
+  0.41898169     -0.24191082      0.56466899     -0.87990142       1.0446852    
+  0.42349884       3.5257038       2.0341277       5.1493975       1.6375675    
+   4.3543164       1.4767016       2.2670159       2.1860448    
+ accerr=  10.017  crierr=  10.000  ilam=  5  grange=-.76E-11  chatol=   0.285
+
+ norm of difference density matrix     :   0.527541265976E-05
+ norm of simple difference density     :   0.137641976609E-03
+ norm of density matrix                :    27.8445165281    
+ number of shell pairs ii,jj included  :        18736
+ number of integral batches included   :      2626893
+ number of batches from twoint         :            0
+ unnecessary integral batches on file  :            0
+
+ 
+  weight factors dlin for linear combination of density matrices :
+ -0.44457384E-02 -0.40659705E-02 -0.32319601E-01 -0.29419991E-01 -0.69436485E-01
+ -0.15456429     -0.75529802      0.22344001     -0.20969265     -0.30928791    
+ -0.77746830     -0.95187987E-01 -0.42544647       3.8294234       2.2462206    
+   5.3740689       4.5064848       3.8997274       1.7226691    
+ accerr=  10.023  crierr=  10.000  ilam=  7  grange=-.11E-21  chatol=   0.285
+
+ norm of difference density matrix     :   0.449217138924E-10
+ norm of simple difference density     :   0.880210517359E-10
+ norm of density matrix                :   0.213906636392E-09
+  ---- Spin-Orbit energy contributions ---- 
+ Eso(x)           =      0.00000000000000000
+ Eso(y)           =      0.00000000000000000
+ Eso(z)           =      0.00000000000000000
+ ---------------------------------------------------------
+ total energy                          : -3471.7409110998    
+ one-electron energy                   : -25319.787818822    
+ two-electron energy                   :  12017.501254200    
+ spin-orbit energy                     :          0.00000    
+ energy increment                      :          -0.2692E-06
+ damping factor ttr                    :            1.500    
+
+ ====================   21.ITERATION  ====================
+ 
+  weight factors dlin for linear combination of density matrices :
+  0.99999994      0.14740590     -0.70404761       1.3809425      -3.3820782    
+ -0.22945489       1.3440722      0.20250083     -0.40770839      0.41424331    
+  0.21353977      0.89471492E-01  0.47432380E-01  -2.4953974      -3.7768421    
+  -3.6764656      0.32121782     -0.32521007E-01   5.1053665       2.5805492    
+ accerr=   9.994  crierr=  10.000  ilam=  8  grange=-.36E-12  chatol=   0.286
+
+ norm of difference density matrix     :   0.283625750034E-05
+ norm of simple difference density     :   0.888907825176E-04
+ norm of density matrix                :    27.8445141378    
+ number of shell pairs ii,jj included  :        18736
+ number of integral batches included   :      1981930
+ number of batches from twoint         :            0
+ unnecessary integral batches on file  :            0
+
+ 
+  weight factors dlin for linear combination of density matrices :
+  0.17451665E-01  0.26978878E-01  0.13238987      0.87693344E-01  0.27049199    
+  0.64940606      0.45214362     -0.12875971      0.26275930      -1.1812881    
+ -0.47283921E-01 -0.92200451      -2.3972937      -2.0133409       2.4984857    
+   1.8439773       7.2489329       3.0209027       2.8479403       1.7760034    
+ accerr=  10.095  crierr=  10.000  ilam=  7  grange=-.55E-22  chatol=   0.285
+
+ norm of difference density matrix     :   0.105987258072E-09
+ norm of simple difference density     :   0.145422969361E-09
+ norm of density matrix                :   0.278989577899E-09
+  ---- Spin-Orbit energy contributions ---- 
+ Eso(x)           =      0.00000000000000000
+ Eso(y)           =      0.00000000000000000
+ Eso(z)           =      0.00000000000000000
+ ---------------------------------------------------------
+ total energy                          : -3471.7409109857    
+ one-electron energy                   : -25319.787768834    
+ two-electron energy                   :  12017.501204327    
+ spin-orbit energy                     :          0.00000    
+ energy increment                      :           0.1141E-06
+ damping factor ttr                    :            1.550    
+
+ ====================   22.ITERATION  ====================
+ norm of density matrix                :    27.8445162265    
+ number of shell pairs ii,jj included  :        18736
+ number of integral batches included   :     89791989
+ number of batches from twoint         :            0
+ unnecessary integral batches on file  :            0
+
+ norm of density matrix                :   0.297536434566E-09
+  ---- Spin-Orbit energy contributions ---- 
+ Eso(x)           =      0.00000000000000000
+ Eso(y)           =      0.00000000000000000
+ Eso(z)           =      0.00000000000000000
+ ---------------------------------------------------------
+ total energy                          : -3471.7399558749    
+ one-electron energy                   : -25319.787802964    
+ two-electron energy                   :  12017.502193568    
+ spin-orbit energy                     :          0.00000    
+ energy increment                      :          -0.8089E-07
+ damping factor ttr                    :            1.600    

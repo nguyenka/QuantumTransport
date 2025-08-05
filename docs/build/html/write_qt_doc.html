@@ -1,20 +1,22 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="./">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Writing documentation &mdash; QuantumTransport 1.0 documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
   
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=f2a433a1"></script>
+      <script src="_static/doctools.js?v=9a2dae69"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -26,17 +28,21 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="index.html" class="icon icon-home"> QuantumTransport
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            QuantumTransport
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption"><span class="caption-text">Contents:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
@@ -44,7 +50,7 @@
 <li class="toctree-l1"><a class="reference internal" href="modules.html">Modules</a></li>
 <li class="toctree-l1"><a class="reference internal" href="develop.html">Development</a></li>
 <li class="toctree-l1"><a class="reference internal" href="py_coding.html">Coding Conventions</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Coding Conventions</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Writing documentation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#installing-docutils-and-sphinx">Installing Docutils and Sphinx</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#using-sphinx">Using Sphinx</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#extensions-to-sphinx">Extensions to Sphinx</a></li>
@@ -65,7 +71,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
       <li class="breadcrumb-item active">Writing documentation</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/write_qt_doc.rst.txt" rel="nofollow"> View page source</a>
@@ -76,44 +82,44 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="writing-documentation">
-<h1>Writing documentation<a class="headerlink" href="#writing-documentation" title="Permalink to this headline"></a></h1>
+  <section id="writing-documentation">
+<h1>Writing documentation<a class="headerlink" href="#writing-documentation" title="Link to this heading"></a></h1>
 <p>The documentation is generated using <a class="reference external" href="http://sphinx.pocoo.org">Sphinx</a>.  The documentation is
 stored on Github as text files in the <span class="math notranslate nohighlight">\(docs\)</span> directory using the
 <a class="reference external" href="http://docutils.sourceforge.net/rst.html">reStructuredText</a> markup language.</p>
-<div class="section" id="installing-docutils-and-sphinx">
-<h2>Installing Docutils and Sphinx<a class="headerlink" href="#installing-docutils-and-sphinx" title="Permalink to this headline"></a></h2>
+<section id="installing-docutils-and-sphinx">
+<h2>Installing Docutils and Sphinx<a class="headerlink" href="#installing-docutils-and-sphinx" title="Link to this heading"></a></h2>
 <p>If you do:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ pip install sphinx_rtd_theme --user
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>sphinx_rtd_theme<span class="w"> </span>--user
 </pre></div>
 </div>
 <p>and add <code class="docutils literal notranslate"><span class="pre">~/.local/bin</span></code> to you <span class="target" id="index-0"></span><code class="xref std std-envvar docutils literal notranslate"><span class="pre">PATH</span></code> environment variable, then
 you should be ready to go.  You may need the following installed, but they
 are not required: scipy, matplotlib, povray, dvipng, pdflatex, bibtex,
 AUCTex, fontconfig, convert (ImageMagick).</p>
-</div>
-<div class="section" id="using-sphinx">
-<span id="id1"></span><h2>Using Sphinx<a class="headerlink" href="#using-sphinx" title="Permalink to this headline"></a></h2>
+</section>
+<section id="using-sphinx">
+<span id="id1"></span><h2>Using Sphinx<a class="headerlink" href="#using-sphinx" title="Link to this heading"></a></h2>
 <p>First, you should take a look at the documentation for <a class="reference external" href="http://sphinx.pocoo.org">Sphinx</a> and
 <a class="reference external" href="http://docutils.sourceforge.net/rst.html">reStructuredText</a>.</p>
 <p>Then <strong class="command">cd</strong> to the <code class="file docutils literal notranslate"><span class="pre">docs</span></code> directory and build the html-pages:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> ~/QuantumTransport/docs
-$ make
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>~/QuantumTransport/docs
+$<span class="w"> </span>make
 </pre></div>
 </div>
 <p>Create a branch for your work, make your changes to the <code class="docutils literal notranslate"><span class="pre">.rst</span></code> files, run
 <strong class="command">make</strong> again, check the results and if things
 look ok, create a <em>merge request</em>:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ git checkout -b fixdoc
-$ idle index.rst
-$ make html
-$ git commit -am <span class="s2">&quot;fix typos ...&quot;</span>
-$ git push -u origin fixdoc
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>fixdoc
+$<span class="w"> </span>idle<span class="w"> </span>index.rst
+$<span class="w"> </span>make<span class="w"> </span>html
+$<span class="w"> </span>git<span class="w"> </span>commit<span class="w"> </span>-am<span class="w"> </span><span class="s2">&quot;fix typos ...&quot;</span>
+$<span class="w"> </span>git<span class="w"> </span>push<span class="w"> </span>-u<span class="w"> </span>origin<span class="w"> </span>fixdoc
 </pre></div>
 </div>
-</div>
-<div class="section" id="extensions-to-sphinx">
-<h2>Extensions to Sphinx<a class="headerlink" href="#extensions-to-sphinx" title="Permalink to this headline"></a></h2>
+</section>
+<section id="extensions-to-sphinx">
+<h2>Extensions to Sphinx<a class="headerlink" href="#extensions-to-sphinx" title="Link to this heading"></a></h2>
 <p>Extensions to Sphinx:</p>
 <p><strong>:math:</strong></p>
 <blockquote>
@@ -132,8 +138,8 @@ out the <code class="docutils literal notranslate"><span class="pre">:math:</spa
 <div class="math notranslate nohighlight">
 \[\frac{1}{1+x^2}\]</div>
 </div></blockquote>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>

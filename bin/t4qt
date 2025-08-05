@@ -9,9 +9,12 @@ import os
 from os.path import isfile
 import json
 from ase.io import read
-from ase.calculators.turbomole import Turbomole, add_data_group
 
-def t19_cal(fname,ncpu,ecp_group):
+# from ase.calculators.turbomole import Turbomole, add_data_group #ase-3.22.1
+from ase.calculators.turbomole.writer import add_data_group #ase-3.23.1b1
+from ase.calculators.turbomole import Turbomole
+
+def t_cal(fname,ncpu,ecp_group):
     """
     function for creating Turbomole input and running the ridft.
     """
@@ -23,11 +26,11 @@ def t19_cal(fname,ncpu,ecp_group):
     params = {
     'title': filename,
     'task': 'energy calculation',
-    'basis set name': 'x2c-SVPall-2c',
+    'basis set name': 'dhf-SVP',
     'total charge': 0,
-    'multiplicity': 1,
+    'multiplicity': 3,
     'use dft': True,
-    'density functional': 'b3-lyp',
+    'density functional': 'pbe0',
     'use resolution of identity': True,
     'scf iterations': 400
     }
@@ -52,11 +55,12 @@ def t19_cal(fname,ncpu,ecp_group):
         add_data_group('rx2c')
     #calc.calculate(a)
     #assert calc.converged # # check SCF convergence
-    ridft = '/p/home/nguyenka/COSMOlogic/TmoleX19/TURBOMOLE/smprun_scripts/ridft -n '
+    #ridft = '/p/home/nguyenka/COSMOlogic/TmoleX19/TURBOMOLE/smprun_scripts/ridft -n '
+    ridft = '/p/home/nguyenka/TmoleX2024/TURBOMOLE/bin/x86_64-unknown-linux-gnu/ridft -n '
     os.system('{0} {1} >& {2}'.format(ridft,ncpu,filename+'.out'))
     # so calculation
     #calc = Turbomole(restart=True, **params)
-    add_data_group('kramers')
+    #add_data_group('kramers')
     add_data_group('soghf')
     #calc.calculate(a)
     os.system('{0} {1} >& {2}'.format(ridft,ncpu,filename+'_so.out'))
@@ -91,7 +95,7 @@ def main():
     Filename = args.filename
     nproc = args.nproc
     ecp = args.ecp
-    t19_cal(Filename,nproc,ecp)
+    t_cal(Filename,nproc,ecp)
 if __name__ == "__main__":
     main()
 

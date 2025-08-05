@@ -1,0 +1,103 @@
+$title
+DTDAD
+$symmetry c1
+$user-defined bonds    file=coord
+$coord    file=coord
+$optimize
+ internal   off
+ redundant  off
+ cartesian  on
+ global     off
+ basis      off
+$atoms
+au 1-9,50-58                                                                   \
+   basis =au LANL2DZ                                                           \
+   ecp   =au LANL2DZ-ecp                                                       \
+   jbas  =au universal
+c  10-12,14-15,17,20-29,32-37,45                                               \
+   basis =c LANL2DZ                                                            \
+   jbas  =c universal
+h  13,16,18-19,30-31,38-41,44                                                  \
+   basis =h LANL2DZ                                                            \
+   jbas  =h universal
+s  42-43,48-49                                                                 \
+   basis =s LANL2DZ                                                            \
+   ecp   =s LANL2DZ-ecp                                                        \
+   jbas  =s universal
+n  46-47                                                                       \
+   basis =n LANL2DZ                                                            \
+   jbas  =n universal
+$basis    file=basis
+$ecp    file=basis
+$newecp
+$soghf
+$intsdebug sao
+$ricore     1500
+$rij
+$jbas    file=auxbasis
+$scfiterlimit      200
+$scfconv        7
+$thize     0.10000000E-04
+$thime        5
+$scfdamp   start=0.600  step=0.050  min=0.100 max=0.8
+$scfdump
+$scfintunit
+ unit=30       size=0        file=twoint
+$scfdiis
+$maxcor    500 MiB  per_core
+$scforbitalshift  openshell=0.1
+$drvopt
+   cartesian  on
+   basis      off
+   global     off
+   hessian    on
+   dipole     on
+   nuclear polarizability
+$interconversion  off
+   qconv=1.d-7
+   maxiter=25
+$coordinateupdate
+   dqmax=0.3
+   interpolate  on
+   statistics    5
+$forceupdate
+   ahlrichs numgeo=0  mingeo=3 maxgeo=4 modus=<g|dq> dynamic fail=0.3
+   threig=0.005  reseig=0.005  thrbig=3.0  scale=1.00  damping=0.0
+$forceinit on
+   diag=default
+$dft
+   functional b3-lyp_Gaussian
+   gridsize   m3
+$energy    file=energy
+$grad    file=gradient
+$forceapprox    file=forceapprox
+$rundimensions
+   natoms=58
+   nbf(CAO)=711
+   nbf(AO)=675
+$uhfmo_alpha   file=alpha
+$uhfmo_beta   file=beta
+$uhf
+$xctype hybrid-GGA X= 0.20000 (not to be modified here)
+$last SCF energy change = -.48557922E-08
+$ssquare from ridft
+          0.767 (not to be modified here)
+$charge from ridft
+          0.000 (not to be modified here)
+$dipole from ridft
+  x    -0.01460688672194    y    -0.07942779819643    z     0.01856387810885    a.u.
+   | dipole | =    0.2106256463  debye
+$alpha shells
+ a       1-265                                  ( 1 )
+$beta shells
+ a       1-264                                  ( 1 )
+$disp3 bj
+$last step     ridft
+$spinor_real       file=spinor.r
+$spinor_imag       file=spinor.i
+$spinor shells
+ a       1-529                                  ( 1 )
+$orbital_max_rnorm  0.0000000000000
+$subenergy  Etot         E1                  Ej                Ex                 Ec                 En                 Disp
+-3471.739955875    -25319.78780296     12398.74034840    -357.3845735985    -23.85358123717     9830.883595945    -.3379424230767
+$end

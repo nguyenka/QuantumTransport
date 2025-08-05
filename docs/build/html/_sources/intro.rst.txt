@@ -55,7 +55,6 @@ The self-energy of the electrodes X (left or right) is calculated using the over
 
 where :math:`\mathbf{g}_X` is the Green’s function of electrode X, which can be approximated within wide-band limit using cLDOS. The overlap matrix `S` obtained from one-component scalar-relativistic calculation, where there is no SO interaction.  The effective single-particle Hamiltonian matrices are approximate by KS matrices
 
-The minima hopping algorithm was developed and described by Goedecker:
 
 References
 ----------

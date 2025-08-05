@@ -1,19 +1,21 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="./">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Development &mdash; QuantumTransport 1.0 documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
   
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/doctools.js"></script>
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=f2a433a1"></script>
+      <script src="_static/doctools.js?v=9a2dae69"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -26,17 +28,21 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="index.html" class="icon icon-home"> QuantumTransport
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            QuantumTransport
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption"><span class="caption-text">Contents:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
@@ -71,7 +77,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
       <li class="breadcrumb-item active">Development</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/develop.rst.txt" rel="nofollow"> View page source</a>
@@ -82,8 +88,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="development">
-<h1>Development<a class="headerlink" href="#development" title="Permalink to this headline"></a></h1>
+  <section id="development">
+<h1>Development<a class="headerlink" href="#development" title="Link to this heading"></a></h1>
 <p>Code development follows a collaborative model of <a class="reference external" href="https://docs.github.com/en/get-started/quickstart/fork-a-repo">forks</a> (or clone) and <a class="reference external" href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests">pull requests</a>
 on <a class="reference external" href="https://github.com">https://github.com</a> using <a class="reference external" href="https://git-scm.com/">Git</a> (see the <a class="reference internal" href="#basis-info-on-git"><span class="std std-ref">Basic info on git section</span></a>).</p>
 <ul class="simple">
@@ -91,8 +97,8 @@ on <a class="reference external" href="https://github.com">https://github.com</a
 it to your own repository and make a merge request from that branch in your
 repository to official master.</p></li>
 </ul>
-<div class="section" id="forking">
-<h2>Forking<a class="headerlink" href="#forking" title="Permalink to this headline"></a></h2>
+<section id="forking">
+<h2>Forking<a class="headerlink" href="#forking" title="Link to this heading"></a></h2>
 <p>Forking (see <a class="reference external" href="https://docs.github.com/en/get-started/quickstart/fork-a-repo">forks</a>) QuantumTransport give you your own personal copy of
 the project at
 <a class="reference external" href="https://github.com/your-user-name/QuantumTransport">https://github.com/your-user-name/QuantumTransport</a></p>
@@ -112,9 +118,9 @@ $ git remote -v
 <p>List the remotes that you are tracking.</p>
 </li>
 </ul>
-</div>
-<div class="section" id="cloning">
-<h2>Cloning<a class="headerlink" href="#cloning" title="Permalink to this headline"></a></h2>
+</section>
+<section id="cloning">
+<h2>Cloning<a class="headerlink" href="#cloning" title="Link to this heading"></a></h2>
 <ul>
 <li><p>Clone QuantumTransport to your local machine and change <code class="docutils literal notranslate"><span class="pre">origin</span></code>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ git clone https://github.com/nguyenka/QuantumTransport
@@ -125,9 +131,9 @@ $ git remote -v
 <p>List the remotes that you are tracking should have a new <code class="docutils literal notranslate"><span class="pre">origin</span></code>.</p>
 </li>
 </ul>
-</div>
-<div class="section" id="making-changes">
-<h2>Making changes<a class="headerlink" href="#making-changes" title="Permalink to this headline"></a></h2>
+</section>
+<section id="making-changes">
+<h2>Making changes<a class="headerlink" href="#making-changes" title="Link to this heading"></a></h2>
 <p>Changes and/or additions can be made both directly in Github for small
 changes (see the <a class="reference internal" href="#making-small-changes"><span class="std std-ref">small changes section</span></a>) and on a
 local branch in your fork.</p>
@@ -188,9 +194,9 @@ personal repository and then pushing to your github repository.</p></li>
 </li>
 </ul>
 </div></blockquote>
-</div>
-<div class="section" id="making-small-changes">
-<span id="id1"></span><h2>Making small changes<a class="headerlink" href="#making-small-changes" title="Permalink to this headline"></a></h2>
+</section>
+<section id="making-small-changes">
+<span id="id1"></span><h2>Making small changes<a class="headerlink" href="#making-small-changes" title="Link to this heading"></a></h2>
 <p>If you want to fix a typo or a line of code. Github has a <a class="reference external" href="https://docs.github.com/en/repositories/working-with-files/managing-files/editing-files">web</a> editing feature.
 Here are the steps to do that there:</p>
 <ul class="simple">
@@ -198,9 +204,9 @@ Here are the steps to do that there:</p>
 <li><p>In your repository, browse to the file you want to edit and fix the typo or code</p></li>
 <li><p>When you edit a file in another user’s repository, github will automatically fork the repository and open a pull request for you.</p></li>
 </ul>
-</div>
-<div class="section" id="writing-the-commit-message">
-<span id="id2"></span><h2>Writing the commit message<a class="headerlink" href="#writing-the-commit-message" title="Permalink to this headline"></a></h2>
+</section>
+<section id="writing-the-commit-message">
+<span id="id2"></span><h2>Writing the commit message<a class="headerlink" href="#writing-the-commit-message" title="Link to this heading"></a></h2>
 <p>Here are the ollowing the guidlines from ASE, commit messages should be clear and follow a few basic rules.  Example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ENH</span><span class="p">:</span> <span class="n">add</span> <span class="n">functionality</span> <span class="n">X</span> <span class="n">to</span> <span class="n">QuantumTransport</span><span class="o">.&lt;</span><span class="n">submodule</span><span class="o">&gt;.</span>
 
@@ -218,39 +224,39 @@ changes.  A commit message like <code class="docutils literal notranslate"><span
 what not to do; the reader has to go look for context elsewhere.</p>
 <p>Standard acronyms to start the commit message with are:</p>
 <dl class="field-list simple">
-<dt class="field-odd">API</dt>
+<dt class="field-odd">API<span class="colon">:</span></dt>
 <dd class="field-odd"><p>API change</p>
 </dd>
-<dt class="field-even">BUG</dt>
+<dt class="field-even">BUG<span class="colon">:</span></dt>
 <dd class="field-even"><p>bug fix</p>
 </dd>
-<dt class="field-odd">DEP</dt>
+<dt class="field-odd">DEP<span class="colon">:</span></dt>
 <dd class="field-odd"><p>deprecate something, or remove a deprecated object</p>
 </dd>
-<dt class="field-even">DEV</dt>
+<dt class="field-even">DEV<span class="colon">:</span></dt>
 <dd class="field-even"><p>development tool or utility</p>
 </dd>
-<dt class="field-odd">DOC</dt>
+<dt class="field-odd">DOC<span class="colon">:</span></dt>
 <dd class="field-odd"><p>documentation</p>
 </dd>
-<dt class="field-even">ENH</dt>
+<dt class="field-even">ENH<span class="colon">:</span></dt>
 <dd class="field-even"><p>enhancement</p>
 </dd>
-<dt class="field-odd">MAINT</dt>
+<dt class="field-odd">MAINT<span class="colon">:</span></dt>
 <dd class="field-odd"><p>maintenance commit (refactoring, typos, etc.)</p>
 </dd>
-<dt class="field-even">REV</dt>
+<dt class="field-even">REV<span class="colon">:</span></dt>
 <dd class="field-even"><p>revert an earlier commit</p>
 </dd>
-<dt class="field-odd">STY</dt>
+<dt class="field-odd">STY<span class="colon">:</span></dt>
 <dd class="field-odd"><p>style fix (whitespace, PEP8)</p>
 </dd>
-<dt class="field-even">TST</dt>
+<dt class="field-even">TST<span class="colon">:</span></dt>
 <dd class="field-even"><p>addition or modification of tests</p>
 </dd>
 </dl>
-<div class="section" id="code-review">
-<h3>Code review<a class="headerlink" href="#code-review" title="Permalink to this headline"></a></h3>
+<section id="code-review">
+<h3>Code review<a class="headerlink" href="#code-review" title="Link to this heading"></a></h3>
 <p>Before you start working on a Merge Request, <em>please</em> read
 <a class="reference internal" href="py_coding.html#coding-conventions"><span class="std std-ref">Coding Conventions</span></a>.  Please also install pylint!</p>
 <p>Hopefully someone will look at your changes and give you some
@@ -263,18 +269,18 @@ repository right away, but there could also be some more work to do like:</p>
 <li><p>write a test</p></li>
 <li><p>add some documentation</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="basic-info-on-git">
-<span id="basis-info-on-git"></span><h2>Basic info on git<a class="headerlink" href="#basic-info-on-git" title="Permalink to this headline"></a></h2>
+</section>
+</section>
+<section id="basic-info-on-git">
+<span id="basis-info-on-git"></span><h2>Basic info on git<a class="headerlink" href="#basic-info-on-git" title="Link to this heading"></a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="http://gitref.org">Git Reference</a></p></li>
 <li><p><a class="reference external" href="https://git-scm.com/book/en/v2">Pro Git</a></p></li>
 <li><p><a class="reference external" href="https://www.youtube.com/watch?v=ZDR433b0HJY">Introduction to Git with Scott Chacon of GitHub</a></p></li>
 <li><p><a class="reference external" href="https://www.youtube.com/watch?v=4XpnKHJAok8">Tech Talk: Linus Torvalds on git</a></p></li>
 </ul>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>

@@ -13,6 +13,11 @@ Classifier: Environment :: Console
 Classifier: Intended Audience :: Science/Research
 Classifier: Operating System :: OS Independent
 Classifier: Topic :: Scientific/Engineering
+Requires-Dist: ase>=3.22.1
+Requires-Dist: cclib>=1.7.1
+Requires-Dist: matplotlib
+Requires-Dist: munch>=2.5.0
+Requires-Dist: numpy>=1.19.5
 
 
 Calculating electron spin polarization and transmission

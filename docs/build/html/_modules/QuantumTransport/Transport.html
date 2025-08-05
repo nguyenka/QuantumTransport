@@ -1,19 +1,20 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>QuantumTransport.Transport &mdash; QuantumTransport 1.0 documentation</title>
-      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+
   
-        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-        <script src="../../_static/jquery.js"></script>
-        <script src="../../_static/underscore.js"></script>
-        <script src="../../_static/doctools.js"></script>
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=f2a433a1"></script>
+      <script src="../../_static/doctools.js?v=9a2dae69"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" /> 
@@ -24,17 +25,21 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../index.html" class="icon icon-home"> QuantumTransport
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            QuantumTransport
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption"><span class="caption-text">Contents:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../install.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../intro.html">Introduction</a></li>
@@ -58,7 +63,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a></li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
       <li class="breadcrumb-item active">QuantumTransport.Transport</li>
       <li class="wy-breadcrumbs-aside">
@@ -73,9 +78,9 @@
 <span></span><span class="ch">#!/usr/bin/env python3</span>
 <span class="c1"># pylint: disable=invalid-name</span>
 <span class="sd">&quot;&quot;&quot;Module for electron spin polarization and transmission.&quot;&quot;&quot;</span>
-<span class="kn">import</span> <span class="nn">json</span>
-<span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">isfile</span>
 <span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">isfile</span>
+<span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">pi</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -85,7 +90,7 @@
 
 <span class="k">def</span> <span class="nf">banner</span><span class="p">():</span>
     <span class="c1"># pylint: multiple-statements</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    function for a banner.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;----------------------------------------------------------------&quot;</span><span class="p">)</span>
@@ -97,8 +102,10 @@
     <span class="c1">#print(&quot;K. A. Nguyen, QuantumTransport 0.1 (2022)&quot;)</span>
     <span class="c1">#print(&quot;----------------------------------------------------------------&quot;)</span>
 
-<div class="viewcode-block" id="plot_spinpol"><a class="viewcode-back" href="../../modules.html#QuantumTransport.plot_spinpol">[docs]</a><span class="k">def</span> <span class="nf">plot_spinpol</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span><span class="n">yscale</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="plot_spinpol">
+<a class="viewcode-back" href="../../modules.html#QuantumTransport.plot_spinpol">[docs]</a>
+<span class="k">def</span> <span class="nf">plot_spinpol</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span><span class="n">yscale</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    plot spin polarization and four transmissions functions vs energy </span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -107,7 +114,11 @@
     <span class="n">Polar</span> <span class="o">=</span> <span class="n">mat0</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">E</span><span class="p">,</span><span class="n">Polar</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$E - E_f$ (eV)&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;% Polarization&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$P_</span><span class="si">{s}</span><span class="s1">$(%)&#39;</span><span class="p">)</span>
+    <span class="c1">#plt.title(&#39;Electron Polarization&#39;)</span>
+    <span class="c1">#plt.xlim([-2.0,3.0])</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="o">-</span><span class="mf">2.0</span><span class="p">,</span><span class="mf">2.0</span><span class="p">])</span>
+    <span class="c1">#plt.ylim([-105.0,105.0])</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span> <span class="c1"># show figure</span>
     <span class="n">Tuu</span> <span class="o">=</span> <span class="n">mat0</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span>
     <span class="n">Tdd</span> <span class="o">=</span> <span class="n">mat0</span><span class="p">[:,</span><span class="mi">3</span><span class="p">]</span>
@@ -119,23 +130,30 @@
     <span class="k">else</span><span class="p">:</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">yscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span> <span class="c1"># default</span>
     <span class="n">legend</span><span class="o">=</span> <span class="p">[]</span>
+    <span class="n">legend</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$T^</span><span class="si">{total}</span><span class="s2">$&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">E</span><span class="p">,</span><span class="n">Tuu</span><span class="o">+</span><span class="n">Tdd</span><span class="o">+</span><span class="n">Tdu</span><span class="o">+</span><span class="n">Tud</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">)</span>
     <span class="n">legend</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$T^{\uparrow\uparrow}$&quot;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">E</span><span class="p">,</span><span class="n">Tuu</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">E</span><span class="p">,</span><span class="n">Tuu</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">)</span>
     <span class="n">legend</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$T^{\downarrow\downarrow}$&quot;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">E</span><span class="p">,</span><span class="n">Tdd</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">E</span><span class="p">,</span><span class="n">Tdd</span><span class="p">,</span><span class="s2">&quot;--&quot;</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">)</span>
     <span class="n">legend</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$T^{\downarrow\uparrow}$&quot;</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">E</span><span class="p">,</span><span class="n">Tdu</span><span class="p">)</span>
     <span class="n">legend</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$T^{\uparrow\downarrow}$&quot;</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">E</span><span class="p">,</span><span class="n">Tud</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="mf">0.001</span><span class="p">,</span><span class="mf">10.0</span><span class="p">])</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="o">-</span><span class="mf">2.0</span><span class="p">,</span><span class="mf">2.0</span><span class="p">])</span>
+    <span class="c1">#plt.ylim([0.0000001,10.0])</span>
+    <span class="c1">#plt.ylim([0.00000001,10.0])</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$E - E_f$ (eV)&#39;</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Transmission&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Electron Transmission&#39;</span><span class="p">)</span>
+    <span class="c1">#plt.title(&#39;Electron Transmission&#39;)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">legend</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span> <span class="c1"># show figure</span></div>
 
-<div class="viewcode-block" id="plot_spinpol2"><a class="viewcode-back" href="../../modules.html#QuantumTransport.plot_spinpol2">[docs]</a><span class="k">def</span> <span class="nf">plot_spinpol2</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span><span class="n">yscale</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="plot_spinpol2">
+<a class="viewcode-back" href="../../modules.html#QuantumTransport.plot_spinpol2">[docs]</a>
+<span class="k">def</span> <span class="nf">plot_spinpol2</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span><span class="n">yscale</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    plot spin polarization and Tuu, Tdd transmission functions vs energy </span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -145,28 +163,38 @@
     <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">E</span><span class="p">,</span><span class="n">Polar</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$E - E_f$ (eV)&#39;</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;% Polarization&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$P_</span><span class="si">{s}</span><span class="s1">$(%)&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="o">-</span><span class="mf">2.0</span><span class="p">,</span><span class="mf">2.0</span><span class="p">])</span>
+    <span class="c1">#plt.ylim([-105.0,105.0])</span>
+    <span class="c1">#plt.title(&#39;Electron Polarization&#39;)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span> <span class="c1"># show figure</span>
     <span class="n">Tuu</span> <span class="o">=</span> <span class="n">mat0</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span>
     <span class="n">Tdd</span> <span class="o">=</span> <span class="n">mat0</span><span class="p">[:,</span><span class="mi">3</span><span class="p">]</span>
     <span class="c1"># transmission</span>
     <span class="n">legend</span><span class="o">=</span> <span class="p">[]</span>
-    <span class="n">legend</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$T^\uparrow$&quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">yscale</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">yscale</span><span class="p">(</span><span class="n">yscale</span><span class="p">)</span> <span class="c1"># linear,logit or symlog</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">yscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span> <span class="c1"># default</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">E</span><span class="p">,</span><span class="n">Tuu</span><span class="p">)</span>
-    <span class="n">legend</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$T^\downarrow$&quot;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">E</span><span class="p">,</span><span class="n">Tdd</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="mf">0.0001</span><span class="p">,</span><span class="mi">10</span><span class="p">])</span>
+    <span class="n">legend</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$T^</span><span class="si">{total}</span><span class="s2">$&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">E</span><span class="p">,</span><span class="n">Tuu</span><span class="o">+</span><span class="n">Tdd</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">)</span>
+    <span class="n">legend</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$T^{\uparrow\uparrow}$&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">E</span><span class="p">,</span><span class="n">Tuu</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">)</span>
+    <span class="n">legend</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$T^{\downarrow\downarrow}$&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">E</span><span class="p">,</span><span class="n">Tdd</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="o">-</span><span class="mf">2.0</span><span class="p">,</span><span class="mf">2.0</span><span class="p">])</span>
+    <span class="c1">#plt.ylim([0.0000001,10.0])</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="mf">0.00001</span><span class="p">,</span><span class="mf">10.0</span><span class="p">])</span>
+    <span class="c1">#plt.ylim([0.0001,10])</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$E - E_f$ (eV)&#39;</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Transmission&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Electron Transmission&#39;</span><span class="p">)</span>
+    <span class="c1">#plt.title(&#39;Electron Transmission&#39;)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">legend</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span> <span class="c1"># show figure</span></div>
 
+
 <span class="k">def</span> <span class="nf">sqrtm_np</span><span class="p">(</span><span class="n">A</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    function matrix square root.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1">#diagonalization</span>
@@ -177,31 +205,38 @@
     <span class="k">return</span> <span class="n">result</span>
 
 <span class="k">def</span> <span class="nf">dprint_mat</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;matrix&#39;</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    print a few elements of a matrix</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s1">12.5e</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s1">12.5e</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="n">A</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s1">12.5e</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span><span class="si">:</span><span class="s1">12.5e</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 
-<div class="viewcode-block" id="TransportCal"><a class="viewcode-back" href="../../modules.html#QuantumTransport.TransportCal">[docs]</a><span class="k">class</span> <span class="nc">TransportCal</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="TransportCal">
+<a class="viewcode-back" href="../../modules.html#QuantumTransport.TransportCal">[docs]</a>
+<span class="k">class</span> <span class="nc">TransportCal</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Class for electron spin polarization and transmission calculations.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># pylint: disable=too-many-instance-attributes</span>
 
-<div class="viewcode-block" id="TransportCal.__init__"><a class="viewcode-back" href="../../modules.html#QuantumTransport.TransportCal.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">qcfile</span><span class="o">=</span><span class="s1">&#39;ridft.out&#39;</span><span class="p">,</span><span class="n">latoms</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span><span class="n">catoms</span> <span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">ciss_calc</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>\
-                 <span class="n">load_data</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fock_calc</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span><span class="n">debug</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="TransportCal.__init__">
+<a class="viewcode-back" href="../../modules.html#QuantumTransport.TransportCal.__init__">[docs]</a>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">qcfile</span><span class="o">=</span><span class="s1">&#39;ridft.out&#39;</span><span class="p">,</span><span class="n">qccode</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span><span class="n">latoms</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span><span class="n">catoms</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>\
+                 <span class="n">soc_type</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span><span class="n">left_basis</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span><span class="n">central_basis</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span><span class="n">right_basis</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>\
+                 <span class="n">overlap</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span><span class="n">focka</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span><span class="n">fockb</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span><span class="n">fock_soc</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span><span class="n">load_data</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> \
+                 <span class="n">fock_calc</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">debug</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
 
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Parameters:</span>
 
-<span class="sd">        ciss_calc: Chiral induced spin polarization transmission with SOC data.</span>
+<span class="sd">        soc_type: Chiral induced spin polarization transmission with SOC data for CS or OS.</span>
 <span class="sd">        load_data: Load files produced by qt_dat.py.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># pylint: disable=too-many-arguments</span>
 
         <span class="n">banner</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">debug</span><span class="o">=</span><span class="n">debug</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">soc_type</span><span class="o">=</span><span class="n">soc_type</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">load_data</span><span class="o">=</span><span class="n">load_data</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fock_calc</span><span class="o">=</span><span class="n">fock_calc</span>
         <span class="k">if</span> <span class="n">load_data</span><span class="p">:</span>
@@ -212,13 +247,40 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">nR</span><span class="o">=</span><span class="n">bparams</span><span class="p">[</span><span class="s1">&#39;right_basis&#39;</span><span class="p">]</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">nmo</span><span class="o">=</span><span class="n">bparams</span><span class="p">[</span><span class="s1">&#39;total_basis&#39;</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">ciss_calc</span><span class="p">:</span>
-                <span class="n">tparse</span> <span class="o">=</span> <span class="n">TurbomoleParse</span><span class="p">(</span><span class="n">latoms</span> <span class="o">=</span> <span class="n">latoms</span><span class="p">,</span><span class="n">catoms</span> <span class="o">=</span> <span class="n">catoms</span><span class="p">,</span>\
-                <span class="n">tout</span><span class="o">=</span><span class="n">qcfile</span><span class="p">,</span><span class="n">savefile</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">nL</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">nC</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">nR</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">nmo</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">Sf</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">Fs</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">Fsoc</span><span class="o">=</span><span class="n">tparse</span><span class="o">.</span><span class="n">parse_output</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">latoms</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Partitionng the system into three regions:&#39;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;left electrode: </span><span class="si">{</span><span class="n">latoms</span><span class="si">}</span><span class="s1"> atoms&#39;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;central region: </span><span class="si">{</span><span class="n">catoms</span><span class="si">}</span><span class="s1"> atoms&#39;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;right electrode: remaining atoms&#39;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Note:&#39;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The first and last sets of heavy atoms are assummed be on left and right&#39;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;electrodes, respectively.</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">left_basis</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">nL</span> <span class="o">=</span> <span class="n">left_basis</span> 
+                <span class="bp">self</span><span class="o">.</span><span class="n">nC</span> <span class="o">=</span> <span class="n">central_basis</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">nR</span> <span class="o">=</span> <span class="n">right_basis</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">nmo</span><span class="o">=</span> <span class="n">left_basis</span> <span class="o">+</span> <span class="n">central_basis</span> <span class="o">+</span> <span class="n">right_basis</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">Sf</span> <span class="o">=</span> <span class="n">overlap</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">Fa</span> <span class="o">=</span> <span class="n">focka</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">Fb</span> <span class="o">=</span> <span class="n">fockb</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">Fsoc</span> <span class="o">=</span> <span class="n">fock_soc</span>
+
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;soc_type: </span><span class="si">{</span><span class="n">soc_type</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">soc_type</span> <span class="o">==</span> <span class="s1">&#39;CS&#39;</span><span class="p">:</span>
+                <span class="n">tparse</span> <span class="o">=</span> <span class="n">TurbomoleParse</span><span class="p">(</span><span class="n">latoms</span> <span class="o">=</span> <span class="n">latoms</span><span class="p">,</span><span class="n">catoms</span> <span class="o">=</span> <span class="n">catoms</span><span class="p">,</span><span class="n">tout</span><span class="o">=</span><span class="n">qcfile</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">nL</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">nC</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">nR</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">nmo</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">Sf</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">Fa</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">Fsoc</span><span class="o">=</span><span class="n">tparse</span><span class="o">.</span><span class="n">parse_output</span><span class="p">()</span>
+            <span class="k">elif</span> <span class="n">soc_type</span> <span class="o">==</span> <span class="s1">&#39;OS&#39;</span><span class="p">:</span>
+                <span class="n">tparse</span> <span class="o">=</span> <span class="n">TurbomoleParse</span><span class="p">(</span><span class="n">latoms</span> <span class="o">=</span> <span class="n">latoms</span><span class="p">,</span><span class="n">catoms</span> <span class="o">=</span> <span class="n">catoms</span><span class="p">,</span><span class="n">tout</span><span class="o">=</span><span class="n">qcfile</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">nL</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">nC</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">nR</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">nmo</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">Sf</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">Fa</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">Fsoc</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">Fb</span><span class="o">=</span><span class="n">tparse</span><span class="o">.</span><span class="n">parse_output</span><span class="p">()</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">gparse</span> <span class="o">=</span> <span class="n">GaussianParse</span><span class="p">(</span><span class="n">gout</span><span class="o">=</span><span class="n">qcfile</span><span class="p">,</span><span class="n">savefile</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">nL</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">nC</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">nR</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">nmo</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">Sf</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">Fa</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">Fb</span> <span class="o">=</span> <span class="n">gparse</span><span class="o">.</span><span class="n">parse_output</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">qccode</span> <span class="o">==</span> <span class="s1">&#39;g16&#39;</span><span class="p">:</span>
+                    <span class="n">gparse</span> <span class="o">=</span> <span class="n">GaussianParse</span><span class="p">(</span><span class="n">latoms</span> <span class="o">=</span> <span class="n">latoms</span><span class="p">,</span><span class="n">catoms</span> <span class="o">=</span> <span class="n">catoms</span><span class="p">,</span>\
+                    <span class="n">gout</span><span class="o">=</span><span class="n">qcfile</span><span class="p">,</span><span class="n">savefile</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">nL</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">nC</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">nR</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">nmo</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">Sf</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">Fa</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">Fb</span> <span class="o">=</span> <span class="n">gparse</span><span class="o">.</span><span class="n">parse_output</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">qccode</span> <span class="o">==</span> <span class="s1">&#39;t24&#39;</span><span class="p">:</span>
+                    <span class="n">tparse</span> <span class="o">=</span> <span class="n">TurbomoleParse</span><span class="p">(</span><span class="n">latoms</span> <span class="o">=</span> <span class="n">latoms</span><span class="p">,</span><span class="n">catoms</span> <span class="o">=</span> <span class="n">catoms</span><span class="p">,</span>\
+                    <span class="n">tout</span><span class="o">=</span><span class="n">qcfile</span><span class="p">,</span><span class="n">savefile</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span><span class="n">dosoc</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">nL</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">nC</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">nR</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">nmo</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">Sf</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">Fa</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">Fb</span> <span class="o">=</span> <span class="n">tparse</span><span class="o">.</span><span class="n">parse_output</span><span class="p">()</span>
 
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Basis functions for the partitioned Hamiltonian/overlap matrix:&#39;</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;---------------------------------------------------------------&#39;</span><span class="p">)</span>
@@ -258,9 +320,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">gL</span><span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="n">j</span><span class="o">*</span><span class="n">pi</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">cLDOS</span><span class="o">*</span><span class="n">uL</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">gR</span><span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="n">j</span><span class="o">*</span><span class="n">pi</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">cLDOS</span><span class="o">*</span><span class="n">uR</span></div>
 
+
     <span class="nd">@PRTiming</span><span class="p">(</span><span class="s2">&quot;transmission&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">transmission</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">Scc</span><span class="p">,</span><span class="n">Fcc</span><span class="p">,</span><span class="n">SLC</span><span class="p">,</span><span class="n">HLC</span><span class="p">,</span><span class="n">SRC</span><span class="p">,</span><span class="n">HRC</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Evaluating transmission from Green&#39;s functions.</span>
+    <span class="k">def</span> <span class="nf">transmission</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">Scc</span><span class="p">,</span><span class="n">Fcc</span><span class="p">,</span><span class="n">SLC</span><span class="p">,</span><span class="n">HLC</span><span class="p">,</span><span class="n">SRC</span><span class="p">,</span><span class="n">HRC</span><span class="p">,</span><span class="n">HLCB</span><span class="p">,</span><span class="n">HRCB</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Evaluating transmission from Green&#39;s functions.</span>
 
 <span class="sd">        Parameters:</span>
 
@@ -270,9 +333,13 @@
 <span class="sd">                 with the central region.</span>
 <span class="sd">        SRC    : Coupling block of the overlap matrix for the right electrode</span>
 <span class="sd">                 with the central region.</span>
-<span class="sd">        HLC    : Coupling block of the Fock for the left electrode with the</span>
+<span class="sd">        HLC    : Alpha Coupling block of the Fock for the left electrode with the</span>
 <span class="sd">                 central region.</span>
-<span class="sd">        HRC    : Coupling block of the Fock for the right electrode with the</span>
+<span class="sd">        HLCB   : Beta Coupling block of the Fock for the left electrode with the</span>
+<span class="sd">                 central region.</span>
+<span class="sd">        HRC    : Alpha coupling block of the Fock for the right electrode with the</span>
+<span class="sd">                 central region.</span>
+<span class="sd">        HRCB   : Beta coupling block of the Fock for the right electrode with the</span>
 <span class="sd">                 central region.</span>
 <span class="sd">        gL     : Green&#39;s function matrix of the isolated left electrode.</span>
 <span class="sd">        gR     : Green&#39;s function matrix of the isolated right electrode.</span>
@@ -307,10 +374,20 @@
             <span class="n">sigR1</span> <span class="o">=</span> <span class="n">sR1</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="bp">self</span><span class="o">.</span><span class="n">gR</span> <span class="o">@</span> <span class="n">sR1</span>
             <span class="n">GammaLu</span><span class="o">=-</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">imag</span><span class="p">(</span><span class="n">sigL1</span><span class="p">)</span>
             <span class="n">GammaRu</span><span class="o">=-</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">imag</span><span class="p">(</span><span class="n">sigR1</span><span class="p">)</span>
-            <span class="n">GammaLd</span> <span class="o">=</span> <span class="n">GammaLu</span>
-            <span class="n">GammaRd</span> <span class="o">=</span> <span class="n">GammaRu</span>
-            <span class="n">sigL</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">Iu</span><span class="p">,</span><span class="n">sigL1</span><span class="p">)</span><span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">Id</span><span class="p">,</span><span class="n">sigL1</span><span class="p">)</span>
-            <span class="n">sigR</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">Iu</span><span class="p">,</span><span class="n">sigR1</span><span class="p">)</span><span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">Id</span><span class="p">,</span><span class="n">sigR1</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">soc_type</span> <span class="o">==</span> <span class="s1">&#39;OS&#39;</span><span class="p">:</span>
+                <span class="n">sL2</span><span class="o">=</span><span class="n">E</span><span class="o">*</span><span class="n">SLC</span><span class="o">-</span><span class="n">HLCB</span>
+                <span class="n">sigL2</span> <span class="o">=</span> <span class="n">sL2</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="bp">self</span><span class="o">.</span><span class="n">gL</span> <span class="o">@</span> <span class="n">sL2</span>
+                <span class="n">sR2</span><span class="o">=</span><span class="n">E</span><span class="o">*</span><span class="n">SRC</span><span class="o">-</span><span class="n">HRCB</span>
+                <span class="n">sigR2</span> <span class="o">=</span> <span class="n">sR2</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="bp">self</span><span class="o">.</span><span class="n">gR</span> <span class="o">@</span> <span class="n">sR2</span>
+                <span class="n">GammaLd</span><span class="o">=-</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">imag</span><span class="p">(</span><span class="n">sigL2</span><span class="p">)</span>
+                <span class="n">GammaRd</span><span class="o">=-</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">imag</span><span class="p">(</span><span class="n">sigR2</span><span class="p">)</span>
+                <span class="n">sigL</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">Iu</span><span class="p">,</span><span class="n">sigL1</span><span class="p">)</span><span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">Id</span><span class="p">,</span><span class="n">sigL2</span><span class="p">)</span>
+                <span class="n">sigR</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">Iu</span><span class="p">,</span><span class="n">sigR1</span><span class="p">)</span><span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">Id</span><span class="p">,</span><span class="n">sigR2</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">GammaLd</span> <span class="o">=</span> <span class="n">GammaLu</span>
+                <span class="n">GammaRd</span> <span class="o">=</span> <span class="n">GammaRu</span>
+                <span class="n">sigL</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">Iu</span><span class="p">,</span><span class="n">sigL1</span><span class="p">)</span><span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">Id</span><span class="p">,</span><span class="n">sigL1</span><span class="p">)</span>
+                <span class="n">sigR</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">Iu</span><span class="p">,</span><span class="n">sigR1</span><span class="p">)</span><span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">Id</span><span class="p">,</span><span class="n">sigR1</span><span class="p">)</span>
 
             <span class="n">Ginv</span><span class="o">=</span><span class="n">E</span><span class="o">*</span><span class="n">Scc</span><span class="o">-</span><span class="n">Fcc</span><span class="o">-</span><span class="n">sigL</span><span class="o">-</span><span class="n">sigR</span>
             <span class="n">G</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">Ginv</span><span class="p">)</span> <span class="c1"># symmetric</span>
@@ -339,7 +416,7 @@
     
     <span class="nd">@PRTiming</span><span class="p">(</span><span class="s2">&quot;radical_transmission&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">radical_transmission</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Electron spin polarization transmission calculation for a radical system</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Electron spin polarization transmission calculation for a radical system</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># pylint: disable=too-many-locals</span>
         <span class="c1"># pylint: disable=too-many-branches</span>
@@ -352,22 +429,22 @@
         <span class="n">nR</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nR</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_data</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">isfile</span><span class="p">(</span><span class="s1">&#39;overlap.txt&#39;</span><span class="p">):</span>
-                <span class="n">Sf</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s1">&#39;./overlap.txt&#39;</span><span class="p">)</span> <span class="c1"># overlap maxtrix</span>
+            <span class="k">if</span> <span class="n">isfile</span><span class="p">(</span><span class="s1">&#39;overlap.txt&#39;</span><span class="p">)</span><span class="ow">or</span> <span class="n">isfile</span><span class="p">(</span><span class="s1">&#39;overlap.txt.gz&#39;</span><span class="p">):</span>
+                <span class="n">Sf</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s1">&#39;overlap.txt&#39;</span><span class="p">)</span> <span class="c1"># overlap maxtrix</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;overlap.txt not found&#39;</span><span class="p">)</span>
                 <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
 
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">fock_calc</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
                 <span class="c1"># load  alpha MO energies, and MO coeffs</span>
-                <span class="k">if</span><span class="p">(</span><span class="n">isfile</span><span class="p">(</span><span class="s1">&#39;moeigv.txt&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">isfile</span><span class="p">(</span><span class="s1">&#39;mocoff.txt&#39;</span><span class="p">)):</span>
+                <span class="k">if</span><span class="p">(</span><span class="n">isfile</span><span class="p">(</span><span class="s1">&#39;moeigva.txt&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">isfile</span><span class="p">(</span><span class="s1">&#39;mocoffa.txt&#39;</span><span class="p">)):</span>
                     <span class="n">Eig</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s1">&#39;./moeigva.txt&#39;</span><span class="p">)</span> <span class="c1"># MO energies</span>
                     <span class="n">Cmo</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s1">&#39;./mocoffa.txt&#39;</span><span class="p">)</span> <span class="c1"># MO coeffs</span>
                     <span class="n">Eigm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diagflat</span><span class="p">(</span><span class="n">Eig</span><span class="p">)</span> <span class="c1"># converted to 2d diagonal</span>
                     <span class="c1"># scalar Fock matrix</span>
                     <span class="n">Ff</span><span class="o">=</span><span class="n">Sf</span><span class="nd">@Cmo@Eigm@Cmo</span><span class="o">.</span><span class="n">T</span><span class="nd">@Sf</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;moeigva.txt and mocoffa.txt not found&#39;</span><span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;fock.txt, moeigva.txt, and mocoffa.txt not found&#39;</span><span class="p">)</span>
                     <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
                 <span class="c1"># load  beta MO energies, and MO coeffs</span>
                 <span class="k">if</span><span class="p">(</span><span class="n">isfile</span><span class="p">(</span><span class="s1">&#39;moeigvb.txt&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">isfile</span><span class="p">(</span><span class="s1">&#39;mocoffb.txt&#39;</span><span class="p">)):</span>
@@ -377,20 +454,27 @@
                     <span class="c1"># scalar Fock matrix</span>
                     <span class="n">Ffb</span><span class="o">=</span><span class="n">Sf</span><span class="nd">@Cmob@Eigmb@Cmob</span><span class="o">.</span><span class="n">T</span><span class="nd">@Sf</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;moeigva.txt and mocoffa.txt not found&#39;</span><span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;fockb, moeigvb.txt, and mocoffb.txt not found&#39;</span><span class="p">)</span>
                     <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
 
             <span class="k">else</span><span class="p">:</span>
-                <span class="k">if</span><span class="p">(</span><span class="n">isfile</span><span class="p">(</span><span class="s1">&#39;fock.txt&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">isfile</span><span class="p">(</span><span class="s1">&#39;fockb.txt&#39;</span><span class="p">)):</span>
-                    <span class="n">Ff</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s1">&#39;./fock.txt&#39;</span><span class="p">)</span>
-                    <span class="n">Ffb</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s1">&#39;./fockb.txt&#39;</span><span class="p">)</span>
-                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;alpha and beta Fock matrices loaded&#39;</span><span class="p">)</span>
+                <span class="k">if</span><span class="p">(</span><span class="n">isfile</span><span class="p">(</span><span class="s1">&#39;fock.txt&#39;</span><span class="p">)</span>  <span class="ow">or</span> <span class="n">isfile</span><span class="p">(</span><span class="s1">&#39;fock.txt.gz&#39;</span><span class="p">)):</span>
+                    <span class="n">Ff</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s1">&#39;fock.txt&#39;</span><span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Alpha Fock matrix loaded&#39;</span><span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;fock.txt and fockb.txt not found&#39;</span><span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;fock.txt or fock.txt.gz not found&#39;</span><span class="p">)</span>
+                    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
+                <span class="k">if</span><span class="p">(</span><span class="n">isfile</span><span class="p">(</span><span class="s1">&#39;fockb.txt&#39;</span><span class="p">)</span>  <span class="ow">or</span> <span class="n">isfile</span><span class="p">(</span><span class="s1">&#39;fockb.txt.gz&#39;</span><span class="p">)):</span>
+                    <span class="n">Ffb</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s1">&#39;fockb.txt&#39;</span><span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Beta Fock matrix loaded&#39;</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;fockb.txt or fockb.txt.gz not found&#39;</span><span class="p">)</span>
                     <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
 
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">Ff</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Fa</span>
+            <span class="c1">#Ff = self.Fa*27.21165</span>
+            <span class="c1">#Ff = self.Fa*27.21165</span>
+            <span class="n">Ff</span>  <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Fa</span>
             <span class="n">Ffb</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Fb</span>
             <span class="n">Sf</span>  <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Sf</span>
 
@@ -403,26 +487,32 @@
                 <span class="n">Fcc</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="n">nC</span><span class="p">,</span><span class="n">j</span><span class="o">+</span><span class="n">nC</span><span class="p">]</span> <span class="o">=</span> <span class="n">Ffb</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="n">nL</span><span class="p">,</span><span class="n">j</span><span class="o">+</span><span class="n">nL</span><span class="p">]</span>
                 <span class="n">Scc</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="n">nC</span><span class="p">,</span><span class="n">j</span><span class="o">+</span><span class="n">nC</span><span class="p">]</span> <span class="o">=</span> <span class="n">Sf</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="n">nL</span><span class="p">,</span><span class="n">j</span><span class="o">+</span><span class="n">nL</span><span class="p">]</span>
         <span class="n">Ff1</span><span class="o">=</span><span class="n">Ff</span><span class="o">*</span><span class="mf">27.21165</span>
+        <span class="c1">#Ff1=Ff</span>
         <span class="n">Sf1</span><span class="o">=</span><span class="n">Sf</span>
         <span class="n">Fcc</span><span class="o">=</span><span class="n">Fcc</span><span class="o">*</span><span class="mf">27.21165</span>
         <span class="n">HLC1</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">nL</span><span class="p">,</span><span class="n">nC</span><span class="p">),</span><span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+        <span class="n">HLC2</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">nL</span><span class="p">,</span><span class="n">nC</span><span class="p">),</span><span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
         <span class="n">SLC1</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">nL</span><span class="p">,</span><span class="n">nC</span><span class="p">),</span><span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
         <span class="n">HRC1</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">nR</span><span class="p">,</span><span class="n">nC</span><span class="p">),</span><span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+        <span class="n">HRC2</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">nR</span><span class="p">,</span><span class="n">nC</span><span class="p">),</span><span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
         <span class="n">SRC1</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">nR</span><span class="p">,</span><span class="n">nC</span><span class="p">),</span><span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nL</span><span class="p">):</span>
             <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nC</span><span class="p">):</span>
                 <span class="n">SLC1</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span><span class="o">=</span> <span class="n">Sf1</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="o">+</span><span class="n">nL</span><span class="p">]</span>
                 <span class="n">HLC1</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span><span class="o">=</span> <span class="n">Ff1</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="o">+</span><span class="n">nL</span><span class="p">]</span>
+                <span class="n">HLC2</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span><span class="o">=</span> <span class="n">Ffb</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="o">+</span><span class="n">nL</span><span class="p">]</span>
 
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nR</span><span class="p">):</span>
             <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nC</span><span class="p">):</span>
                 <span class="n">SRC1</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span><span class="o">=</span> <span class="n">Sf1</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="n">nL</span><span class="o">+</span><span class="n">nC</span><span class="p">,</span><span class="n">j</span><span class="o">+</span><span class="n">nL</span><span class="p">]</span>
                 <span class="n">HRC1</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span><span class="o">=</span> <span class="n">Ff1</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="n">nL</span><span class="o">+</span><span class="n">nC</span><span class="p">,</span><span class="n">j</span><span class="o">+</span><span class="n">nL</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">transmission</span><span class="p">(</span><span class="n">Scc</span><span class="p">,</span><span class="n">Fcc</span><span class="p">,</span><span class="n">SLC1</span><span class="p">,</span><span class="n">HLC1</span><span class="p">,</span><span class="n">SRC1</span><span class="p">,</span><span class="n">HRC1</span><span class="p">)</span>
+                <span class="n">HRC2</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span><span class="o">=</span> <span class="n">Ffb</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="n">nL</span><span class="o">+</span><span class="n">nC</span><span class="p">,</span><span class="n">j</span><span class="o">+</span><span class="n">nL</span><span class="p">]</span>
+        <span class="c1">#self.transmission(Scc,Fcc,SLC1,HLC1,SRC1,HRC1)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">transmission</span><span class="p">(</span><span class="n">Scc</span><span class="p">,</span><span class="n">Fcc</span><span class="p">,</span><span class="n">SLC1</span><span class="p">,</span><span class="n">HLC1</span><span class="p">,</span><span class="n">SRC1</span><span class="p">,</span><span class="n">HRC1</span><span class="p">,</span><span class="n">HLC2</span><span class="p">,</span><span class="n">HRC2</span><span class="p">)</span>
 
-    <span class="nd">@PRTiming</span><span class="p">(</span><span class="s2">&quot;ciss_transmission&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">ciss_transmission</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Electron chiral-induced spin selectivity (ciss) transmission</span>
+    <span class="nd">@PRTiming</span><span class="p">(</span><span class="s2">&quot;soc_transmission&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">soc_transmission</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Electron chiral-induced spin selectivity (ciss) transmission</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># pylint: disable=too-many-locals</span>
         <span class="c1"># pylint: disable=too-many-branches</span>
@@ -478,13 +568,19 @@
                 <span class="n">dprint_mat</span><span class="p">(</span><span class="n">Fsfo</span><span class="p">,</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;Fsfo&#39;</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">Sf</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Sf</span>
-            <span class="n">Ff</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Fs</span>
+            <span class="c1">#Ff = self.Fs</span>
+            <span class="n">Ff</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Fa</span><span class="o">*</span><span class="mf">27.21165</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">soc_type</span> <span class="o">==</span> <span class="s1">&#39;OS&#39;</span><span class="p">:</span>
+                <span class="n">Ffb</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Fb</span><span class="o">*</span><span class="mf">27.21165</span>
             <span class="n">Fsfo</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">Fsoc</span>
             <span class="n">I2</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
             <span class="n">Sf2</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">I2</span><span class="p">,</span><span class="n">Sf</span><span class="p">)</span>
 
         <span class="n">Fcc</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">nC</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span><span class="n">nC</span><span class="o">*</span><span class="mi">2</span><span class="p">),</span><span class="n">dtype</span><span class="o">=</span><span class="nb">complex</span><span class="p">)</span>
         <span class="n">Scc</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">nC</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span><span class="n">nC</span><span class="o">*</span><span class="mi">2</span><span class="p">),</span><span class="n">dtype</span><span class="o">=</span><span class="nb">complex</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Fsfo Matrix size: </span><span class="si">{</span><span class="n">Fsfo</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> rows x </span><span class="si">{</span><span class="n">Fsfo</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2"> columns&quot;</span><span class="p">)</span>
+        <span class="c1">#print(f&#39;nC: {nC}&#39;)</span>
+
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nC</span><span class="p">):</span>
             <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nC</span><span class="p">):</span>
                 <span class="n">Fcc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">Fsfo</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="n">nL</span><span class="p">,</span><span class="n">j</span><span class="o">+</span><span class="n">nL</span><span class="p">]</span>
@@ -495,23 +591,28 @@
                 <span class="n">Scc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="o">+</span><span class="n">nC</span><span class="p">]</span> <span class="o">=</span> <span class="n">Sf2</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="n">nL</span><span class="p">,</span><span class="n">j</span><span class="o">+</span><span class="n">nL</span><span class="o">+</span><span class="n">nmo</span><span class="p">]</span>
                 <span class="n">Fcc</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="n">nC</span><span class="p">,</span><span class="n">j</span><span class="o">+</span><span class="n">nC</span><span class="p">]</span> <span class="o">=</span> <span class="n">Fsfo</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="n">nL</span><span class="o">+</span><span class="n">nmo</span><span class="p">,</span><span class="n">j</span><span class="o">+</span><span class="n">nL</span><span class="o">+</span><span class="n">nmo</span><span class="p">]</span>
                 <span class="n">Scc</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="n">nC</span><span class="p">,</span><span class="n">j</span><span class="o">+</span><span class="n">nC</span><span class="p">]</span> <span class="o">=</span> <span class="n">Sf2</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="n">nL</span><span class="o">+</span><span class="n">nmo</span><span class="p">,</span><span class="n">j</span><span class="o">+</span><span class="n">nL</span><span class="o">+</span><span class="n">nmo</span><span class="p">]</span>
-        <span class="n">Ff1</span><span class="o">=</span><span class="n">Ff</span><span class="o">*</span><span class="mf">27.21165</span>
+        <span class="c1">#Ff1=Ff*27.21165</span>
+        <span class="n">Ff1</span><span class="o">=</span><span class="n">Ff</span>
         <span class="n">Sf1</span><span class="o">=</span><span class="n">Sf</span>
         <span class="n">Fcc</span><span class="o">=</span><span class="n">Fcc</span><span class="o">*</span><span class="mf">27.21165</span>
         <span class="n">HLC1</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">nL</span><span class="p">,</span><span class="n">nC</span><span class="p">),</span><span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+        <span class="n">HLC2</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">nL</span><span class="p">,</span><span class="n">nC</span><span class="p">),</span><span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
         <span class="n">SLC1</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">nL</span><span class="p">,</span><span class="n">nC</span><span class="p">),</span><span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
         <span class="n">HRC1</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">nR</span><span class="p">,</span><span class="n">nC</span><span class="p">),</span><span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+        <span class="n">HRC2</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">nR</span><span class="p">,</span><span class="n">nC</span><span class="p">),</span><span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
         <span class="n">SRC1</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">nR</span><span class="p">,</span><span class="n">nC</span><span class="p">),</span><span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nL</span><span class="p">):</span>
             <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nC</span><span class="p">):</span>
                 <span class="n">SLC1</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span><span class="o">=</span> <span class="n">Sf1</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="o">+</span><span class="n">nL</span><span class="p">]</span>
                 <span class="n">HLC1</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span><span class="o">=</span> <span class="n">Ff1</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="o">+</span><span class="n">nL</span><span class="p">]</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">soc_type</span> <span class="o">==</span> <span class="s1">&#39;OS&#39;</span><span class="p">:</span> <span class="n">HLC2</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span><span class="o">=</span> <span class="n">Ffb</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="o">+</span><span class="n">nL</span><span class="p">]</span>
 
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nR</span><span class="p">):</span>
             <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nC</span><span class="p">):</span>
                 <span class="n">SRC1</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span><span class="o">=</span> <span class="n">Sf1</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="n">nL</span><span class="o">+</span><span class="n">nC</span><span class="p">,</span><span class="n">j</span><span class="o">+</span><span class="n">nL</span><span class="p">]</span>
                 <span class="n">HRC1</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span><span class="o">=</span> <span class="n">Ff1</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="n">nL</span><span class="o">+</span><span class="n">nC</span><span class="p">,</span><span class="n">j</span><span class="o">+</span><span class="n">nL</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">transmission</span><span class="p">(</span><span class="n">Scc</span><span class="p">,</span><span class="n">Fcc</span><span class="p">,</span><span class="n">SLC1</span><span class="p">,</span><span class="n">HLC1</span><span class="p">,</span><span class="n">SRC1</span><span class="p">,</span><span class="n">HRC1</span><span class="p">)</span></div>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">soc_type</span> <span class="o">==</span> <span class="s1">&#39;OS&#39;</span><span class="p">:</span> <span class="n">HRC2</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span><span class="o">=</span> <span class="n">Ffb</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="n">nL</span><span class="o">+</span><span class="n">nC</span><span class="p">,</span><span class="n">j</span><span class="o">+</span><span class="n">nL</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">transmission</span><span class="p">(</span><span class="n">Scc</span><span class="p">,</span><span class="n">Fcc</span><span class="p">,</span><span class="n">SLC1</span><span class="p">,</span><span class="n">HLC1</span><span class="p">,</span><span class="n">SRC1</span><span class="p">,</span><span class="n">HRC1</span><span class="p">,</span><span class="n">HLC2</span><span class="p">,</span><span class="n">HRC2</span><span class="p">)</span></div>
 
 </pre></div>
 

@@ -13,4 +13,4 @@ cp /p/home/nguyenka/QuantumTransport/examples/cfe_t19/transport_params.json /p/w
 cd /p/work1/nguyenka/cfe_ecp_t19
 t4qt cfe_ecp_t19.xyz -n 128 -e
 #qt_dat cfe_ecp_t19.out 
-qt cfe_ecp_t19.out -ciss
+qt -soc CS cfe_ecp_t19.out 

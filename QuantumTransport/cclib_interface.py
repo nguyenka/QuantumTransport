@@ -223,7 +223,7 @@ class GaussianParse:
     """
     Class for extract data from Gaussian output
     """
-    def __init__(self,latoms = 0,catoms =0 ,gout = 'dft.out',fock_parse = True, \
+    def __init__(self,latoms = 0,catoms =0 ,gout = 'dft.out',fock_parse = False, \
                 save_mos = False,savefile = True):
         """
         Parameters:
@@ -374,14 +374,14 @@ class TurbomoleParse:
     """
     # pylint: disable=too-many-instance-attributes
 
-    def __init__(self,latoms = 0,catoms =0 ,tout = 'ridft.out',savefile = True):
+    def __init__(self,latoms = 0,catoms =0 ,tout = 'ridft.out',savefile = False,dosoc = True):
         """
         Parameters:
 
         latoms: number of atoms in the left electrode.
         catoms: number of atoms in the in the central region.
         tout: Turbomole output.
-        savefile: save all data for QT calculations.
+        savefile: save all data for QT calculations later.
         """
 
         self.unrestricted = False
@@ -389,6 +389,7 @@ class TurbomoleParse:
         self.catoms = catoms
         self.tout = tout
         self.savefile = savefile
+        self.dosoc = dosoc
 
     def normalisesym(self, label):
         """Normalise the symmetries used by Turbomole.
@@ -407,6 +408,7 @@ class TurbomoleParse:
 
         t19out = self.tout
         print(f"Reading Turbomole output file: {t19out}")
+        got_fsoc = False
         latoms = self.latoms
         catoms = self.catoms
         ccfile = ccopen(t19out)
@@ -416,7 +418,12 @@ class TurbomoleParse:
             print(f"Expecting Turbomole output, got {program} ouput.")
             sys.exit()
         t = PeriodicTable()
-        atombasis = data.atombasis # required local version of turbomoleparser.py
+        try: 
+            atombasis = data.atombasis # required local version of turbomoleparser.py
+        except:
+           print('Current verion of cclib does not has atombasis attribute')
+           print('Replace turbomoleparser.py with the one from QuantumTransport')
+           sys.exit()
         # partition a molecular junction based on Au atoms
         if(latoms == 0 and catoms ==0):
             latoms, catoms = partition_mol(data.atomcoords,data.atomnos)
@@ -438,10 +445,10 @@ class TurbomoleParse:
             print('inconsistency in number of basis functions!')
             sys.exit()
         overlap = data.aooverlaps
+        np.savetxt('overlap.txt',overlap)
+        print(f"overlap matrix written in {'overlap.txt'}")
+        write_basis_data(left_basis,central_basis,right_basis,total_basis)
         if self.savefile:
-            write_basis_data(left_basis,central_basis,right_basis,total_basis)
-            np.savetxt('overlap.txt',overlap)
-            print(f"overlap matrix written in {'overlap.txt'}")
             if isfile('mos'):
                 mofile = 'mos'
                 moenergy_file = 'moeigv.txt'
@@ -452,10 +459,10 @@ class TurbomoleParse:
                 mofile = 'alpha'
                 moenergy_file = 'moeigva.txt'
                 mocoeffs_file = 'mocoffa.txt'
-                self.parse_mos(mofile,moenergy_file,mocoeffs_file)
                 print("Reading scalar alpha file ...")
-                self.parse_mos()
+                self.parse_mos(mofile,moenergy_file,mocoeffs_file)
             if isfile('beta'):
+                self.unrestricted = True
                 mofile = 'beta'
                 moenergy_file = 'moeigvb.txt'
                 mocoeffs_file = 'mocoffb.txt'
@@ -473,6 +480,7 @@ class TurbomoleParse:
                 mocoeffs_file = 'mocoff_so_imag.txt'
                 print("Reading SOC spinor.i file ...")
                 self.parse_mos(mofile,moenergy_file,mocoeffs_file)
+            return
         else:
             if isfile('mos'):
                 mofile='mos'
@@ -482,7 +490,24 @@ class TurbomoleParse:
                 Eigm = np.diagflat(Eig) # converted to 2d diagonal
                 # scalar Fock matrix
                 Fs=overlap@Cmo@Eigm@Cmo.T@overlap
-            if isfile('spinor.r') and isfile('spinor.i'):
+            if isfile('alpha'):
+                mofile='alpha'
+                print("Reading scalar alpha file ...")
+                print("Calculating scalar alpha Fock matrix ...")
+                Eig,Cmo = self.parse_mos(mofile)
+                Eigm = np.diagflat(Eig) # converted to 2d diagonal
+                # scalar Fock matrix
+                Fs=overlap@Cmo@Eigm@Cmo.T@overlap
+            if isfile('beta'):
+                self.unrestricted = True
+                mofile='beta'
+                print("Reading scalar beta file ...")
+                print("Calculating scalar beta Fock matrix ...")
+                Eig,Cmo = self.parse_mos(mofile)
+                Eigm = np.diagflat(Eig) # converted to 2d diagonal
+                # scalar Fock matrix
+                Fb=overlap@Cmo@Eigm@Cmo.T@overlap
+            if self.dosoc and isfile('spinor.r') and isfile('spinor.i'):
                 print("Reading SOC spinor.r and spinor.i files ...")
                 mofile = 'spinor.i'
                 Eigsoc,CmosocI = self.parse_mos(mofile)
@@ -496,7 +521,15 @@ class TurbomoleParse:
                 Sf2=np.kron(I2,overlap)
                 # SOC Fock matrix
                 Fsoc = Sf2 @ Fsca @ Sf2
+                #print(f"Fsoc Matrix size: {Fsoc.shape[0]} rows x {Fsoc.shape[1]} columns")
+                got_fsoc = True
+        print(f"got_fsoc {got_fsoc} self.unrestricted {self.unrestricted} ")
+        if got_fsoc and self.unrestricted:
+            return left_basis,central_basis,right_basis,total_basis,overlap,Fs,Fsoc,Fb
+        elif got_fsoc and not self.unrestricted:
             return left_basis,central_basis,right_basis,total_basis,overlap,Fs,Fsoc
+        else:
+            return left_basis,central_basis,right_basis,total_basis,overlap,Fs,Fb
 
     def parse_mos(self,mofile='mos',moenergy_file='moeigv.txt',mocoeffs_file= \
                   'mocoff.txt'):
@@ -576,48 +609,3 @@ class TurbomoleParse:
                 np.savetxt(mocoeffs_file,np_mocoeffs.T)
                 print(f"MO coeffs written in {mocoeffs_file}")
         return moenergies, np_mocoeffs.T
-
-def main():
-    """ Main function."""
-
-    description = """
-    Prepare input data for electron transport calculations from ADF, Gaussian, or Turbomle
-    outputs.
-    """
-    epilog = """output: transport_params.json, overlap, fock matrices, and/or data files
-                        for constructing fock matrix
-    """
-    parser = argparse.ArgumentParser(
-        usage='%(prog)s [options] ',
-        description=description,
-        formatter_class=argparse.RawDescriptionHelpFormatter,
-        epilog=epilog)
-    parser.add_argument('filename', metavar='filename', type=str, help='for g16 or t19 \
-            output, "none" for ADF')
-    parser.add_argument('-la', '--latoms', type=int, default= 0,help='left electrode atoms')
-    parser.add_argument('-ca', '--catoms', type=int, default= 0,help='central atoms')
-    #parser.add_argument('-ot', '--otype', type=str, default= 'gaussian',
-    parser.add_argument('-ot', '--otype', type=str, default= 'turbomole',
-                   help='gausian or turbomole')
-    args = parser.parse_args()
-    if len(sys.argv) == 0:
-        parser.print_help()
-        sys.exit(1)
-    filename = args.filename
-    latoms = args.latoms
-    catoms = args.catoms
-    output_type = args.otype
-    if output_type == 'turbomole':
-        tparse = TurbomoleParse(latoms=latoms,catoms=catoms,tout=filename)
-        tparse.parse_output()
-    if output_type == 'gaussian':
-        gparse = GaussianParse(latoms=latoms,catoms=catoms,gout=filename)
-        gparse.parse_output()
-    if output_type == 'adf':
-        aparse = ADFparse()
-        _,_,_,nmo = aparse.parse_basis()
-        aparse.overlap_scalar(nmo)
-        aparse.fock_scalar(nmo)
-        aparse.MOvec_spinorb(nmo)
-if __name__ == "__main__":
-    main()
